@@ -8,7 +8,6 @@ import { ApiProvider } from './core/providers';
 import { NavigationContainer } from '@react-navigation/native'
 import { HomeNavigator } from './home/Navigator';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen } from './home/screens/homeScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const { Navigator, Screen } = createStackNavigator()
