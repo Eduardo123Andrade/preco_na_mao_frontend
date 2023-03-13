@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  SafeAreaView, StyleSheet
+  SafeAreaView,
 } from 'react-native';
+import { ApiProvider } from './core/providers';
 
 import { HomeScreen } from './home/screens/homeScreen';
-import { ApiProvider } from './providers/ApiProvider';
 
 
 export const App = () => {

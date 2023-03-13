@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "*": [
+        "source/*"
+      ],
+      "core": [
+        "source/core/*"
+      ]
+    }
+  }
+}
