@@ -8,6 +8,7 @@ export const HomeScreen = () => {
 
   const onPressLogin = () => {
     console.log('Login')
+    console.log('Login')
   }
 
   const onPressSignUp = () => {
