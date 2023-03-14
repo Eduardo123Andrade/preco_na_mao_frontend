@@ -11,10 +11,10 @@
       "*": [
         "source/*"
       ],
-      "core": [
+      "core/*": [
         "source/core/*"
       ],
-      "authentication": [
+      "authentication/*": [
         "source/authentication/*"
       ]
     }

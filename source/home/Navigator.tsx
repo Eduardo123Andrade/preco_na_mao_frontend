@@ -1,8 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { Login } from 'authentication/screens'
-// import { Login } from '../authentication/screens'
 import React from 'react'
-import { Screen2 } from './screens'
 
 
 const { Navigator, Screen } = createStackNavigator()
