@@ -1,14 +1,31 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, Button, StyleSheet } from 'react-native'
+import { useLocalStorage } from 'core/hooks'
 
-type HomeScreenProps = {}
 
-export const HomeScreen: React.FC<HomeScreenProps> = (props) => {
+
+interface User {
+  name: string
+}
+
+export const HomeScreen = () => {
   const navigation = useNavigation()
+  const [{ data }, { storeData, getData }] = useLocalStorage<User>()
+
+
+  useEffect(() => {
+    storeData("user", { name: "Eduardo" })
+  }, [])
+
+  useEffect(() => {
+    console.log({ data })
+  }, [data])
+
 
   const goToNextScreen = () => {
-    navigation.navigate("Screen2")
+    getData('user')
+    // navigation.navigate("Screen2")
   }
 
   return (
