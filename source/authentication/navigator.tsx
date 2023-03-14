@@ -1,8 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import { Login } from 'authentication/screens'
-// import { Login } from '../authentication/screens'
 import React from 'react'
-import { Screen2 } from './screens'
+import { Login } from './screens'
 
 
 const { Navigator, Screen } = createStackNavigator()
@@ -15,9 +13,7 @@ export const HomeNavigator = () => {
       <Screen
         name='Login'
         component={Login}
-        options={{
-          headerShown: false
-        }}
+        options={{ headerShown: false }}
       />
     </Navigator>
   )

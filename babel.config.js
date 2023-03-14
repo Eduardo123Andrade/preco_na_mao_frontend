@@ -6,7 +6,8 @@ module.exports = {
       {
         root: ["./source"],
         alias: {
-          core: "./source/core"
+          core: "./source/core",
+          authentication: "./source/authentication"
         }
       }
     ],

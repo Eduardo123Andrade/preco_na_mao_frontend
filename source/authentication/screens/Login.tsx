@@ -4,7 +4,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 
-export const HomeScreen = () => {
+export const Login = () => {
 
   const onPressLogin = () => {
     console.log('Login')

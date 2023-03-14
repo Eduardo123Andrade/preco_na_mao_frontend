@@ -13,6 +13,9 @@
       ],
       "core": [
         "source/core/*"
+      ],
+      "authentication": [
+        "source/authentication/*"
       ]
     }
   }
