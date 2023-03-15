@@ -2,7 +2,7 @@ import React from 'react';
 import {
   SafeAreaView,
 } from 'react-native';
-import { ApiProvider } from './core/providers';
+import { ApiProvider, UserProvider } from './core/providers';
 
 
 import { NavigationContainer } from '@react-navigation/native'
@@ -18,26 +18,28 @@ export const App = () => {
   return (
     <SafeAreaProvider >
       <ApiProvider>
-        <NavigationContainer>
-          <Navigator>
-            <Screen
-              name='AuthenticationNavigator'
-              component={AuthenticationNavigator}
-              options={{
-                headerShown: false
-              }}
-            />
+        <UserProvider>
+          <NavigationContainer>
+            <Navigator>
+              <Screen
+                name='AuthenticationNavigator'
+                component={AuthenticationNavigator}
+                options={{
+                  headerShown: false
+                }}
+              />
 
-            <Screen
-              name='HomeNavigator'
-              component={HomeNavigator}
-              options={{
-                headerShown: false
-              }}
-            />
+              <Screen
+                name='HomeNavigator'
+                component={HomeNavigator}
+                options={{
+                  headerShown: false
+                }}
+              />
 
-          </Navigator>
-        </NavigationContainer>
+            </Navigator>
+          </NavigationContainer>
+        </UserProvider>
       </ApiProvider>
     </SafeAreaProvider>
   );

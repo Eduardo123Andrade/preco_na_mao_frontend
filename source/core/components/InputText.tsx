@@ -20,12 +20,11 @@ export const InputText: React.FC<InputTextProps> = ({ label, style, mask, ...res
   }, [setSecureTextEntryValue])
 
   const defaultSideElement = useCallback(() => {
-    console.log({ secureTextEntry })
-    const icon = secureTextEntry ? 'visibility-off' : 'visibility'
+    const name = secureTextEntry ? 'visibility-off' : 'visibility'
 
     return (
       <Icon
-        name={icon}
+        name={name}
         onPress={toggleSecureTextEntry}
         size={20}
         color='#AAA'
