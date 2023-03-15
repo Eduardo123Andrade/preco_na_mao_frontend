@@ -46,6 +46,7 @@ export const SingUp: React.FC<SingUpProps> = () => {
     console.log({ isValid })
   }
 
+
   return (
     <Screen contentContainerStyles={styles.container}>
       <View style={styles.titleContainer}>

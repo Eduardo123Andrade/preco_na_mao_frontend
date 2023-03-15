@@ -1,5 +1,5 @@
 import { Mask } from 'core/types'
-import React, { useCallback, useState } from 'react'
+import React, { forwardRef, useCallback, useState } from 'react'
 import { StyleSheet, View, TextInput, TextInputProps } from 'react-native'
 import { Icon } from 'core/components'
 import { MaskInput } from './maskedInput'
@@ -10,7 +10,7 @@ interface InputTextProps extends TextInputProps {
   mask?: Mask
 }
 
-export const InputText: React.FC<InputTextProps> = ({ label, style, mask, ...rest }) => {
+const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({ label, style, mask, ...rest }, ref) => {
   const { secureTextEntry: initialSecureTextEntry = false } = rest
   const [secureTextEntry, setSecureTextEntryValue] = useState(initialSecureTextEntry)
 
@@ -38,7 +38,12 @@ export const InputText: React.FC<InputTextProps> = ({ label, style, mask, ...res
       <View style={styles.textInputContainer}>
         {!!mask ? <MaskInput mask={mask} {...rest} /> :
           <View style={styles.inputTextContainer}>
-            <TextInput {...rest} style={style} secureTextEntry={secureTextEntry} />
+            <TextInput
+              {...rest}
+              ref={ref}
+              style={style}
+              secureTextEntry={secureTextEntry}
+            />
             {defaultSideElement()}
           </View>
         }
@@ -46,6 +51,8 @@ export const InputText: React.FC<InputTextProps> = ({ label, style, mask, ...res
     </View>
   )
 }
+
+export const InputText = forwardRef(Input)
 
 const styles = StyleSheet.create({
   container: {
