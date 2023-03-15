@@ -1,11 +1,11 @@
 import { Button, InputText, Screen } from 'core/components'
 import { Text } from 'core/components/Text'
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 
 export const Login = () => {
-
+  const [value, setValue] = useState<string>()
   const onPressLogin = () => {
     console.log('Login')
   }
@@ -29,9 +29,11 @@ export const Login = () => {
       <View>
         <View style={styles.inputTextContainer}>
           <InputText
-            maxLength={11}
+            mask='cpf'
             keyboardType='numeric'
             placeholder='CPF'
+            value={value}
+            onChangeText={setValue}
           />
         </View>
         <View style={styles.inputTextContainer}>
