@@ -1,0 +1,1 @@
+export { singUpValidationSchema } from './singUpSchema'

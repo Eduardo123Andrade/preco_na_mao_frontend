@@ -1,16 +1,49 @@
 import { useNavigation } from '@react-navigation/native'
+import { singUpValidationSchema } from 'authentication/utils'
 import { Button, InputText, Screen, Text } from 'core/components'
-import React, { useState } from 'react'
+import { useForm } from 'core/hooks'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 type SingUpProps = {}
 
+const REGEX_ONLY_NUMBERS = /[^0-9]/g
+
+const INITIAL_VALUES = {
+  cpf: '',
+  phone: '',
+  password: '',
+  confirmPassword: ''
+}
+
 export const SingUp: React.FC<SingUpProps> = () => {
-  const [value, setValue] = useState<string>()
   const navigation = useNavigation()
 
+  const onSubmit = (props: any, _helper: any) => {
+    console.log(props)
+  }
+
+  const { isValid, getFieldProps } = useForm({
+    onSubmit,
+    validationSchema: singUpValidationSchema,
+    initialValues: INITIAL_VALUES,
+  })
+
+  const { onChangeText: onChangeTextCpf, value: cpfFieldValue, ...restCpfFieldProps } = getFieldProps('cpf')
+  const { onChangeText: onChangeTextPhone, value: phoneFieldValue, ...restPhoneFieldProps } = getFieldProps('phone')
+
+  const _onChangeTextCpf = (text: string) => {
+    const pureText = text.replace(REGEX_ONLY_NUMBERS, "")
+    onChangeTextCpf(pureText)
+  }
+
+  const _onChangeTextPhone = (text: string) => {
+    const pureText = text.replace(REGEX_ONLY_NUMBERS, "")
+    onChangeTextPhone(pureText)
+  }
+
   const onPressSignUp = () => {
-    navigation.navigate('HomeNavigator')
+    console.log({ isValid })
   }
 
   return (
@@ -27,8 +60,9 @@ export const SingUp: React.FC<SingUpProps> = () => {
             mask='cpf'
             keyboardType='numeric'
             placeholder='CPF'
-            value={value}
-            onChangeText={setValue}
+            onChangeText={_onChangeTextCpf}
+            value={cpfFieldValue}
+            {...restCpfFieldProps}
           />
         </View>
 
@@ -37,8 +71,9 @@ export const SingUp: React.FC<SingUpProps> = () => {
             mask='phone'
             keyboardType='numeric'
             placeholder='Celular'
-            value={value}
-            onChangeText={setValue}
+            value={phoneFieldValue}
+            onChangeText={_onChangeTextPhone}
+            {...restPhoneFieldProps}
           />
         </View>
 
@@ -47,6 +82,7 @@ export const SingUp: React.FC<SingUpProps> = () => {
           <InputText
             placeholder='Senha'
             secureTextEntry
+            {...getFieldProps("password")}
           />
         </View>
 
@@ -54,6 +90,7 @@ export const SingUp: React.FC<SingUpProps> = () => {
           <InputText
             placeholder='Confirmar senha'
             secureTextEntry
+            {...getFieldProps("confirmPassword")}
           />
         </View>
 
