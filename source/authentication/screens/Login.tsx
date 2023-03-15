@@ -1,5 +1,5 @@
 import { Button, InputText, Screen } from 'core/components'
-import { Text } from 'core/components/Text'
+import { Text } from 'core/components'
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
@@ -37,7 +37,10 @@ export const Login = () => {
           />
         </View>
         <View style={styles.inputTextContainer}>
-          <InputText placeholder='Senha' />
+          <InputText
+            placeholder='Senha'
+            secureTextEntry
+          />
         </View>
 
 
