@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import { Login } from 'authentication/screens'
 import React from 'react'
+import { HomeScreen } from './screens'
 
 
 const { Navigator, Screen } = createStackNavigator()
@@ -11,8 +11,8 @@ export const HomeNavigator = () => {
       headerShown: false
     }}>
       <Screen
-        name='Login'
-        component={Login}
+        name='HomeScreen'
+        component={HomeScreen}
         options={{
           headerShown: false
         }}

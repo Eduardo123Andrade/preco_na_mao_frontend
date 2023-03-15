@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import { Button, InputText, Screen } from 'core/components'
 import { Text } from 'core/components'
 import React, { useState } from 'react'
@@ -6,8 +7,10 @@ import { StyleSheet, View } from 'react-native'
 
 export const Login = () => {
   const [value, setValue] = useState<string>()
+  const navigation = useNavigation()
+
   const onPressLogin = () => {
-    console.log('Login')
+    navigation.navigate('HomeNavigator')
   }
 
   const onPressSignUp = () => {
@@ -45,13 +48,13 @@ export const Login = () => {
 
 
         <View style={styles.buttonContainer}>
-          <Button style={styles.button} onPress={onPressLogin}>
+          <Button style={styles.button} onPress={onPressSignUp}>
             <Text>
               Registrar
             </Text>
           </Button>
 
-          <Button style={styles.button} onPress={onPressSignUp}>
+          <Button style={styles.button} onPress={onPressLogin}>
             <Text>
               Login
             </Text>

@@ -5,7 +5,7 @@ import { Login } from './screens'
 
 const { Navigator, Screen } = createStackNavigator()
 
-export const HomeNavigator = () => {
+export const AuthenticationNavigator = () => {
   return (
     <Navigator defaultScreenOptions={{
       headerShown: false

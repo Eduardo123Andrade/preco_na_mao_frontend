@@ -6,16 +6,20 @@
     /* Completeness */
     "skipLibCheck": true, /* Skip type checking all .d.ts files. */
     "strictNullChecks": false,
+    "isolatedModules": false,
     "baseUrl": "./",
     "paths": {
       "*": [
         "source/*"
       ],
+      "authentication/*": [
+        "source/authentication/*"
+      ],
       "core/*": [
         "source/core/*"
       ],
-      "authentication/*": [
-        "source/authentication/*"
+      "home/*": [
+        "source/home/*"
       ]
     }
   }
