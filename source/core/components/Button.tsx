@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableHighlight, TouchableHighlightProps, StyleSheet, TouchableNativeFeedback } from 'react-native'
+import { View, TouchableHighlight, TouchableHighlightProps, StyleSheet, TouchableNativeFeedback, GestureResponderEvent } from 'react-native'
 
 
 interface ButtonProps extends TouchableHighlightProps {
@@ -7,13 +7,21 @@ interface ButtonProps extends TouchableHighlightProps {
   isLoading?: boolean
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, style, ...rest }) => {
+export const Button: React.FC<ButtonProps> = ({ children, style, onPress, isLoading, ...rest }) => {
+  const { disabled } = rest
+
+
+  function _onPress(event: GestureResponderEvent) {
+    if (!isLoading)
+      onPress(event)
+  }
 
   return (
     <TouchableHighlight
       underlayColor={"#F11"}
       {...rest}
-      style={[styles.container, style]}
+      onPress={_onPress}
+      style={[styles.container, style, { backgroundColor: disabled ? "#c3c3c3" : "#3c3" }]}
     >
       <View>
         {children}

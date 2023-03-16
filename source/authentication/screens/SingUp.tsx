@@ -96,7 +96,8 @@ export const SingUp: React.FC<SingUpProps> = () => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <Button style={styles.button} onPress={onPressSignUp}>
+          <Button
+            style={styles.button} onPress={onPressSignUp}>
             <Text>
               Registrar
             </Text>
