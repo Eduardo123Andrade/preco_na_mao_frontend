@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-  SafeAreaView,
-} from 'react-native';
 import { ApiProvider, UserProvider } from './core/providers';
 
 
@@ -9,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthenticationNavigator } from 'authentication';
-import { HomeNavigator } from './home';
+import { HomeNavigator } from 'home';
 
 const { Navigator, Screen } = createStackNavigator()
 
