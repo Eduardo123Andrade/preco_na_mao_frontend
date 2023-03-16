@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableHighlight, TouchableHighlightProps, StyleSheet, TouchableNativeFeedback, GestureResponderEvent } from 'react-native'
+import { View, TouchableHighlight, TouchableHighlightProps, StyleSheet, TouchableNativeFeedbackBase, GestureResponderEvent, ActivityIndicator, TouchableNativeFeedbackComponent, TouchableNativeFeedback } from 'react-native'
 
 
 interface ButtonProps extends TouchableHighlightProps {
@@ -7,26 +7,25 @@ interface ButtonProps extends TouchableHighlightProps {
   isLoading?: boolean
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, style, onPress, isLoading, ...rest }) => {
-  const { disabled } = rest
+const DEFAULT_LIGHT_UNDERLAY_COLOR = "#FFFFFF42"
 
+export const Button: React.FC<ButtonProps> = ({ children, style, isLoading, disabled, ...rest }) => {
 
-  function _onPress(event: GestureResponderEvent) {
-    if (!isLoading)
-      onPress(event)
-  }
 
   return (
-    <TouchableHighlight
-      underlayColor={"#F11"}
+    <TouchableNativeFeedback
+      background={TouchableNativeFeedback.Ripple(DEFAULT_LIGHT_UNDERLAY_COLOR, false)}
       {...rest}
-      onPress={_onPress}
-      style={[styles.container, style, { backgroundColor: disabled ? "#c3c3c3" : "#3c3" }]}
-    >
-      <View>
-        {children}
+      disabled={disabled || isLoading}>
+      <View
+        style={[styles.container, style, { backgroundColor: disabled ? "#c3c3c3" : "#3c3" }]}
+      >
+        {isLoading ?
+          (<ActivityIndicator size='small' color={'#F11'} />) :
+          <View>{children}</View>
+        }
       </View>
-    </TouchableHighlight>
+    </TouchableNativeFeedback>
   )
 }
 
