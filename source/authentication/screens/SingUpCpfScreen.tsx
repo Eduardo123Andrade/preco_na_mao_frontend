@@ -1,30 +1,35 @@
 import { SingUpScreen } from 'authentication/components'
 import { InputText } from 'core/components'
 import { useForm } from 'core/hooks'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation, validateCPF } from 'core/validations'
 import { REGEX_ONLY_NUMBERS } from 'core/utils'
+import { useSingUp } from 'authentication/hooks'
+import { useNavigation } from '@react-navigation/native'
 const { string } = FieldValidation
 
-export const CPF_VALIDATION_SCHEMA = FieldValidation.object({
-  cpf: string().label('CPF').required().test('cpf', 'CPF invalido', validateCPF),
-})
 
 type SingUpCpfScreenProps = {
 
 }
 
+const CPF_VALIDATION_SCHEMA = FieldValidation.object({
+  cpf: string().label('CPF').required().test('cpf', 'CPF invalido', validateCPF),
+})
+
+
 const INITIAL_VALUES = {
   cpf: '',
 }
 
-export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = (props) => {
-
+export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = () => {
+  const navigation = useNavigation()
+  const [{ user }, { setRegisterUserData }] = useSingUp()
   const onSubmit = () => { }
 
-  const { isValid, getFieldProps } = useForm({
+  const { isValid, getFieldProps } = useForm<string>({
     onSubmit,
     validationSchema: CPF_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,
@@ -39,8 +44,13 @@ export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = (props) => {
   }
 
   const onPress = () => {
-    console.log(isValid)
+    setRegisterUserData({ cpf: cpfFieldValue })
+    navigation.navigate('SingUpPhoneScreen')
   }
+
+  useEffect(() => {
+    console.log({ user })
+  }, [user])
 
   return (
     <SingUpScreen
@@ -69,29 +79,10 @@ export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = (props) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // justifyContent: 'space-around',
-  },
   titleContainer: {
     alignItems: 'center',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-evenly',
-  },
-  button: {
-    flex: 0.45
   },
   inputTextContainer: {
     paddingVertical: 10
   },
-  textStyle: {
-    textDecorationLine: 'underline'
-  },
-  forgottenPasswordContainer: {
-    alignItems: 'center',
-    paddingTop: 24
-  }
 })
