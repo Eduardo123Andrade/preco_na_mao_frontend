@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack"
 import { SingUpProvider } from "authentication/providers"
-import { SingUpCpfScreen, SingUpPhoneScreen } from "authentication/screens"
+import { SingUpCpfScreen, SingUpPasswordScreen, SingUpPhoneScreen } from "authentication/screens"
 import React from 'react'
 
 const { Navigator, Screen } = createStackNavigator()
@@ -19,6 +19,12 @@ export const SignUpNavigator = () => {
           name="SingUpPhoneScreen"
           component={SingUpPhoneScreen}
         />
+
+        <Screen
+          name="SingUpPasswordScreen"
+          component={SingUpPasswordScreen}
+        />
+
       </Navigator>
     </SingUpProvider>
   )

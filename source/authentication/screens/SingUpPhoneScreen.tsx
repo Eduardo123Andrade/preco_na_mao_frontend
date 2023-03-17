@@ -7,6 +7,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { FieldValidation } from 'core/validations'
 import { REGEX_ONLY_NUMBERS } from 'core/utils'
 import { useSingUp } from 'authentication/hooks'
+import { useNavigation } from '@react-navigation/native'
 
 
 const { string } = FieldValidation
@@ -25,7 +26,8 @@ const INITIAL_VALUES = {
 }
 
 export const SingUpPhoneScreen: React.FC<SingUpPhoneScreenProps> = () => {
-  const [{ user }, { setRegisterUserData }] = useSingUp()
+  const navigation = useNavigation()
+  const [, { setRegisterUserData }] = useSingUp()
   const onSubmit = () => { }
 
   const { isValid, getFieldProps } = useForm<string>({
@@ -44,11 +46,8 @@ export const SingUpPhoneScreen: React.FC<SingUpPhoneScreenProps> = () => {
 
   const onPress = () => {
     setRegisterUserData({ phone: phoneFieldValue })
+    navigation.navigate("SingUpPasswordScreen")
   }
-
-  useEffect(() => {
-    console.log({ user })
-  }, [user])
 
   return (
     <SingUpScreen

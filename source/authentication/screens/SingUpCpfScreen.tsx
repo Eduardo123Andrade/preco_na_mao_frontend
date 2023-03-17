@@ -26,7 +26,7 @@ const INITIAL_VALUES = {
 
 export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = () => {
   const navigation = useNavigation()
-  const [{ user }, { setRegisterUserData }] = useSingUp()
+  const [, { setRegisterUserData }] = useSingUp()
   const onSubmit = () => { }
 
   const { isValid, getFieldProps } = useForm<string>({
@@ -47,10 +47,6 @@ export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = () => {
     setRegisterUserData({ cpf: cpfFieldValue })
     navigation.navigate('SingUpPhoneScreen')
   }
-
-  useEffect(() => {
-    console.log({ user })
-  }, [user])
 
   return (
     <SingUpScreen
