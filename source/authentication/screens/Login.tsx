@@ -14,6 +14,7 @@ export const Login = () => {
   }
 
   const onPressSignUp = () => {
+    navigation.navigate("SingUp")
     console.log('SignUp')
   }
 
@@ -54,7 +55,9 @@ export const Login = () => {
             </Text>
           </Button>
 
-          <Button style={styles.button} onPress={onPressLogin}>
+          <Button
+            // isLoading
+            style={styles.button} onPress={onPressLogin}>
             <Text>
               Login
             </Text>

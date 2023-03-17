@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import { Login, SingUp } from './screens'
+import { SignUpNavigator } from './navigators'
+import { Login } from './screens'
 
 
 const { Navigator, Screen } = createStackNavigator()
@@ -19,7 +20,7 @@ export const AuthenticationNavigator = () => {
 
       <Screen
         name='SingUp'
-        component={SingUp}
+        component={SignUpNavigator}
         options={{ headerShown: false }}
       />
     </Navigator>
