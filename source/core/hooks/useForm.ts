@@ -1,4 +1,4 @@
-import { useFormik, FormikConfig, FormikValues } from "formik"
+import { useFormik, FormikConfig, FormikValues, FieldInputProps as FieldInputPropsFormik } from "formik"
 import { useCallback, useImperativeHandle, useMemo, useRef } from "react"
 
 
@@ -6,7 +6,7 @@ interface UseFormProps extends FormikConfig<FormikValues> {
 
 }
 
-export const useForm = (props: UseFormProps) => {
+export const useForm = <FieldInputProps = unknown>(props: UseFormProps) => {
 
 
   const formik = useFormik({
@@ -24,7 +24,7 @@ export const useForm = (props: UseFormProps) => {
 
   const getFieldProps = useCallback(
     (key: string) => {
-      const { onChange, value, onBlur: _onBlur } = _getFieldProps(key)
+      const { onChange, value, onBlur: _onBlur } = _getFieldProps(key) as FieldInputPropsFormik<FieldInputProps>
       const { error, touched } = getFieldMeta(key)
 
       // const status = getCurrentStatus(touched, error, value)
