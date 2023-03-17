@@ -1,6 +1,7 @@
-import { User } from "core/interfaces";
-
-export interface RegisterUser extends User {
-  password: string
-  confirmPassword: string
+export interface RegisterUser {
+  name?: string
+  cpf?: string
+  phone?: string
+  password?: string
+  confirmPassword?: string
 }
