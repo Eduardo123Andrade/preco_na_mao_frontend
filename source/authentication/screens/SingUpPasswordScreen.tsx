@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation } from 'core/validations'
-import { useSingUp } from 'authentication/hooks'
+import { useRequestSingUp, useSingUp } from 'authentication/hooks'
 
 
 const { string, ref } = FieldValidation
@@ -36,14 +36,14 @@ const INITIAL_VALUES = {
 }
 
 export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
-  const [, { setRegisterUserData }] = useSingUp()
+  const [{ user }, { setRegisterUserData }] = useSingUp()
+  const { mutate, isLoading } = useRequestSingUp()
 
   const onSubmit = ({ password, confirmPassword }: UserPassword) => {
     setRegisterUserData({
       password,
       confirmPassword,
     })
-
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<UserPassword, string>({
@@ -58,10 +58,17 @@ export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
 
   const onPress = () => handleSubmit()
 
+  useEffect(() => {
+    if (user)
+      mutate(user)
+
+  }, [user, mutate])
+
   return (
     <SingUpScreen
       disabled={!isValid}
       onPress={onPress}
+      isLoading={isLoading}
     >
       <View style={styles.titleContainer}>
         <Text>
