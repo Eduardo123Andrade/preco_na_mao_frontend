@@ -22,17 +22,13 @@ export const App = () => {
                 <Screen
                   name='Authentication'
                   component={AuthenticationNavigator}
-                  options={{
-                    headerShown: false
-                  }}
+                  options={AuthenticationNavigator.NavigationOptions}
                 />
 
                 <Screen
                   name='Home'
                   component={HomeNavigator}
-                  options={{
-                    headerShown: false
-                  }}
+                  options={HomeNavigator.NavigationOptions}
                 />
 
               </Navigator>

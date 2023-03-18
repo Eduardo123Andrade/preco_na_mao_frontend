@@ -1,12 +1,13 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
 import { useForm } from 'core/hooks'
-import React, { useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 
-import { FieldValidation } from 'core/validations'
-import { useForgottenPassword, useRequestSingUp, useSingUp, useUpdatePassword } from 'authentication/hooks'
 import { useNavigation } from '@react-navigation/native'
+import { StackNavigationOptions } from '@react-navigation/stack'
+import { useForgottenPassword, useUpdatePassword } from 'authentication/hooks'
+import { FieldValidation } from 'core/validations'
 
 
 const { string, ref } = FieldValidation
@@ -88,6 +89,14 @@ export const ForgottenPasswordUpdatePasswordScreen = () => {
     </AuthenticationScreen>
   )
 }
+
+const navigationOptions: StackNavigationOptions = {
+  headerTransparent: true,
+  title: ''
+}
+
+ForgottenPasswordUpdatePasswordScreen.NavigationOptions = navigationOptions
+
 
 const styles = StyleSheet.create({
   titleContainer: {

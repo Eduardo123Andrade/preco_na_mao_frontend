@@ -8,10 +8,10 @@ import { FieldValidation, validateCPF } from 'core/validations'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { useNavigation } from '@react-navigation/native'
 import { useForgottenPassword, useRequestAccessToken } from 'authentication/hooks'
+import { StackNavigationOptions } from '@react-navigation/stack'
+
+
 const { string } = FieldValidation
-
-
-interface SingUpCpfScreenProps { }
 
 interface UserCpf {
   cpf: string
@@ -26,7 +26,7 @@ const INITIAL_VALUES = {
   cpf: '',
 }
 
-export const ForgottenPasswordCpfScreen: React.FC<SingUpCpfScreenProps> = () => {
+export const ForgottenPasswordCpfScreen = () => {
   const navigation = useNavigation()
   const [{ forgottenPassword }, { setForgottenPasswordData }] = useForgottenPassword()
   const [{ isLoading }, { requestAccessToken }] = useRequestAccessToken({
@@ -89,6 +89,14 @@ export const ForgottenPasswordCpfScreen: React.FC<SingUpCpfScreenProps> = () => 
     </AuthenticationScreen>
   )
 }
+
+const navigationOptions: StackNavigationOptions = {
+  headerTransparent: true,
+  title: ''
+}
+
+ForgottenPasswordCpfScreen.NavigationOptions = navigationOptions
+
 
 const styles = StyleSheet.create({
   titleContainer: {

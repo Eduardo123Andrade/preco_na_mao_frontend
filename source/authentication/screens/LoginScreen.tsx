@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
+import { StackNavigationOptions } from '@react-navigation/stack'
 import { useLogin } from 'authentication/hooks'
 import { loginValidationSchema } from 'authentication/utils'
 import { Button, InputText, Screen } from 'core/components'
@@ -116,6 +117,12 @@ export const LoginScreen = () => {
     </Screen>
   )
 }
+
+const navigationOptions: StackNavigationOptions = {
+  headerShown: false,
+}
+
+LoginScreen.NavigationOptions = navigationOptions
 
 const styles = StyleSheet.create({
   container: {
