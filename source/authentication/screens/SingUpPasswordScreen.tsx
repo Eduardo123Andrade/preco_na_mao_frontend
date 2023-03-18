@@ -14,7 +14,7 @@ type SingUpPasswordScreenProps = {
 
 }
 
-const PHONE_VALIDATION_SCHEMA = FieldValidation.object({
+const PASSWORD_VALIDATION_SCHEMA = FieldValidation.object({
   password: string().min(6).required("É preciso atender a todos os requisitos").label('Senha'),
   confirmPassword: string()
     .oneOf(
@@ -37,7 +37,7 @@ export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
 
   const { isValid, getFieldProps } = useForm<string>({
     onSubmit,
-    validationSchema: PHONE_VALIDATION_SCHEMA,
+    validationSchema: PASSWORD_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,
   })
 
