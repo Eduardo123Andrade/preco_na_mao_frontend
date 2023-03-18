@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApiProvider, UserProvider } from './core/providers';
+import { ApiProvider, HttpQueryProvider, UserProvider } from './core/providers';
 
 
 import { NavigationContainer } from '@react-navigation/native'
@@ -13,31 +13,33 @@ const { Navigator, Screen } = createStackNavigator()
 
 export const App = () => {
   return (
-    <SafeAreaProvider >
-      <ApiProvider>
-        <UserProvider>
-          <NavigationContainer>
-            <Navigator>
-              <Screen
-                name='AuthenticationNavigator'
-                component={AuthenticationNavigator}
-                options={{
-                  headerShown: false
-                }}
-              />
+    <SafeAreaProvider>
+      <HttpQueryProvider>
+        <ApiProvider>
+          <UserProvider>
+            <NavigationContainer>
+              <Navigator>
+                <Screen
+                  name='AuthenticationNavigator'
+                  component={AuthenticationNavigator}
+                  options={{
+                    headerShown: false
+                  }}
+                />
 
-              <Screen
-                name='HomeNavigator'
-                component={HomeNavigator}
-                options={{
-                  headerShown: false
-                }}
-              />
+                <Screen
+                  name='HomeNavigator'
+                  component={HomeNavigator}
+                  options={{
+                    headerShown: false
+                  }}
+                />
 
-            </Navigator>
-          </NavigationContainer>
-        </UserProvider>
-      </ApiProvider>
+              </Navigator>
+            </NavigationContainer>
+          </UserProvider>
+        </ApiProvider>
+      </HttpQueryProvider>
     </SafeAreaProvider>
   );
 };
