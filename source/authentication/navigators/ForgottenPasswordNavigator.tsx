@@ -22,11 +22,10 @@ const { Navigator, Screen } = createStackNavigator()
 
 export const ForgottenPasswordNavigator = () => {
   const router = useRoute<ForgottenPasswordNavigatorRouteProp>()
-  const { cpf } = router.params ?? {}
+  const { cpf } = router.params
 
   return (
-    // <ForgottenPasswordProvider cpf={cpf}>
-    <ForgottenPasswordProvider cpf='09907658499'>
+    <ForgottenPasswordProvider cpf={cpf}>
       <Navigator
         initialRouteName="ForgottenPasswordUpdatePasswordScreen"
       >
