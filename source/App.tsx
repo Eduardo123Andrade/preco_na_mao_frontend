@@ -20,7 +20,7 @@ export const App = () => {
             <NavigationContainer>
               <Navigator>
                 <Screen
-                  name='AuthenticationNavigator'
+                  name='Authentication'
                   component={AuthenticationNavigator}
                   options={{
                     headerShown: false
@@ -28,7 +28,7 @@ export const App = () => {
                 />
 
                 <Screen
-                  name='HomeNavigator'
+                  name='Home'
                   component={HomeNavigator}
                   options={{
                     headerShown: false
