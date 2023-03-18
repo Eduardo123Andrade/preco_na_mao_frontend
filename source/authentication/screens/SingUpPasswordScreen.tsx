@@ -1,4 +1,4 @@
-import { SingUpScreen } from 'authentication/components'
+import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
 import { useForm } from 'core/hooks'
 import React, { useEffect } from 'react'
@@ -65,7 +65,7 @@ export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
   }, [user, mutate])
 
   return (
-    <SingUpScreen
+    <AuthenticationScreen
       disabled={!isValid}
       onPress={onPress}
       isLoading={isLoading}
@@ -91,7 +91,7 @@ export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
           {...restConfirmPasswordProps}
         />
       </View>
-    </SingUpScreen>
+    </AuthenticationScreen>
   )
 }
 

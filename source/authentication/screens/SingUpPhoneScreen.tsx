@@ -1,4 +1,4 @@
-import { SingUpScreen } from 'authentication/components'
+import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
 import { useForm } from 'core/hooks'
 import React from 'react'
@@ -54,7 +54,7 @@ export const SingUpPhoneScreen: React.FC<SingUpPhoneScreenProps> = () => {
   const onPress = () => handleSubmit()
 
   return (
-    <SingUpScreen
+    <AuthenticationScreen
       disabled={!isValid}
       onPress={onPress}
     >
@@ -74,7 +74,7 @@ export const SingUpPhoneScreen: React.FC<SingUpPhoneScreenProps> = () => {
           {...restPhoneFieldProps}
         />
       </View>
-    </SingUpScreen>
+    </AuthenticationScreen>
   )
 }
 

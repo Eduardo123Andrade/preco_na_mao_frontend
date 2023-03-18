@@ -15,8 +15,6 @@ type SingUpProviderData = [
   actions: SingUpProviderActions
 ]
 
-
-
 export const SingUpContext = createContext<SingUpProviderData>({} as SingUpProviderData)
 
 interface SingUpProviderDataProps {
