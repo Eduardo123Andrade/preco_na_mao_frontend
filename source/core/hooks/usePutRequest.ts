@@ -2,24 +2,24 @@ import { MutationFunction, useMutation, UseMutationOptions, MutationStatus } fro
 import { AxiosError, AxiosResponse } from 'axios'
 import { useAPI } from './useApi';
 
-export type UsePostRequestStatus = MutationStatus
+export type UsePutRequestStatus = MutationStatus
 
-export type UsePostRequestOptionsType<TData, TError, TVariables> = UseMutationOptions<
+export type UsePutRequestOptionsType<TData, TError, TVariables> = UseMutationOptions<
   AxiosResponse<TData>,
   AxiosError<TError>,
   TVariables,
   any
 >
 
-export const usePostRequest = <
+export const usePutRequest = <
   TData = any,
   TVariables = any,
   TError = any,
->(url: string, options?: UsePostRequestOptionsType<TData, TError, TVariables>) => {
+>(url: string, options?: UsePutRequestOptionsType<TData, TError, TVariables>) => {
   const { API } = useAPI()
 
   const mutationFunction:
-    MutationFunction<AxiosResponse<TData>, TVariables> = (data) => API.post(url, data)
+    MutationFunction<AxiosResponse<TData>, TVariables> = (data) => API.put(url, data)
 
   return useMutation<AxiosResponse<TData>, AxiosError<TError>, TVariables, any>(
     mutationFunction,

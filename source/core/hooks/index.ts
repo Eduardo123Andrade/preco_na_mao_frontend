@@ -1,4 +1,7 @@
 export { useAPI } from './useApi'
-export { usePostRequest } from './usePostRequest'
+export { useForm } from './useForm'
 export { useGetRequest } from './useGetRequest'
 export { useLocalStorage } from './useLocalStorage'
+export { usePostRequest } from './usePostRequest'
+export { usePutRequest } from './usePutRequest'
+export { useUser } from './useUser'

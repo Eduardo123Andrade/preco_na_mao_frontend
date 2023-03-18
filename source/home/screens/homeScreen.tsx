@@ -1,33 +1,28 @@
-import { useNavigation } from '@react-navigation/native'
+import { Screen } from 'core/components'
+import { Text } from 'core/components/Text'
 import React from 'react'
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 
 export const HomeScreen = () => {
-  const navigation = useNavigation()
-
-  const goToNextScreen = () => {
-    navigation.navigate("Screen2")
-  }
-
   return (
-    <View style={styles.container}>
-      <Text>
-        Olá mundo!
-      </Text>
-
-      <Button
-        title='Press me'
-        onPress={goToNextScreen} />
-    </View>
+    <Screen contentContainerStyles={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text>
+          Olar, eu sou a Home
+        </Text>
+      </View>
+    </Screen>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
+  },
+  titleContainer: {
     alignItems: 'center',
-  }
+  },
 })
 

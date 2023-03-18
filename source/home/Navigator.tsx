@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import { HomeScreen, Screen2 } from './screens'
+import { HomeScreen } from './screens'
 
 
 const { Navigator, Screen } = createStackNavigator()
@@ -16,10 +16,6 @@ export const HomeNavigator = () => {
         options={{
           headerShown: false
         }}
-      />
-      <Screen
-        name='Screen2'
-        component={Screen2}
       />
     </Navigator>
   )
