@@ -52,10 +52,6 @@ export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
     initialValues: INITIAL_VALUES,
   })
 
-
-  const { value: passwordFieldValue, ...restPasswordFieldProps } = getFieldProps('password')
-  const { value: confirmPasswordFieldValue, ...restConfirmPasswordProps } = getFieldProps('confirmPassword')
-
   const onPress = () => handleSubmit()
 
   useEffect(() => {
@@ -80,7 +76,7 @@ export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
         <InputText
           placeholder='Senha'
           secureTextEntry
-          {...restPasswordFieldProps}
+          {...getFieldProps('password')}
         />
       </View>
 
@@ -88,7 +84,7 @@ export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
         <InputText
           placeholder='Confirmar senha'
           secureTextEntry
-          {...restConfirmPasswordProps}
+          {...getFieldProps('confirmPassword')}
         />
       </View>
     </AuthenticationScreen>

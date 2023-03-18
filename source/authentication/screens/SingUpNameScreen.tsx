@@ -10,10 +10,9 @@ import { useNavigation } from '@react-navigation/native'
 const { string } = FieldValidation
 
 
-type SingUpNameScreenProps = {
-
+interface UserName {
+  name: string
 }
-
 const NAME_VALIDATION_SCHEMA = FieldValidation.object({
   name: string().label('name').required().test('cpf', 'CPF invalido', validateName),
 })
@@ -23,24 +22,22 @@ const INITIAL_VALUES = {
   name: '',
 }
 
-export const SingUpNameScreen: React.FC<SingUpNameScreenProps> = () => {
+export const SingUpNameScreen = () => {
   const navigation = useNavigation()
   const [, { setRegisterUserData }] = useSingUp()
-  const onSubmit = () => { }
 
-  const { isValid, getFieldProps } = useForm<string>({
+  const onSubmit = ({ name }: UserName) => {
+    setRegisterUserData({ name })
+    navigation.navigate('SingUpCpfScreen')
+  }
+
+  const { handleSubmit, isValid, getFieldProps } = useForm<UserName, string>({
     onSubmit,
     validationSchema: NAME_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,
   })
 
-
-  const { value: nameFieldValue, ...restNameFieldProps } = getFieldProps('name')
-
-  const onPress = () => {
-    setRegisterUserData({ name: nameFieldValue })
-    navigation.navigate('SingUpCpfScreen')
-  }
+  const onPress = () => handleSubmit
 
   return (
     <AuthenticationScreen
@@ -57,7 +54,7 @@ export const SingUpNameScreen: React.FC<SingUpNameScreenProps> = () => {
         <InputText
           autoCapitalize='words'
           placeholder='Nome'
-          {...restNameFieldProps}
+          {...getFieldProps('name')}
         />
       </View>
 
