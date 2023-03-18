@@ -1,8 +1,8 @@
-import { ForgottenPasswordContext } from './../providers/ForgottenPasswordProvider';
-import { createContext } from 'react';
+import { ForgottenPasswordContext } from 'authentication/providers';
+import { useContext } from 'react';
 
 export const useForgottenPassword = () => {
-  const context = createContext(ForgottenPasswordContext)
+  const context = useContext(ForgottenPasswordContext)
 
   if (!context)
     throw new Error("This hook needs be wrapped by ForgottenPasswordProvider");
