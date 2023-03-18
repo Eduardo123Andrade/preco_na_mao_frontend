@@ -1,3 +1,4 @@
+import { StackNavigationOptions } from '@react-navigation/stack'
 import { Screen } from 'core/components'
 import { Text } from 'core/components/Text'
 import React from 'react'
@@ -15,6 +16,13 @@ export const HomeScreen = () => {
     </Screen>
   )
 }
+
+
+const navigationOptions: StackNavigationOptions = {
+  headerShown: false,
+}
+
+HomeScreen.NavigationOptions = navigationOptions
 
 const styles = StyleSheet.create({
   container: {

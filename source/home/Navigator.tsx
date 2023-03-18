@@ -11,9 +11,7 @@ export const HomeNavigator = () => {
       <Screen
         name='HomeScreen'
         component={HomeScreen}
-        options={{
-          headerShown: false
-        }}
+        options={HomeScreen.NavigationOptions}
       />
     </Navigator>
   )

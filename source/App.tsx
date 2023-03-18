@@ -18,7 +18,7 @@ export const App = () => {
         <ApiProvider>
           <UserProvider>
             <NavigationContainer>
-              <Navigator initialRouteName='Home'>
+              <Navigator>
                 <Screen
                   name='Authentication'
                   component={AuthenticationNavigator}
