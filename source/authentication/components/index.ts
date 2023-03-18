@@ -1,1 +1,1 @@
-export { SingUpScreen } from './SingUpScreen'
+export { AuthenticationScreen } from './AuthenticationScreen'

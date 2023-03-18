@@ -11,7 +11,7 @@ type SingUpScreenProps = {
   disabled?: boolean
 }
 
-export const SingUpScreen: React.FC<SingUpScreenProps> = ({
+export const AuthenticationScreen: React.FC<SingUpScreenProps> = ({
   buttonTitle = 'Avançar',
   children,
   contentContainerStyle,
