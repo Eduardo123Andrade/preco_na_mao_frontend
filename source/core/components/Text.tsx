@@ -6,22 +6,24 @@ import {
 } from 'react-native'
 
 interface TextProps extends NativeTextProps {
-  fontSize?: number
+  bold?: boolean
   color?: string
+  fontSize?: number
 }
 
 export const Text: React.FC<TextProps> = ({
+  bold,
   color = '#000',
   fontSize = 14,
   style,
   ...rest
 }) => {
-
+  const fontWeight = bold ? 'bold' : 'normal'
   const flattenStyle = StyleSheet.flatten([{ fontSize, color }])
 
   return (
     <NativeText
-      style={[flattenStyle, style]}
+      style={[flattenStyle, style, { fontWeight }]}
       {...rest}
     />
   )

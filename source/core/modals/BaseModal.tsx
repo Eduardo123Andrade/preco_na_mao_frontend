@@ -1,16 +1,17 @@
-import React from 'react'
-import { Modal as NativeModal, ModalProps as NativeModalProps, NativeSyntheticEvent, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import { Icon } from 'core/components'
+import React from 'react'
+import { Modal as NativeModal, ModalProps as NativeModalProps, StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 
 export interface BaseModalProps extends NativeModalProps {
   contentContainerStyle?: StyleProp<ViewStyle>
+  onRequestClose: () => void
 }
 
 export const BaseModal: React.FC<BaseModalProps> = ({ children, contentContainerStyle, style, ...rest }) => {
   const { onRequestClose } = rest
 
-  const _onRequestClose = (e: NativeSyntheticEvent<any>) => {
-    onRequestClose(e)
+  const _onRequestClose = () => {
+    onRequestClose()
   }
 
   return (
