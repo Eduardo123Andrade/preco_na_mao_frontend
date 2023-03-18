@@ -9,7 +9,6 @@ const { Navigator, Screen } = createStackNavigator()
 export const AuthenticationNavigator = () => {
   return (
     <Navigator
-      initialRouteName='SingUp'
       defaultScreenOptions={{ headerShown: false }}>
 
       <Screen
