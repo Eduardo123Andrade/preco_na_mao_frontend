@@ -29,7 +29,7 @@ export const AuthenticationScreen: React.FC<SingUpScreenProps> = ({
         <Button
           disabled={disabled}
           isLoading={isLoading}
-          style={styles.button} onPress={onPress}>
+          style={styles.button} onPress={(onPress)}>
           <Text>
             {buttonTitle}
           </Text>

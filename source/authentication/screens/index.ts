@@ -1,6 +1,7 @@
 export { ForgottenPasswordAccessTokenValidationScreen } from './ForgottenPasswordAccessTokenValidationScreen'
 export { ForgottenPasswordCpfScreen } from './ForgottenPasswordCpfScreen'
-export { Login } from './LoginScreen'
+export { ForgottenPasswordUpdatePasswordScreen } from './ForgottenPasswordUpdatePasswordScreen'
+export { LoginScreen } from './LoginScreen'
 export { SingUpCpfScreen } from './SingUpCpfScreen'
 export { SingUpNameScreen } from './SingUpNameScreen'
 export { SingUpPasswordScreen } from './SingUpPasswordScreen'

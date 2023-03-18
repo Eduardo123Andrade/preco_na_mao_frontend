@@ -1,7 +1,7 @@
 import { RouteProp, useRoute } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
 import { ForgottenPasswordProvider } from "authentication/providers"
-import { ForgottenPasswordAccessTokenValidationScreen, ForgottenPasswordCpfScreen } from "authentication/screens"
+import { ForgottenPasswordAccessTokenValidationScreen, ForgottenPasswordCpfScreen, ForgottenPasswordUpdatePasswordScreen } from "authentication/screens"
 import React from 'react'
 
 interface RouterParameter {
@@ -28,7 +28,7 @@ export const ForgottenPasswordNavigator = () => {
     // <ForgottenPasswordProvider cpf={cpf}>
     <ForgottenPasswordProvider cpf='09907658499'>
       <Navigator
-        initialRouteName="ForgottenPasswordAccessTokenValidationScreen"
+        initialRouteName="ForgottenPasswordUpdatePasswordScreen"
       >
         <Screen
           name="ForgottenPasswordCpfScreen"
@@ -38,6 +38,12 @@ export const ForgottenPasswordNavigator = () => {
           name="ForgottenPasswordAccessTokenValidationScreen"
           component={ForgottenPasswordAccessTokenValidationScreen}
         />
+
+        <Screen
+          name="ForgottenPasswordUpdatePasswordScreen"
+          component={ForgottenPasswordUpdatePasswordScreen}
+        />
+
       </Navigator>
     </ForgottenPasswordProvider>
   )
