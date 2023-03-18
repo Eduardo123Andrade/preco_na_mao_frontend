@@ -7,6 +7,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { FieldValidation, validateName } from 'core/validations'
 import { useSingUp } from 'authentication/hooks'
 import { useNavigation } from '@react-navigation/native'
+import { StackNavigationOptions } from '@react-navigation/stack'
 const { string } = FieldValidation
 
 
@@ -61,6 +62,13 @@ export const SingUpNameScreen = () => {
     </AuthenticationScreen>
   )
 }
+
+const navigationOptions: StackNavigationOptions = {
+  headerTransparent: true,
+  title: ''
+}
+
+SingUpNameScreen.NavigationOptions = navigationOptions
 
 const styles = StyleSheet.create({
   titleContainer: {

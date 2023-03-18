@@ -26,9 +26,7 @@ export const ForgottenPasswordNavigator = () => {
 
   return (
     <ForgottenPasswordProvider cpf={cpf}>
-      <Navigator
-        initialRouteName="ForgottenPasswordUpdatePasswordScreen"
-      >
+      <Navigator>
         <Screen
           name="ForgottenPasswordCpfScreen"
           component={ForgottenPasswordCpfScreen}

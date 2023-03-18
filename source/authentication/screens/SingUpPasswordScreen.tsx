@@ -6,11 +6,10 @@ import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation } from 'core/validations'
 import { useRequestSingUp, useSingUp } from 'authentication/hooks'
+import { StackNavigationOptions } from '@react-navigation/stack'
 
 
 const { string, ref } = FieldValidation
-
-interface SingUpPasswordScreenProps { }
 
 interface UserPassword {
   password: string
@@ -35,7 +34,7 @@ const INITIAL_VALUES = {
   confirmPassword: '',
 }
 
-export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
+export const SingUpPasswordScreen = () => {
   const [{ user }, { setRegisterUserData }] = useSingUp()
   const { mutate, isLoading } = useRequestSingUp()
 
@@ -90,6 +89,14 @@ export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
     </AuthenticationScreen>
   )
 }
+
+const navigationOptions: StackNavigationOptions = {
+  headerTransparent: true,
+  title: ''
+}
+
+SingUpPasswordScreen.NavigationOptions = navigationOptions
+
 
 const styles = StyleSheet.create({
   titleContainer: {

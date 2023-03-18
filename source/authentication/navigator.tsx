@@ -12,13 +12,13 @@ export const AuthenticationNavigator = () => {
       <Screen
         name='Login'
         component={LoginScreen}
-        options={{ headerShown: false }}
+        options={LoginScreen.NavigationOptions}
       />
 
       <Screen
         name='SingUp'
         component={SignUpNavigator}
-        options={{ headerShown: false }}
+        options={SignUpNavigator.NavigationOptions}
       />
 
       <Screen

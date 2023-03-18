@@ -8,10 +8,9 @@ import { FieldValidation, validateCPF } from 'core/validations'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { useSingUp } from 'authentication/hooks'
 import { useNavigation } from '@react-navigation/native'
+import { StackNavigationOptions } from '@react-navigation/stack'
 const { string } = FieldValidation
 
-
-interface SingUpCpfScreenProps { }
 
 interface UserCpf {
   cpf: string
@@ -26,7 +25,7 @@ const INITIAL_VALUES = {
   cpf: '',
 }
 
-export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = () => {
+export const SingUpCpfScreen = () => {
   const navigation = useNavigation()
   const [, { setRegisterUserData }] = useSingUp()
 
@@ -75,6 +74,14 @@ export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = () => {
     </AuthenticationScreen>
   )
 }
+
+const navigationOptions: StackNavigationOptions = {
+  headerTransparent: true,
+  title: ''
+}
+
+SingUpCpfScreen.NavigationOptions = navigationOptions
+
 
 const styles = StyleSheet.create({
   titleContainer: {
