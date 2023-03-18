@@ -10,9 +10,13 @@ import { useSingUp } from 'authentication/hooks'
 
 const { string, ref } = FieldValidation
 
-type SingUpPasswordScreenProps = {
+interface SingUpPasswordScreenProps { }
 
+interface UserPassword {
+  password: string
+  confirmPassword: string
 }
+
 
 const PASSWORD_VALIDATION_SCHEMA = FieldValidation.object({
   password: string().min(6).required("É preciso atender a todos os requisitos").label('Senha'),
@@ -32,10 +36,17 @@ const INITIAL_VALUES = {
 }
 
 export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
-  const [{ user }, { setRegisterUserData }] = useSingUp()
-  const onSubmit = () => { }
+  const [, { setRegisterUserData }] = useSingUp()
 
-  const { isValid, getFieldProps } = useForm<string>({
+  const onSubmit = ({ password, confirmPassword }: UserPassword) => {
+    setRegisterUserData({
+      password,
+      confirmPassword,
+    })
+
+  }
+
+  const { handleSubmit, isValid, getFieldProps } = useForm<UserPassword, string>({
     onSubmit,
     validationSchema: PASSWORD_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,
@@ -45,16 +56,7 @@ export const SingUpPasswordScreen: React.FC<SingUpPasswordScreenProps> = () => {
   const { value: passwordFieldValue, ...restPasswordFieldProps } = getFieldProps('password')
   const { value: confirmPasswordFieldValue, ...restConfirmPasswordProps } = getFieldProps('confirmPassword')
 
-  const onPress = () => {
-    setRegisterUserData({
-      password: passwordFieldValue,
-      confirmPassword: confirmPasswordFieldValue
-    })
-  }
-
-  useEffect(() => {
-    console.log({ user })
-  }, [user])
+  const onPress = () => handleSubmit()
 
   return (
     <SingUpScreen

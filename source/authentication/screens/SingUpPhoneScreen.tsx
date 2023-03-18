@@ -12,8 +12,10 @@ import { useNavigation } from '@react-navigation/native'
 
 const { string } = FieldValidation
 
-type SingUpPhoneScreenProps = {
+interface SingUpPhoneScreenProps { }
 
+interface UserPhone {
+  phone: string
 }
 
 const PHONE_VALIDATION_SCHEMA = FieldValidation.object({
@@ -28,14 +30,19 @@ const INITIAL_VALUES = {
 export const SingUpPhoneScreen: React.FC<SingUpPhoneScreenProps> = () => {
   const navigation = useNavigation()
   const [, { setRegisterUserData }] = useSingUp()
-  const onSubmit = () => { }
 
-  const { isValid, getFieldProps } = useForm<string>({
+
+  const onSubmit = ({ phone }: UserPhone) => {
+    setRegisterUserData({ phone })
+    navigation.navigate("SingUpPasswordScreen")
+
+  }
+
+  const { handleSubmit, isValid, getFieldProps } = useForm<UserPhone, string>({
     onSubmit,
     validationSchema: PHONE_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,
   })
-
 
   const { onChangeText: onChangeTextPhone, value: phoneFieldValue, ...restPhoneFieldProps } = getFieldProps('phone')
 
@@ -44,10 +51,7 @@ export const SingUpPhoneScreen: React.FC<SingUpPhoneScreenProps> = () => {
     onChangeTextPhone(pureText)
   }
 
-  const onPress = () => {
-    setRegisterUserData({ phone: phoneFieldValue })
-    navigation.navigate("SingUpPasswordScreen")
-  }
+  const onPress = () => handleSubmit()
 
   return (
     <SingUpScreen

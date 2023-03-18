@@ -11,8 +11,10 @@ import { useNavigation } from '@react-navigation/native'
 const { string } = FieldValidation
 
 
-type SingUpCpfScreenProps = {
+interface SingUpCpfScreenProps { }
 
+interface UserCpf {
+  cpf: string
 }
 
 const CPF_VALIDATION_SCHEMA = FieldValidation.object({
@@ -27,14 +29,17 @@ const INITIAL_VALUES = {
 export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = () => {
   const navigation = useNavigation()
   const [, { setRegisterUserData }] = useSingUp()
-  const onSubmit = () => { }
 
-  const { isValid, getFieldProps } = useForm<string>({
+  const onSubmit = ({ cpf }: UserCpf) => {
+    setRegisterUserData({ cpf })
+    navigation.navigate('SingUpPhoneScreen')
+  }
+
+  const { handleSubmit, isValid, getFieldProps } = useForm<UserCpf, string>({
     onSubmit,
     validationSchema: CPF_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,
   })
-
 
   const { onChangeText: onChangeTextCpf, value: cpfFieldValue, ...restCpfFieldProps } = getFieldProps('cpf')
 
@@ -43,10 +48,7 @@ export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = () => {
     onChangeTextCpf(pureText)
   }
 
-  const onPress = () => {
-    setRegisterUserData({ cpf: cpfFieldValue })
-    navigation.navigate('SingUpPhoneScreen')
-  }
+  const onPress = () => handleSubmit()
 
   return (
     <SingUpScreen
