@@ -31,7 +31,7 @@ export const ForgottenPasswordCpfScreen: React.FC<SingUpCpfScreenProps> = () => 
   const [{ forgottenPassword }, { setForgottenPasswordData }] = useForgottenPassword()
   const [{ isLoading }, { requestAccessToken }] = useRequestAccessToken({
     onSuccess: () => {
-      // navigation.navigate('SingUpPhoneScreen')
+      navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
     }
   })
 
