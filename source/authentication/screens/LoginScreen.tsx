@@ -4,6 +4,7 @@ import { loginValidationSchema } from 'authentication/utils'
 import { Button, InputText, Screen } from 'core/components'
 import { Text } from 'core/components'
 import { useForm } from 'core/hooks'
+import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
@@ -33,6 +34,8 @@ export const Login = () => {
     initialValues: INITIAL_VALUES,
   })
 
+  const { value: cpfFieldValue } = getFieldProps("cpf")
+
 
   const onPressLogin = () => {
     handleSubmit()
@@ -40,11 +43,13 @@ export const Login = () => {
 
   const onPressSignUp = () => {
     navigation.navigate("SingUp")
-    console.log('SignUp')
   }
 
   const onPressForgottenPassword = () => {
-    console.log('ForgottenPassword')
+    const cpf = cpfFieldValue.replace(REGEXP_ONLY_NUMBERS, "")
+    navigation.navigate("ForgottenPassword", {
+      cpf: cpf
+    })
   }
 
   return (

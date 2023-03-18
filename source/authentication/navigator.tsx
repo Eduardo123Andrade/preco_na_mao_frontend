@@ -9,7 +9,7 @@ const { Navigator, Screen } = createStackNavigator()
 export const AuthenticationNavigator = () => {
   return (
     <Navigator
-      initialRouteName='ForgottenPassword'
+      // initialRouteName='ForgottenPassword'
       defaultScreenOptions={{ headerShown: false }}>
 
       <Screen
