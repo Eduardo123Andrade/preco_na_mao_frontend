@@ -8,9 +8,7 @@ const { Navigator, Screen } = createStackNavigator()
 
 export const AuthenticationNavigator = () => {
   return (
-    <Navigator
-      defaultScreenOptions={{ headerShown: false }}>
-
+    <Navigator defaultScreenOptions={{ headerShown: false }}>
       <Screen
         name='Login'
         component={LoginScreen}
@@ -28,7 +26,6 @@ export const AuthenticationNavigator = () => {
         component={ForgottenPasswordNavigator}
         options={{ headerShown: false }}
       />
-
     </Navigator>
   )
 }
