@@ -2,7 +2,6 @@ import React, { createContext, useState } from "react";
 
 interface ForgottenPassword {
   cpf: string
-  code?: string
 }
 
 interface ForgottenPasswordProviderState {
