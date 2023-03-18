@@ -10,5 +10,4 @@ export const useSingUp = () => {
     throw new Error("This hook needs be wrapped by SingUpProvider");
 
   return context
-
 }

@@ -1,5 +1,6 @@
 export { Login } from './Login'
 export { SingUp } from './SingUp'
 export { SingUpCpfScreen } from './SingUpCpfScreen'
-export { SingUpPhoneScreen } from './SingUpPhoneScreen'
+export { SingUpNameScreen } from './SingUpNameScreen'
 export { SingUpPasswordScreen } from './SingUpPasswordScreen'
+export { SingUpPhoneScreen } from './SingUpPhoneScreen'
