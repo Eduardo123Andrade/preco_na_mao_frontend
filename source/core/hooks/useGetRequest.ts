@@ -1,13 +1,10 @@
 import {
   useQuery,
-  focusManager,
-  useQueryClient,
   UseQueryResult,
   UseQueryOptions,
   MutationStatus,
   QueryObserverOptions
 } from 'react-query'
-import { useEffect, useRef } from 'react'
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import { useAPI } from './useApi'
 

@@ -1,10 +1,6 @@
 import { MutationFunction, useMutation, UseMutationOptions, MutationStatus } from 'react-query'
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { useAPI } from './useApi';
-
-type Config = {
-  config: AxiosRequestConfig
-}
 
 export type UsePostRequestStatus = MutationStatus
 
