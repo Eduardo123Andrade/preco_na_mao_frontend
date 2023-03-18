@@ -118,7 +118,6 @@ export const LoginScreen = () => {
   )
 }
 
-
 const navigationOptions: StackNavigationOptions = {
   headerShown: false,
 }

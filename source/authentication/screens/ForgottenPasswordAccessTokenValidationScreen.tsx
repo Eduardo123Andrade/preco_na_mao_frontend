@@ -8,10 +8,11 @@ import { useNavigation } from '@react-navigation/native'
 import { useForgottenPassword, useValidateAccessToken } from 'authentication/hooks'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { FieldValidation } from 'core/validations'
+import { StackNavigationOptions } from '@react-navigation/stack'
+
+
 const { string } = FieldValidation
 
-
-interface SingUpCpfScreenProps { }
 
 interface AccessToken {
   accessToken: string
@@ -21,12 +22,11 @@ const ACCESS_TOKEN_VALIDATION_SCHEMA = FieldValidation.object({
   accessToken: string().length(6).label('codigo de accesso').required()
 })
 
-
 const INITIAL_VALUES = {
   accessToken: '',
 }
 
-export const ForgottenPasswordAccessTokenValidationScreen: React.FC<SingUpCpfScreenProps> = () => {
+export const ForgottenPasswordAccessTokenValidationScreen = () => {
   const navigation = useNavigation()
   const [{ forgottenPassword }] = useForgottenPassword()
   const [{ isLoading }, { requestValidateAccessToken }] = useValidateAccessToken({
@@ -82,6 +82,14 @@ export const ForgottenPasswordAccessTokenValidationScreen: React.FC<SingUpCpfScr
     </AuthenticationScreen>
   )
 }
+
+const navigationOptions: StackNavigationOptions = {
+  headerTransparent: true,
+  title: ''
+}
+
+ForgottenPasswordAccessTokenValidationScreen.NavigationOptions = navigationOptions
+
 
 const styles = StyleSheet.create({
   titleContainer: {
