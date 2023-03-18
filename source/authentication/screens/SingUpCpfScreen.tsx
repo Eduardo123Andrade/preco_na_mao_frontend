@@ -1,11 +1,11 @@
 import { SingUpScreen } from 'authentication/components'
 import { InputText } from 'core/components'
 import { useForm } from 'core/hooks'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation, validateCPF } from 'core/validations'
-import { REGEX_ONLY_NUMBERS } from 'core/utils'
+import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { useSingUp } from 'authentication/hooks'
 import { useNavigation } from '@react-navigation/native'
 const { string } = FieldValidation
@@ -39,7 +39,7 @@ export const SingUpCpfScreen: React.FC<SingUpCpfScreenProps> = () => {
   const { onChangeText: onChangeTextCpf, value: cpfFieldValue, ...restCpfFieldProps } = getFieldProps('cpf')
 
   const _onChangeTextCpf = (text: string) => {
-    const pureText = text.replace(REGEX_ONLY_NUMBERS, "")
+    const pureText = text.replace(REGEXP_ONLY_NUMBERS, "")
     onChangeTextCpf(pureText)
   }
 

@@ -1,11 +1,11 @@
 import { SingUpScreen } from 'authentication/components'
 import { InputText } from 'core/components'
 import { useForm } from 'core/hooks'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation } from 'core/validations'
-import { REGEX_ONLY_NUMBERS } from 'core/utils'
+import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { useSingUp } from 'authentication/hooks'
 import { useNavigation } from '@react-navigation/native'
 
@@ -40,7 +40,7 @@ export const SingUpPhoneScreen: React.FC<SingUpPhoneScreenProps> = () => {
   const { onChangeText: onChangeTextPhone, value: phoneFieldValue, ...restPhoneFieldProps } = getFieldProps('phone')
 
   const _onChangeTextPhone = (text: string) => {
-    const pureText = text.replace(REGEX_ONLY_NUMBERS, "")
+    const pureText = text.replace(REGEXP_ONLY_NUMBERS, "")
     onChangeTextPhone(pureText)
   }
 
