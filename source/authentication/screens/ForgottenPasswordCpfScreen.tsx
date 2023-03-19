@@ -1,7 +1,7 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
 import { useForm } from 'core/hooks'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation, validateCPF } from 'core/validations'
@@ -9,6 +9,7 @@ import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { useNavigation } from '@react-navigation/native'
 import { useForgottenPassword, useRequestAccessToken } from 'authentication/hooks'
 import { StackNavigationOptions } from '@react-navigation/stack'
+import { SimpleModal } from 'core/modals'
 
 
 const { string } = FieldValidation
@@ -26,12 +27,30 @@ const INITIAL_VALUES = {
   cpf: '',
 }
 
+interface ModalError {
+  show: boolean
+  message: string
+}
+
+const INITIAL_STATE: ModalError = {
+  show: false,
+  message: ''
+}
+
 export const ForgottenPasswordCpfScreen = () => {
   const navigation = useNavigation()
   const [{ forgottenPassword }, { setForgottenPasswordData }] = useForgottenPassword()
+  const [{ show, message }, setModalErrorData] = useState<ModalError>(INITIAL_STATE)
+
   const [{ isLoading }, { requestAccessToken }] = useRequestAccessToken({
     onSuccess: () => {
       navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
+    },
+    onError: ({ message }) => {
+      setModalErrorData({
+        message,
+        show: false,
+      })
     }
   })
 
@@ -63,6 +82,10 @@ export const ForgottenPasswordCpfScreen = () => {
 
   const onPress = () => handleSubmit()
 
+  const onRequestClose = () => {
+    setModalErrorData(INITIAL_STATE)
+  }
+
   return (
     <AuthenticationScreen
       disabled={!isValid}
@@ -85,7 +108,11 @@ export const ForgottenPasswordCpfScreen = () => {
           {...restCpfFieldProps}
         />
       </View>
-
+      <SimpleModal
+        message={message}
+        visible={show}
+        onRequestClose={onRequestClose}
+      />
     </AuthenticationScreen>
   )
 }
