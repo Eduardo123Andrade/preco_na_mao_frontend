@@ -3,7 +3,7 @@ const { string, ref } = FieldValidation
 
 
 export const singUpValidationSchema = FieldValidation.object({
-  cpf: string().label('CPF').required().test('cpf', 'CPF invalido', validateCPF),
+  cpf: string().label('CPF').required().test('cpf', 'CPF inválido', validateCPF),
   phone: string().length(11).required(),
   password: string().min(6).required("É preciso atender a todos os requisitos").label('Senha'),
   confirmPassword: string()
