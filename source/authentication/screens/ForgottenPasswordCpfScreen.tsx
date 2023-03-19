@@ -18,7 +18,7 @@ interface UserCpf {
 }
 
 const CPF_VALIDATION_SCHEMA = FieldValidation.object({
-  cpf: string().label('CPF').required().test('cpf', 'CPF invalido', validateCPF),
+  cpf: string().label('CPF').required().test('cpf', 'CPF inválido', validateCPF),
 })
 
 
