@@ -15,7 +15,7 @@ interface UserName {
   name: string
 }
 const NAME_VALIDATION_SCHEMA = FieldValidation.object({
-  name: string().label('name').required().test('cpf', 'CPF invalido', validateName),
+  name: string().label('name').required().test('cpf', 'CPF inválido', validateName),
 })
 
 

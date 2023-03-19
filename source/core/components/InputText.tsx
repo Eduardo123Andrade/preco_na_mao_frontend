@@ -1,19 +1,32 @@
-import { Mask } from 'core/types'
+import { InputStatus, Mask } from 'core/types'
 import React, { forwardRef, useCallback, useState } from 'react'
 import { StyleSheet, View, TextInput, TextInputProps } from 'react-native'
-import { Icon } from 'core/components'
+import { Icon, Text } from 'core/components'
 import { MaskInput } from './maskedInput'
 
+
+const statusColor = {
+  'ERROR': '#FF0011',
+  'SUCCESS': "#000",
+  'IDLE': "#000",
+}
 
 interface InputTextProps extends TextInputProps {
   label?: string
   mask?: Mask
+  status?: InputStatus
+  subtitle?: string
 }
 
-const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({ label, style, mask, ...rest }, ref) => {
+const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
+  label,
+  mask,
+  style,
+  status,
+  subtitle,
+  ...rest }, ref) => {
   const { secureTextEntry: initialSecureTextEntry = false } = rest
   const [secureTextEntry, setSecureTextEntryValue] = useState(initialSecureTextEntry)
-
 
   const toggleSecureTextEntry = useCallback(() => {
     setSecureTextEntryValue((prevState) => !prevState)
@@ -34,20 +47,27 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({ labe
 
 
   return (
-    <View style={styles.container}>
-      <View style={styles.textInputContainer}>
-        {!!mask ? <MaskInput mask={mask} {...rest} /> :
-          <View style={styles.inputTextContainer}>
-            <TextInput
-              {...rest}
-              ref={ref}
-              style={style}
-              secureTextEntry={secureTextEntry}
-            />
-            {defaultSideElement()}
-          </View>
-        }
+    <View>
+      <View style={[styles.container, { borderColor: statusColor[status] }]}>
+        <View style={styles.textInputContainer}>
+          {!!mask ? <MaskInput mask={mask} {...rest} /> :
+            <View style={styles.inputTextContainer}>
+              <TextInput
+                {...rest}
+                ref={ref}
+                style={style}
+                secureTextEntry={secureTextEntry}
+              />
+              {defaultSideElement()}
+            </View>
+          }
+        </View>
       </View>
+      {!!subtitle && <View style={styles.subtitleContainer}>
+        <Text fontSize={12} color={statusColor[status]} >
+          {subtitle}
+        </Text>
+      </View>}
     </View>
   )
 }
@@ -66,5 +86,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  subtitleContainer: {
+    paddingTop: 5,
+    paddingHorizontal: 16,
   }
 })

@@ -24,7 +24,6 @@ export const LoginScreen = () => {
   const [value, setValue] = useState<string>()
   const navigation = useNavigation()
   const [{ isLoading }, { requestLogin }] = useLogin()
-  // const navigation = useNavigation()
 
   const onSubmit = ({ cpf, password }: Login) => {
     requestLogin(cpf, password)
@@ -40,8 +39,7 @@ export const LoginScreen = () => {
 
 
   const onPressLogin = () => {
-    // handleSubmit()
-    navigation.navigate("Home")
+    handleSubmit()
   }
 
   const onPressSignUp = () => {
@@ -93,7 +91,7 @@ export const LoginScreen = () => {
           </Button>
 
           <Button
-            // disabled={!isValid}
+            disabled={!isValid}
             isLoading={isLoading}
             style={styles.button}
             onPress={onPressLogin}

@@ -1,6 +1,20 @@
-import { useFormik, FormikConfig, FormikValues, FieldInputProps as FieldInputPropsFormik, FormikHelpers } from "formik"
-import { useCallback, useImperativeHandle, useMemo, useRef } from "react"
+import { FieldInputProps as FieldInputPropsFormik, FormikHelpers, useFormik } from "formik";
+import { useCallback, useImperativeHandle, useMemo, useRef } from "react";
+import { InputStatus } from './../types/inputStatus';
 
+type FieldInputProps = unknown
+
+function getCurrentStatus(touched: boolean, error: string, value: FieldInputProps): InputStatus {
+  if (touched && error) {
+    return 'ERROR'
+  }
+
+  if (touched && !error && value) {
+    return 'SUCCESS'
+  }
+
+  return 'IDLE'
+}
 
 interface UseFormProps<Value> {
   validationSchema: object
@@ -29,7 +43,7 @@ export const useForm =
         const { onChange, value, onBlur: _onBlur } = _getFieldProps(key) as FieldInputPropsFormik<FieldInputProps>
         const { error, touched } = getFieldMeta(key)
 
-        // const status = getCurrentStatus(touched, error, value)
+        const status = getCurrentStatus(touched, error, value)
 
         if (!inputEvents.current[key]) {
           inputEvents.current[key] = {
@@ -41,12 +55,10 @@ export const useForm =
         const { onBlur, onChange: onChangeText } = inputEvents.current[key]
         const subtitle = touched && error ? error : null
 
-        // return {status, onChangeText, onBlur, value, subtitle}
-        return { onChangeText, onBlur, value, subtitle }
+        return { status, onChangeText, onBlur, value, subtitle }
       },
       [_getFieldProps, getFieldMeta],
     )
-    // return formik
     return useMemo(() => ({ ...formik, getFieldProps }), [formik, getFieldProps])
 
   }
