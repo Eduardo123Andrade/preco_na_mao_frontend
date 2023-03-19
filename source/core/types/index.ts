@@ -1,1 +1,2 @@
-export type { Mask } from './Mask'
+export { Mask } from './Mask'
+export { InputStatus } from './inputStatus'
