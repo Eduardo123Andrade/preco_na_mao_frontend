@@ -1,12 +1,13 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
 import { useForm } from 'core/hooks'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation } from 'core/validations'
-import { useRequestSingUp, useSingUp } from 'authentication/hooks'
+import { useErrorModal, useRequestSingUp, useSingUp } from 'authentication/hooks'
 import { StackNavigationOptions } from '@react-navigation/stack'
+import { SimpleModal } from 'core/modals'
 
 
 const { string, ref } = FieldValidation
@@ -35,14 +36,21 @@ const INITIAL_VALUES = {
 }
 
 export const SingUpPasswordScreen = () => {
-  const [{ user }, { setRegisterUserData }] = useSingUp()
-  const { mutate, isLoading } = useRequestSingUp()
+  const [{ user }] = useSingUp()
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
+
+
+  const { mutate, isLoading } = useRequestSingUp({
+    onSuccess: () => {
+
+    },
+    onError: ({ message }) => {
+      startModalError(message)
+    }
+  })
 
   const onSubmit = ({ password, confirmPassword }: UserPassword) => {
-    setRegisterUserData({
-      password,
-      confirmPassword,
-    })
+    mutate({ ...user, password, confirmPassword })
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<UserPassword, string>({
@@ -51,18 +59,10 @@ export const SingUpPasswordScreen = () => {
     initialValues: INITIAL_VALUES,
   })
 
-  const onPress = () => handleSubmit()
-
-  useEffect(() => {
-    if (user)
-      mutate(user)
-
-  }, [user, mutate])
-
   return (
     <AuthenticationScreen
       disabled={!isValid}
-      onPress={onPress}
+      onPress={handleSubmit}
       isLoading={isLoading}
     >
       <View style={styles.titleContainer}>
@@ -86,6 +86,11 @@ export const SingUpPasswordScreen = () => {
           {...getFieldProps('confirmPassword')}
         />
       </View>
+      <SimpleModal
+        message={message}
+        visible={show}
+        onRequestClose={resetState}
+      />
     </AuthenticationScreen>
   )
 }

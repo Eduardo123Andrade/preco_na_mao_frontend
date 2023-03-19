@@ -7,7 +7,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { FieldValidation, validateCPF } from 'core/validations'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { useNavigation } from '@react-navigation/native'
-import { useForgottenPassword, useRequestAccessToken } from 'authentication/hooks'
+import { useErrorModal, useForgottenPassword, useRequestAccessToken } from 'authentication/hooks'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { SimpleModal } from 'core/modals'
 
@@ -27,30 +27,17 @@ const INITIAL_VALUES = {
   cpf: '',
 }
 
-interface ModalError {
-  show: boolean
-  message: string
-}
-
-const INITIAL_STATE: ModalError = {
-  show: false,
-  message: ''
-}
-
 export const ForgottenPasswordCpfScreen = () => {
   const navigation = useNavigation()
   const [{ forgottenPassword }, { setForgottenPasswordData }] = useForgottenPassword()
-  const [{ show, message }, setModalErrorData] = useState<ModalError>(INITIAL_STATE)
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
   const [{ isLoading }, { requestAccessToken }] = useRequestAccessToken({
     onSuccess: () => {
       navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
     },
     onError: ({ message }) => {
-      setModalErrorData({
-        message,
-        show: false,
-      })
+      startModalError(message)
     }
   })
 
@@ -79,17 +66,10 @@ export const ForgottenPasswordCpfScreen = () => {
 
   }, [forgottenPassword, onChangeTextCpf])
 
-
-  const onPress = () => handleSubmit()
-
-  const onRequestClose = () => {
-    setModalErrorData(INITIAL_STATE)
-  }
-
   return (
     <AuthenticationScreen
       disabled={!isValid}
-      onPress={onPress}
+      onPress={handleSubmit}
       isLoading={isLoading}
     >
       <View style={styles.titleContainer}>
@@ -111,7 +91,7 @@ export const ForgottenPasswordCpfScreen = () => {
       <SimpleModal
         message={message}
         visible={show}
-        onRequestClose={onRequestClose}
+        onRequestClose={resetState}
       />
     </AuthenticationScreen>
   )
