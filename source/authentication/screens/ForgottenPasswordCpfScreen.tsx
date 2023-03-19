@@ -1,14 +1,15 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
 import { useForm } from 'core/hooks'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation, validateCPF } from 'core/validations'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { useNavigation } from '@react-navigation/native'
-import { useForgottenPassword, useRequestAccessToken } from 'authentication/hooks'
+import { useErrorModal, useForgottenPassword, useRequestAccessToken } from 'authentication/hooks'
 import { StackNavigationOptions } from '@react-navigation/stack'
+import { SimpleModal } from 'core/modals'
 
 
 const { string } = FieldValidation
@@ -29,9 +30,14 @@ const INITIAL_VALUES = {
 export const ForgottenPasswordCpfScreen = () => {
   const navigation = useNavigation()
   const [{ forgottenPassword }, { setForgottenPasswordData }] = useForgottenPassword()
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
+
   const [{ isLoading }, { requestAccessToken }] = useRequestAccessToken({
     onSuccess: () => {
       navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
+    },
+    onError: ({ message }) => {
+      startModalError(message)
     }
   })
 
@@ -60,13 +66,10 @@ export const ForgottenPasswordCpfScreen = () => {
 
   }, [forgottenPassword, onChangeTextCpf])
 
-
-  const onPress = () => handleSubmit()
-
   return (
     <AuthenticationScreen
       disabled={!isValid}
-      onPress={onPress}
+      onPress={handleSubmit}
       isLoading={isLoading}
     >
       <View style={styles.titleContainer}>
@@ -85,7 +88,11 @@ export const ForgottenPasswordCpfScreen = () => {
           {...restCpfFieldProps}
         />
       </View>
-
+      <SimpleModal
+        message={message}
+        visible={show}
+        onRequestClose={resetState}
+      />
     </AuthenticationScreen>
   )
 }

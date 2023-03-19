@@ -5,6 +5,7 @@ import { loginValidationSchema } from 'authentication/utils'
 import { Button, InputText, Screen } from 'core/components'
 import { Text } from 'core/components'
 import { useForm } from 'core/hooks'
+import { SimpleModal } from 'core/modals'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -23,7 +24,10 @@ const INITIAL_VALUES = {
 export const LoginScreen = () => {
   const [value, setValue] = useState<string>()
   const navigation = useNavigation()
-  const [{ isLoading }, { requestLogin }] = useLogin()
+  const [{ isLoading, error, status }, { requestLogin }] = useLogin()
+  const [showErrorModal, setShowErrorModal] = useState(status === 'error')
+
+
 
   const onSubmit = ({ cpf, password }: Login) => {
     requestLogin(cpf, password)
@@ -51,6 +55,10 @@ export const LoginScreen = () => {
     navigation.navigate("ForgottenPassword", {
       cpf: cpf
     })
+  }
+
+  const onRequestClose = () => {
+    setShowErrorModal(false)
   }
 
   return (
@@ -112,6 +120,11 @@ export const LoginScreen = () => {
           </Text>
         </View>
       </View>
+      <SimpleModal
+        visible={showErrorModal}
+        message={error}
+        onRequestClose={onRequestClose}
+      />
     </Screen>
   )
 }

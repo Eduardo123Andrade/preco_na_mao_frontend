@@ -5,16 +5,16 @@ import { BaseModalProps } from './BaseModal'
 import { Modal } from './Modal'
 
 interface SimpleModalProps extends BaseModalProps {
-  title: string
+  title?: string
   message: string
-  label: string
+  label?: string
   onPress?: () => void
 }
 
 export const SimpleModal: React.FC<SimpleModalProps> = ({
-  title,
+  title = 'Ops',
   message,
-  label,
+  label = 'OK',
   onPress,
   children,
   ...rest

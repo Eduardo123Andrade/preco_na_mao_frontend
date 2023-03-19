@@ -6,7 +6,7 @@ import { User } from 'core/interfaces';
 
 interface TError { }
 
-export const useRequestSingUp = (options?: UsePostRequestOptionsType<User, TError, RegisterUser>) => {
+export const useRequestSingUp = (options: UsePostRequestOptionsType<User, TError, RegisterUser>) => {
   const mutation = usePostRequest('/sing-up', options)
   return mutation
 }
