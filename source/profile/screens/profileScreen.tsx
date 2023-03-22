@@ -1,15 +1,16 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
+import { Screen, Text } from 'core/components'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 
 export const ProfileScreen = () => {
   return (
-    <View style={styles.container}>
+    <Screen style={styles.container}>
       <Text>
         Ola, aqui você podera editar seus dados
       </Text>
-    </View>
+    </Screen>
   )
 }
 

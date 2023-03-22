@@ -1,15 +1,16 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
+import { Screen, Text } from 'core/components'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 
 export const ShoppingListHomeScreen = () => {
   return (
-    <View style={styles.container}>
+    <Screen style={styles.container}>
       <Text>
         Aqui voce pode visualizar suas listas de compras
       </Text>
-    </View>
+    </Screen>
   )
 }
 
