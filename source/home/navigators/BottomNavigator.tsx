@@ -11,9 +11,23 @@ export const HomeBottomNavigator = () => {
     <Navigator
       initialRouteName='Home'
     >
-      <Screen name='Profile' component={ProfileNavigator} options={ProfileNavigator.NavigationOptions} />
-      <Screen name='Home' component={HomeNavigatorNavigator} options={HomeNavigatorNavigator.NavigationOptions} />
-      <Screen name='ShoppingList' component={ShoppingListNavigator} options={ShoppingListNavigator.NavigationOptions} />
+      <Screen
+        name='Profile'
+        component={ProfileNavigator}
+        options={ProfileNavigator.NavigationOptions}
+      />
+
+      <Screen
+        name='Home'
+        component={HomeNavigatorNavigator}
+        options={HomeNavigatorNavigator.NavigationOptions}
+      />
+
+      <Screen
+        name='ShoppingList'
+        component={ShoppingListNavigator}
+        options={ShoppingListNavigator.NavigationOptions}
+      />
     </Navigator>
   )
 }
