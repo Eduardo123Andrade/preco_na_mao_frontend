@@ -1,3 +1,4 @@
+import { StackNavigationOptions } from '@react-navigation/stack'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
@@ -12,6 +13,12 @@ export const ProfileScreen = () => {
   )
 }
 
+
+const navigationOptions: StackNavigationOptions = {
+  headerShown: false,
+}
+
+ProfileScreen.NavigationOptions = navigationOptions
 
 const styles = StyleSheet.create({
   container: {

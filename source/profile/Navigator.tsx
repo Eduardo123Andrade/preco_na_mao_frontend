@@ -12,7 +12,7 @@ export const ProfileNavigator = () => {
       <Screen
         name='ProfileScreen'
         component={ProfileScreen}
-      // options={ProfileScreen.NavigationOptions}
+        options={ProfileScreen.NavigationOptions}
       />
     </Navigator>
   )
