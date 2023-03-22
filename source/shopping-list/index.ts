@@ -1,0 +1,1 @@
+export { ShoppingListNavigator } from './Navigator'

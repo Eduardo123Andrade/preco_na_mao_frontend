@@ -9,7 +9,8 @@ module.exports = {
           authentication: "./source/authentication",
           core: "./source/core",
           home: "./source/home",
-          profile: "./source/profile"
+          profile: "./source/profile",
+          "shopping-list": "./source/shopping-list"
         }
       }
     ],
