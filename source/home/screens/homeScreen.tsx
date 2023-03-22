@@ -1,15 +1,10 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Screen } from 'core/components'
-import { Text } from 'core/components/Text'
-import { SimpleModal } from 'core/modals'
-import React, { useState } from 'react'
+import { Screen, Text } from 'core/components'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 
 export const HomeScreen = () => {
-  const [showModal, setShowModal] = useState(true)
-
-  const onRequestClose = () => setShowModal(false)
 
   return (
     <Screen contentContainerStyles={styles.container}>
@@ -18,14 +13,6 @@ export const HomeScreen = () => {
           Olar, eu sou a Home
         </Text>
       </View>
-      <SimpleModal
-        title='Title'
-        message='message'
-        label='label'
-        visible={showModal}
-        onRequestClose={onRequestClose}
-      />
-
     </Screen>
   )
 }

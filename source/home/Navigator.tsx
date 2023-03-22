@@ -1,5 +1,6 @@
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
 import React from 'react'
+import { HomeBottomNavigator } from './navigators'
 import { HomeScreen } from './screens'
 
 
@@ -10,7 +11,7 @@ export const HomeNavigator = () => {
     <Navigator>
       <Screen
         name='HomeScreen'
-        component={HomeScreen}
+        component={HomeBottomNavigator}
         options={HomeScreen.NavigationOptions}
       />
     </Navigator>

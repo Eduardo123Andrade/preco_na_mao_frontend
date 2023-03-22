@@ -8,7 +8,9 @@ module.exports = {
         alias: {
           authentication: "./source/authentication",
           core: "./source/core",
-          home: "./source/home"
+          home: "./source/home",
+          profile: "./source/profile",
+          "shopping-list": "./source/shopping-list"
         }
       }
     ],

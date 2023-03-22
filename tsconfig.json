@@ -20,6 +20,12 @@
       ],
       "home/*": [
         "source/home/*"
+      ],
+      "profile/*": [
+        "source/profile/*"
+      ],
+      "shopping-list/*": [
+        "source/shopping-list/*"
       ]
     }
   }
