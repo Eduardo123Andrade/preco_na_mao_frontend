@@ -1,5 +1,6 @@
-export { Screen } from './Screen'
-export { InputText } from './InputText'
 export { Button } from './Button'
 export { Icon } from './Icon'
+export { InputText } from './InputText'
+export { Screen } from './Screen'
+export { TabBarIcon } from './TabBarIcon'
 export { Text } from './Text'
