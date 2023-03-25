@@ -39,8 +39,7 @@ export const SignUpNavigator = () => {
 }
 
 const navigationOptions: StackNavigationOptions = {
-  headerTransparent: true,
-  title: ''
+  headerShown: false,
 }
 
 SignUpNavigator.NavigationOptions = navigationOptions
