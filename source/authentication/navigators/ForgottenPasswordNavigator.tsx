@@ -50,8 +50,7 @@ export const ForgottenPasswordNavigator = () => {
 }
 
 const navigationOptions: StackNavigationOptions = {
-  headerTransparent: true,
-  title: ''
+  headerShown: false
 }
 
 ForgottenPasswordNavigator.NavigationOptions = navigationOptions
