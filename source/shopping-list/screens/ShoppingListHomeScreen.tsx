@@ -1,15 +1,26 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Screen, Text } from 'core/components'
-import React from 'react'
-import { StyleSheet } from 'react-native'
+import { Button, Screen, Text } from 'core/components'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { Card } from 'shopping-list/components'
+import { ShoppingList } from 'shopping-list/interfaces'
+
+
+
+const renderItem = (item: ShoppingList) => {
+  return <></>
+}
+
 
 
 export const ShoppingListHomeScreen = () => {
+
   return (
     <Screen style={styles.container}>
-      <Text>
-        Aqui voce pode visualizar suas listas de compras
-      </Text>
+      <View style={styles.cardContainer}>
+        <Card />
+      </View>
+
     </Screen>
   )
 }
@@ -25,5 +36,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  cardContainer: {
+
   }
 })
