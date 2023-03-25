@@ -20,17 +20,17 @@ export const Card: React.FC<CardProps> = (props) => {
 
   const formattedDate = formatDate(date)
 
+  const onPress = () => console.log('oi')
+
   return (
-    <Touchable onPress={() => console.log('oi')} style={styles.container}>
-      <>
-        <RenderTextWithSeparator text={name} />
+    <Touchable onPress={onPress} style={styles.container}>
+      <RenderTextWithSeparator text={name} />
 
-        <RenderTextWithSeparator text={`itens: ${quantityItems}`} />
+      <RenderTextWithSeparator text={`itens: ${quantityItems}`} />
 
-        <Text>
-          {formattedDate}
-        </Text>
-      </>
+      <Text>
+        {formattedDate}
+      </Text>
     </Touchable>
   )
 }
