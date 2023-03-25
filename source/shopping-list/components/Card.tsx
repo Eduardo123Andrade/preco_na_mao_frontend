@@ -1,7 +1,7 @@
 import { Text, Touchable } from 'core/components'
 import { formatDate } from 'core/utils'
 import React from 'react'
-import { StyleSheet, TouchableHighlight, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { ShoppingList } from 'shopping-list/interfaces'
 import { MOCKED_SHOPPING_LIST } from 'shopping-list/utils'
 import { RenderTextWithSeparator } from './RenderTextWithSeparator'
