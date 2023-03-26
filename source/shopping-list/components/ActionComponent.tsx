@@ -1,3 +1,4 @@
+import { zeroToLeft } from 'core/utils'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { ProductButton } from './ProductButton'
@@ -9,13 +10,15 @@ interface ActionComponentProps {
 }
 
 export const ActionComponent: React.FC<ActionComponentProps> = ({ number, onPressDecrement, onPressIncrement }) => {
+
+  const formattedNumber = zeroToLeft(number)
   return (
     <View style={styles.container}>
       <ProductButton onPress={onPressDecrement} mode='decrement' />
 
       <View style={styles.quantityContainer}>
         <Text>
-          {number}
+          {formattedNumber}
         </Text>
       </View>
 

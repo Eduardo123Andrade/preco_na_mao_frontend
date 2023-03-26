@@ -3,6 +3,7 @@ import { useDropDownAnimation } from 'core/hooks'
 import { formatPrice } from 'core/utils'
 import React from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
+import { useShoppingList } from 'shopping-list/hooks/useShoppingList'
 import { Product as ProductInterface } from 'shopping-list/interfaces'
 import { ActionComponent } from './ActionComponent'
 
@@ -11,8 +12,13 @@ interface ProductProps {
 }
 
 export const Product: React.FC<ProductProps> = ({ product }) => {
-  const onPressDecrement = () => console.log("-")
-  const onPressIncrement = () => console.log("+")
+  const [, { decrementProduct, incrementProduct }] = useShoppingList()
+
+  const onPressDecrement = () => {
+    if (product.quantity > 0)
+      decrementProduct(product.id)
+  }
+  const onPressIncrement = () => incrementProduct(product.id)
 
   const [
     { animatedIconButtonStyle, open },
