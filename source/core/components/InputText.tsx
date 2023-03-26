@@ -33,17 +33,19 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
   }, [setSecureTextEntryValue])
 
   const defaultSideElement = useCallback(() => {
-    const name = secureTextEntry ? 'visibility-off' : 'visibility'
+    if (initialSecureTextEntry) {
+      const name = secureTextEntry ? 'visibility-off' : 'visibility'
 
-    return (
-      <Icon
-        name={name}
-        onPress={toggleSecureTextEntry}
-        size={20}
-        color='#AAA'
-      />
-    )
-  }, [secureTextEntry, toggleSecureTextEntry])
+      return (
+        <Icon
+          name={name}
+          onPress={toggleSecureTextEntry}
+          size={20}
+          color='#AAA'
+        />
+      )
+    }
+  }, [secureTextEntry, toggleSecureTextEntry, initialSecureTextEntry])
 
 
   return (
@@ -55,7 +57,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
               <TextInput
                 {...rest}
                 ref={ref}
-                style={style}
+                style={[styles.inputText, style]}
                 secureTextEntry={secureTextEntry}
               />
               {defaultSideElement()}
@@ -85,7 +87,10 @@ const styles = StyleSheet.create({
   inputTextContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+  },
+  inputText: {
+    flex: 1
   },
   subtitleContainer: {
     paddingTop: 5,
