@@ -1,2 +1,2 @@
-export { Item } from './ItemInterface'
+export { Product } from './ ProductInterface'
 export { ShoppingList } from './ShoppingListInterface'
