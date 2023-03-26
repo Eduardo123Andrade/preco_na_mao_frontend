@@ -11,9 +11,15 @@ interface IconProps extends RNVIProps {
   // name: string
 }
 
-export const Icon: React.FC<IconProps> = ({ mode = 'material_icons', ...rest }) => {
-  if (mode === 'ant_design')
-    return <AntDesign {...rest} />
+export const Icon: React.FC<IconProps> = ({
+  mode = 'material_icons',
+  color = '#000',
+  size = 20,
+  ...rest }) => {
+  const props = { color, size, ...rest }
 
-  return <MaterialIcons {...rest} />
+  if (mode === 'ant_design')
+    return <AntDesign {...props} />
+
+  return <MaterialIcons {...props} />
 }
