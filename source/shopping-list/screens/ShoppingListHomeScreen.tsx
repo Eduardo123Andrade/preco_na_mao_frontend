@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { FloatButton, Screen, Text } from 'core/components'
 import React from 'react'
@@ -44,6 +45,9 @@ const HeaderList = () => {
 
 export const ShoppingListHomeScreen = () => {
   const [{ shoppingLists }] = useShoppingList()
+  const navigation = useNavigation()
+
+  const onPress = () => navigation.navigate('CreateShoppingListScreen')
 
   return (
     <Screen contentContainerStyles={styles.container}>
@@ -55,7 +59,7 @@ export const ShoppingListHomeScreen = () => {
         ListEmptyComponent={EmptyList}
         ListHeaderComponent={HeaderList}
       />
-      <FloatButton />
+      <FloatButton onPress={onPress} />
     </Screen>
   )
 }
