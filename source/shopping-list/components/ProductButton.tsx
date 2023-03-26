@@ -1,7 +1,6 @@
-import { Text, Touchable } from 'core/components'
+import { Icon, Touchable } from 'core/components'
 import React from 'react'
 import { StyleSheet } from 'react-native'
-
 
 type ButtonText = 'increment' | 'decrement'
 
@@ -12,16 +11,18 @@ interface ProductButtonProps {
 }
 
 const BUTTON_MODE = {
-  'decrement': '-',
-  'increment': '+'
+  'decrement': 'minus',
+  'increment': 'plus'
 }
 
 export const ProductButton: React.FC<ProductButtonProps> = ({ mode, onPress }) => {
   return (
     <Touchable onPress={onPress} style={styles.container}>
-      <Text fontSize={20} color='#666'>
-        {BUTTON_MODE[mode]}
-      </Text>
+      <Icon
+        mode='ant_design'
+        name={BUTTON_MODE[mode]}
+        color='#000'
+      />
     </Touchable>
   )
 }
@@ -29,7 +30,6 @@ export const ProductButton: React.FC<ProductButtonProps> = ({ mode, onPress }) =
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ADD8E6',
     justifyContent: 'center',
     alignItems: 'center',
     width: 25
