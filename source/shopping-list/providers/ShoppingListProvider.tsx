@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react"
-import { ShoppingList } from "shopping-list/interfaces"
+import { Product, ShoppingList } from "shopping-list/interfaces"
 import { MOCKED_SHOPPING_LIST } from "shopping-list/utils"
 
 interface ShoppingListProviderState {
@@ -9,10 +9,11 @@ interface ShoppingListProviderState {
 
 interface ShoppingListProviderActions {
   addShoppingList: (shoppingListData: ShoppingList) => void
+  decrementProduct: (productId: string) => void
+  incrementProduct: (productId: string) => void
+  removeProduct: (productId: string) => void
   removeShoppingList: (id: string) => void
   selectShoppingList: (shoppingListData: ShoppingList) => void
-  incrementProduct: (productId: string) => void
-  decrementProduct: (productId: string) => void
 }
 
 type ShoppingListProviderData = [
@@ -24,6 +25,22 @@ export const ShoppingListContext = createContext<ShoppingListProviderData>({} as
 
 interface ShoppingListProviderProps {
   children: React.ReactNode
+}
+
+const incrementItem = (currentShoppingList: ShoppingList, productId: string, incrementor: number) => {
+  const { items } = currentShoppingList
+
+  const mappedItems = items.map(item => {
+    if (item.id === productId) {
+      return {
+        ...item,
+        quantity: item.quantity + incrementor
+      }
+    }
+    return item
+  })
+
+  return mappedItems
 }
 
 export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ children }) => {
@@ -46,48 +63,33 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
     setCurrentShoppingList(shoppingList)
   }
 
-  const incrementProduct = (productId: string) => {
-    const { items } = currentShoppingList
-
-    const mappedItem = items.map(item => {
-      if (item.id === productId) {
-        return {
-          ...item,
-          quantity: item.quantity + 1
-        }
-      }
-      return item
-    })
-
+  const updateProductList = (newProductList: Product[]) => {
     setCurrentShoppingList(prevState => {
-
       return {
         ...prevState,
-        items: mappedItem
+        items: newProductList
       }
     })
   }
 
+  const incrementProduct = (productId: string) => {
+    const mappedItems = incrementItem(currentShoppingList, productId, 1)
+
+    updateProductList(mappedItems)
+  }
+
   const decrementProduct = (productId: string) => {
+    const mappedItems = incrementItem(currentShoppingList, productId, -1)
+
+    updateProductList(mappedItems)
+  }
+
+  const removeProduct = (productId: string) => {
     const { items } = currentShoppingList
 
-    const mappedItem = items.map(item => {
-      if (item.id === productId) {
-        return {
-          ...item,
-          quantity: item.quantity - 1
-        }
-      }
-      return item
-    })
+    const filteredItems = items.filter(item => item.id !== productId)
 
-    setCurrentShoppingList(prevState => {
-
-      return {
-        ...prevState,
-        items: mappedItem
-      }
-    })
+    updateProductList(filteredItems)
   }
 
 
@@ -100,10 +102,11 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
       },
       {
         addShoppingList,
-        removeShoppingList,
-        selectShoppingList,
+        decrementProduct,
         incrementProduct,
-        decrementProduct
+        removeShoppingList,
+        removeProduct,
+        selectShoppingList,
       }
     ]}
   />

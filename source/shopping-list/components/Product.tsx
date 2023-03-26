@@ -12,7 +12,7 @@ interface ProductProps {
 }
 
 export const Product: React.FC<ProductProps> = ({ product }) => {
-  const [, { decrementProduct, incrementProduct }] = useShoppingList()
+  const [, { decrementProduct, incrementProduct, removeProduct }] = useShoppingList()
 
   const onPressDecrement = () => {
     if (product.quantity > 0)
@@ -28,9 +28,9 @@ export const Product: React.FC<ProductProps> = ({ product }) => {
   const unityPrice = formatPrice(product.price)
   const totalPrice = formatPrice(product.price * product.quantity)
 
-  function onPress() {
-    onToggleAccordion()
-  }
+  const onPress = () => onToggleAccordion()
+
+  const onRemoveProduct = () => removeProduct(product.id)
 
   return (
     <View style={styles.container}>
@@ -51,6 +51,7 @@ export const Product: React.FC<ProductProps> = ({ product }) => {
               mode='ant_design'
               name='close'
               size={15}
+              onPress={onRemoveProduct}
             />
           </View>
 
