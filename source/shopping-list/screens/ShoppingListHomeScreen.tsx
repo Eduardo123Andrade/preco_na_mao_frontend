@@ -28,11 +28,19 @@ const EmptyList = () => {
       <Text>
         Clique no botao a baixo e crie suas listas.
       </Text>
-
     </View>
   )
 }
 
+const HeaderList = () => {
+  return (
+    <View style={styles.headerListComponent}>
+      <Text bold fontSize={20} color='#228B22'>
+        Suas listas de compras
+      </Text>
+    </View>
+  )
+}
 
 export const ShoppingListHomeScreen = () => {
   const [{ shoppingLists }] = useShoppingList()
@@ -45,6 +53,7 @@ export const ShoppingListHomeScreen = () => {
         contentContainerStyle={styles.listContentContainer}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={EmptyList}
+        ListHeaderComponent={HeaderList}
       />
       <FloatButton />
     </Screen>
@@ -67,10 +76,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   listContentContainer: {
-    marginTop: 20,
+    marginTop: 15,
     paddingBottom: 40
   },
   emptyListComponent: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  headerListComponent: {
     justifyContent: 'center',
     alignItems: 'center'
   }

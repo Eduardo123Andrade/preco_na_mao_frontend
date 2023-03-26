@@ -9,8 +9,7 @@ const { Navigator, Screen } = createBottomTabNavigator()
 export const HomeBottomNavigator = () => {
   return (
     <Navigator
-      // initialRouteName='Home'
-      initialRouteName='ShoppingList'
+      initialRouteName='Home'
     >
       <Screen
         name='Profile'
