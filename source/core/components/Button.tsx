@@ -1,10 +1,11 @@
 import React from 'react'
 import { ActivityIndicator, StyleSheet, TouchableHighlightProps, View } from 'react-native'
+import { Text } from './Text'
 import { Touchable } from './Touchable'
 
 
 interface ButtonProps extends TouchableHighlightProps {
-  children: React.ReactNode,
+  children: string,
   isLoading?: boolean
 }
 
@@ -17,7 +18,13 @@ export const Button: React.FC<ButtonProps> = ({ children, style, isLoading, disa
       >
         {isLoading ?
           (<ActivityIndicator size='small' color={'#F11'} />) :
-          <View>{children}</View>
+          (
+            <View style={styles.textContainer}>
+              <Text>
+                {children}
+              </Text>
+            </View>
+          )
         }
       </View>
     </Touchable>
@@ -26,10 +33,11 @@ export const Button: React.FC<ButtonProps> = ({ children, style, isLoading, disa
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#3c3",
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingVertical: 10,
     borderRadius: 10,
+  },
+  textContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })

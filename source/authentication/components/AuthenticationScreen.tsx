@@ -1,6 +1,6 @@
 import { Button, Screen } from 'core/components'
 import React from 'react'
-import { View, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native'
+import { StyleSheet, View, ViewStyle } from 'react-native'
 
 type SingUpScreenProps = {
   contentContainerStyle?: ViewStyle
@@ -29,10 +29,8 @@ export const AuthenticationScreen: React.FC<SingUpScreenProps> = ({
         <Button
           disabled={disabled}
           isLoading={isLoading}
-          style={styles.button} onPress={(onPress)}>
-          <Text>
-            {buttonTitle}
-          </Text>
+          onPress={(onPress)}>
+          {buttonTitle}
         </Button>
       </View>
 
@@ -46,11 +44,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   buttonContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-evenly',
-  },
-  button: {
-    flex: 1
   },
 })

@@ -1,5 +1,5 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Button, InputText, Screen, Text } from 'core/components'
+import { Button, InputText, Screen } from 'core/components'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
@@ -13,9 +13,7 @@ export const CreateShoppingListScreen = (props: CreateShoppingListScreenProps) =
           placeholder='Nova lista'
         />
         <Button>
-          <Text>
-            Avançar
-          </Text>
+          Avançar
         </Button>
       </View>
     </Screen>
