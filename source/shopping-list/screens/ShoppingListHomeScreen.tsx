@@ -1,5 +1,5 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Screen } from 'core/components'
+import { FloatButton, Screen } from 'core/components'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
@@ -32,6 +32,7 @@ export const ShoppingListHomeScreen = () => {
         contentContainerStyle={styles.listContentContainer}
         showsVerticalScrollIndicator={false}
       />
+      <FloatButton />
     </Screen>
   )
 }

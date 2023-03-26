@@ -1,5 +1,6 @@
 export { Button } from './Button'
 export { Icon } from './Icon'
+export { FloatButton } from './FloatButton'
 export { InputText } from './InputText'
 export { Screen } from './Screen'
 export { Separator } from './Separator'
