@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { Text } from './Text'
 import { Touchable } from './Touchable'
 
 interface FloatButtonProps { }
@@ -10,7 +11,7 @@ export const FloatButton: React.FC<FloatButtonProps> = (props) => {
   const onPress = () => console.log('float button')
   return (
     <Touchable onPress={onPress} style={styles.container}>
-      <Text>
+      <Text fontSize={25} color='#FFF' >
         +
       </Text>
     </Touchable>
