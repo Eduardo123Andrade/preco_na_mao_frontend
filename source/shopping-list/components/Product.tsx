@@ -10,7 +10,6 @@ interface ProductProps {
   product: ProductInterface
 }
 
-
 export const Product: React.FC<ProductProps> = ({ product }) => {
   const onPressDecrement = () => console.log("-")
   const onPressIncrement = () => console.log("+")
@@ -35,18 +34,24 @@ export const Product: React.FC<ProductProps> = ({ product }) => {
         </Text>
 
         <View style={styles.actionContainer}>
-          <View style={styles.quantityActionContainer}>
-            <ActionComponent
-              number={product.quantity}
-              onPressDecrement={onPressDecrement}
-              onPressIncrement={onPressIncrement}
+          <ActionComponent
+            number={product.quantity}
+            onPressDecrement={onPressDecrement}
+            onPressIncrement={onPressIncrement}
+          />
+
+          <View>
+            <Icon
+              mode='ant_design'
+              name='close'
+              size={15}
             />
           </View>
 
           <Animated.View style={animatedIconButtonStyle}>
             <Icon
               name='keyboard-arrow-down'
-              size={20}
+              size={15}
               color='#000'
               onPress={onPress}
             />
@@ -56,18 +61,20 @@ export const Product: React.FC<ProductProps> = ({ product }) => {
 
       {open && <Separator />}
 
-      {open && (
-        <View style={styles.extraInfoContainer}>
-          <Text>
-            {`Preço unitario: R$ ${unityPrice}`}
-          </Text>
+      {
+        open && (
+          <View style={styles.extraInfoContainer}>
+            <Text>
+              {`Preço unitario: R$ ${unityPrice}`}
+            </Text>
 
-          <Text>
-            {`Preço total: R$ ${totalPrice}`}
-          </Text>
-        </View>
-      )}
-    </View>
+            <Text>
+              {`Preço total: R$ ${totalPrice}`}
+            </Text>
+          </View>
+        )
+      }
+    </View >
   )
 }
 
@@ -84,11 +91,9 @@ const styles = StyleSheet.create({
   },
   actionContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  quantityActionContainer: {
-    paddingRight: 30
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flex: 0.45
   },
   extraInfoContainer: {
     flexDirection: 'row',

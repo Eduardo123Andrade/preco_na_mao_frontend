@@ -22,6 +22,7 @@ export const ProductButton: React.FC<ProductButtonProps> = ({ mode, onPress }) =
         mode='ant_design'
         name={BUTTON_MODE[mode]}
         color='#000'
+        size={15}
       />
     </Touchable>
   )
