@@ -1,19 +1,35 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Screen, Text } from 'core/components'
+import { Icon, Screen, Text } from 'core/components'
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import { Product } from 'shopping-list/components'
 import { ShoppingList } from 'shopping-list/interfaces'
+import { MOCKED_SHOPPING_LIST } from 'shopping-list/utils'
 
 interface ShoppingListDetailsScreenProps {
   shoppingList?: ShoppingList,
 }
 
+
+const [currentShoppingList] = MOCKED_SHOPPING_LIST
+
 export const ShoppingListDetailsScreen = (props: ShoppingListDetailsScreenProps) => {
   return (
     <Screen style={styles.container}>
-      <Text>
-        Olá mundo!
-      </Text>
+      <View style={styles.headerContainer}>
+        <Text>
+          {currentShoppingList.name}
+        </Text>
+        <Icon
+          name='play-arrow'
+          size={20}
+          color='#AAA'
+        />
+      </View>
+      <Product />
+      <View>
+
+      </View>
     </Screen>
   )
 }
@@ -29,6 +45,12 @@ ShoppingListDetailsScreen.NavigationOptions = navigationOptions
 
 const styles = StyleSheet.create({
   container: {
-
+    flex: 1
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // backgroundColor: '#F11',
+    paddingVertical: 20,
   }
 })
