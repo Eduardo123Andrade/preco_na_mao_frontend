@@ -61,7 +61,8 @@ export const ShoppingListHomeScreen = () => {
 }
 
 const navigationOptions: StackNavigationOptions = {
-  headerShown: false,
+  headerTransparent: true,
+  title: ''
 }
 
 ShoppingListHomeScreen.NavigationOptions = navigationOptions
