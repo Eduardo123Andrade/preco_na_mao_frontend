@@ -28,9 +28,9 @@ interface ShoppingListProviderProps {
 }
 
 const incrementItem = (currentShoppingList: ShoppingList, productId: string, incrementor: number) => {
-  const { items } = currentShoppingList
+  const { products } = currentShoppingList
 
-  const mappedItems = items.map(item => {
+  const mappedItems = products.map(item => {
     if (item.id === productId) {
       return {
         ...item,
@@ -67,7 +67,7 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
     setCurrentShoppingList(prevState => {
       return {
         ...prevState,
-        items: newProductList
+        products: newProductList
       }
     })
   }
@@ -85,9 +85,9 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
   }
 
   const removeProduct = (productId: string) => {
-    const { items } = currentShoppingList
+    const { products } = currentShoppingList
 
-    const filteredItems = items.filter(item => item.id !== productId)
+    const filteredItems = products.filter(item => item.id !== productId)
 
     updateProductList(filteredItems)
   }

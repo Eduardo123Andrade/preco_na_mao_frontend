@@ -29,8 +29,8 @@ const sumValues = (previous: number, current: ProductInterface) =>
 export const ShoppingListDetailsScreen = (props: ShoppingListDetailsScreenProps) => {
   const [{ currentShoppingList }] = useShoppingList()
 
-  const { items } = currentShoppingList
-  const totalPrice = items.reduce(sumValues, 0)
+  const { products } = currentShoppingList
+  const totalPrice = products.reduce(sumValues, 0)
   const formattedPrice = formatPrice(totalPrice)
 
   return (
@@ -52,7 +52,7 @@ export const ShoppingListDetailsScreen = (props: ShoppingListDetailsScreenProps)
 
         <View style={styles.listContainer}>
           <FlatList
-            data={items}
+            data={products}
             renderItem={renderItem}
             contentContainerStyle={styles.listContentContainer}
           />

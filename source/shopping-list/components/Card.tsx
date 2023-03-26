@@ -15,9 +15,9 @@ export const Card: React.FC<CardProps> = ({ shoppingList }) => {
   const [, { selectShoppingList }] = useShoppingList()
   const navigation = useNavigation()
 
-  const { name, items, date } = shoppingList
+  const { name, products, date } = shoppingList
 
-  const quantityItems = items.length
+  const quantityItems = products.length
 
   const formattedDate = formatDate(date)
 
@@ -30,7 +30,7 @@ export const Card: React.FC<CardProps> = ({ shoppingList }) => {
     <Touchable onPress={onPress} style={styles.container}>
       <RenderTextWithSeparator text={name} />
 
-      <RenderTextWithSeparator text={`itens: ${quantityItems}`} />
+      <RenderTextWithSeparator text={`Produtos: ${quantityItems}`} />
 
       <Text>
         {formattedDate}

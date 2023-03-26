@@ -32,31 +32,31 @@ export const MOCKED_SHOPPING_LIST: ShoppingList[] = [
   {
     id: '1',
     date: new Date(),
-    items: MOCKED_SHOPPING_LIST_ITEM,
+    products: MOCKED_SHOPPING_LIST_ITEM,
     name: "Lista 1"
   },
   {
     id: '2',
     date: new Date(),
-    items: MOCKED_SHOPPING_LIST_ITEM,
+    products: MOCKED_SHOPPING_LIST_ITEM,
     name: "Lista 2"
   },
   {
     id: '3',
     date: new Date(),
-    items: MOCKED_SHOPPING_LIST_ITEM,
+    products: MOCKED_SHOPPING_LIST_ITEM,
     name: "Lista 3"
   },
   {
     id: '4',
     date: new Date(),
-    items: MOCKED_SHOPPING_LIST_ITEM,
+    products: MOCKED_SHOPPING_LIST_ITEM,
     name: "Lista 4"
   },
   {
     id: '5',
     date: new Date(),
-    items: MOCKED_SHOPPING_LIST_ITEM,
+    products: MOCKED_SHOPPING_LIST_ITEM,
     name: "Lista 5"
   },
 ]
