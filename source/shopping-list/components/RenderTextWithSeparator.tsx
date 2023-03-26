@@ -1,6 +1,6 @@
 import { Separator, Text } from 'core/components'
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 
 interface renderTextWithSeparatorProps {
@@ -9,12 +9,12 @@ interface renderTextWithSeparatorProps {
 
 export const RenderTextWithSeparator: React.FC<renderTextWithSeparatorProps> = ({ text }) => {
   return (
-    <>
+    <View>
       <Text>
         {text}
       </Text>
       <Separator style={styles.separator} />
-    </>
+    </View>
   )
 }
 
