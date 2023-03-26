@@ -8,8 +8,10 @@ import { useForm } from 'core/hooks'
 import { SimpleModal } from 'core/modals'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View } from 'react-native'
 
+
+const { width: WIDTH } = Dimensions.get('window')
 
 interface Login {
   cpf: string
@@ -91,11 +93,8 @@ export const LoginScreen = () => {
 
 
         <View style={styles.buttonContainer}>
-          <Button
-            style={styles.button} onPress={onPressSignUp}>
-            <Text>
-              Registrar
-            </Text>
+          <Button style={styles.button} onPress={onPressSignUp}>
+            Registrar
           </Button>
 
           <Button
@@ -104,9 +103,7 @@ export const LoginScreen = () => {
             style={styles.button}
             onPress={onPressLogin}
           >
-            <Text>
-              Login
-            </Text>
+            Login
           </Button>
         </View>
 
@@ -145,11 +142,10 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
   },
   button: {
-    flex: 0.45
+    width: WIDTH * 0.43
   },
   inputTextContainer: {
     paddingVertical: 10

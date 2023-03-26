@@ -42,9 +42,7 @@ export const SimpleModal: React.FC<SimpleModalProps> = ({
 
       <View>
         <Button onPress={_onPress}>
-          <Text>
-            {label}
-          </Text>
+          {label}
         </Button>
       </View>
 
