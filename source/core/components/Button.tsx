@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, TouchableHighlight, TouchableHighlightProps, StyleSheet, TouchableNativeFeedbackBase, GestureResponderEvent, ActivityIndicator, TouchableNativeFeedbackComponent, TouchableNativeFeedback } from 'react-native'
+import { ActivityIndicator, StyleSheet, TouchableHighlightProps, View } from 'react-native'
+import { Touchable } from './Touchable'
 
 
 interface ButtonProps extends TouchableHighlightProps {
@@ -7,16 +8,10 @@ interface ButtonProps extends TouchableHighlightProps {
   isLoading?: boolean
 }
 
-const DEFAULT_LIGHT_UNDERLAY_COLOR = "#FFFFFF42"
-
 export const Button: React.FC<ButtonProps> = ({ children, style, isLoading, disabled, ...rest }) => {
 
-
   return (
-    <TouchableNativeFeedback
-      background={TouchableNativeFeedback.Ripple(DEFAULT_LIGHT_UNDERLAY_COLOR, false)}
-      {...rest}
-      disabled={disabled || isLoading}>
+    <Touchable disabled={disabled || isLoading} {...rest}>
       <View
         style={[styles.container, style, { backgroundColor: disabled ? "#c3c3c3" : "#3c3" }]}
       >
@@ -25,7 +20,7 @@ export const Button: React.FC<ButtonProps> = ({ children, style, isLoading, disa
           <View>{children}</View>
         }
       </View>
-    </TouchableNativeFeedback>
+    </Touchable>
   )
 }
 

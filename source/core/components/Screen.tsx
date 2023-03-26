@@ -10,7 +10,7 @@ export const Screen: React.FC<ScreenProps> = ({ contentContainerStyles, style, c
 
   return (
     <SafeAreaView style={[styles.container, style]}>
-      <View style={contentContainerStyles}>
+      <View style={[styles.contentContainer, contentContainerStyles]}>
         {children}
       </View>
     </SafeAreaView>
@@ -20,7 +20,9 @@ export const Screen: React.FC<ScreenProps> = ({ contentContainerStyles, style, c
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
     backgroundColor: "#f2f2f2"
+  },
+  contentContainer: {
+    paddingHorizontal: 20,
   }
 })
