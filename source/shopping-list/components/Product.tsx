@@ -1,45 +1,43 @@
-import { Button, Icon, Text, Touchable } from 'core/components'
+import { Icon, Separator, Text } from 'core/components'
 import { useDropDownAnimation } from 'core/hooks'
+import { formatPrice } from 'core/utils'
 import React from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
 import { Product as ProductInterface } from 'shopping-list/interfaces'
-import { MOCKED_SHOPPING_LIST } from 'shopping-list/utils'
 import { ActionComponent } from './ActionComponent'
-import { ProductButton } from './ProductButton'
 
 interface ProductProps {
-  product?: ProductInterface
+  product: ProductInterface
 }
 
-const [currentShoppingList] = MOCKED_SHOPPING_LIST
-const [firstItem] = currentShoppingList.items
 
-export const Product: React.FC<ProductProps> = (props) => {
+export const Product: React.FC<ProductProps> = ({ product }) => {
   const onPressDecrement = () => console.log("-")
   const onPressIncrement = () => console.log("+")
 
   const [
-    { animatedIconButtonStyle, open, height },
-    { onToggleAccordion, setHeight },
+    { animatedIconButtonStyle, open },
+    { onToggleAccordion },
   ] = useDropDownAnimation()
+
+  const unityPrice = formatPrice(product.price)
+  const totalPrice = formatPrice(product.price * product.quantity)
 
   function onPress() {
     onToggleAccordion()
   }
 
-
   return (
     <View style={styles.container}>
-      <Text>
-        {firstItem.name}
-      </Text>
+      <View style={styles.headerContainer}>
+        <Text>
+          {product.name}
+        </Text>
 
-      <View>
         <View style={styles.actionContainer}>
-
           <View style={styles.quantityActionContainer}>
             <ActionComponent
-              number={firstItem.quantity}
+              number={product.quantity}
               onPressDecrement={onPressDecrement}
               onPressIncrement={onPressIncrement}
             />
@@ -49,26 +47,40 @@ export const Product: React.FC<ProductProps> = (props) => {
             <Icon
               name='keyboard-arrow-down'
               size={20}
-              color='#AAA'
+              color='#000'
               onPress={onPress}
             />
           </Animated.View>
-
         </View>
-
       </View>
 
-    </View >
+      {open && <Separator />}
+
+      {open && (
+        <View style={styles.extraInfoContainer}>
+          <Text>
+            {`Preço unitario: R$ ${unityPrice}`}
+          </Text>
+
+          <Text>
+            {`Preço total: R$ ${totalPrice}`}
+          </Text>
+        </View>
+      )}
+    </View>
   )
 }
 
 
 const styles = StyleSheet.create({
   container: {
+    borderWidth: 0.5,
+  },
+  headerContainer: {
     flexDirection: 'row',
-    backgroundColor: '#F11',
     paddingVertical: 10,
     justifyContent: 'space-between',
+    paddingHorizontal: 15
   },
   actionContainer: {
     flexDirection: 'row',
@@ -78,4 +90,10 @@ const styles = StyleSheet.create({
   quantityActionContainer: {
     paddingRight: 30
   },
+  extraInfoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 30,
+    paddingVertical: 5
+  }
 })
