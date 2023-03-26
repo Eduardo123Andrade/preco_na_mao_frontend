@@ -33,6 +33,14 @@ export const ShoppingListDetailsScreen = (props: ShoppingListDetailsScreenProps)
   const totalPrice = products.reduce(sumValues, 0)
   const formattedPrice = formatPrice(totalPrice)
 
+  const onPressAddNewProducts = () => console.log('add')
+
+  const onPressAddStartShopping = () => console.log('start')
+
+  const onPressAddSave = () => console.log('save')
+
+  const hasEditedItem = products.find(item => item.edited)
+
   return (
     <Screen contentContainerStyles={styles.container}>
       <View style={styles.subContainer}>
@@ -43,10 +51,23 @@ export const ShoppingListDetailsScreen = (props: ShoppingListDetailsScreenProps)
           <View style={styles.iconContainer}>
             <Icon
               name='play-arrow'
+              onPress={onPressAddStartShopping}
             />
-            <Icon
-              name='edit'
-            />
+
+            {hasEditedItem && (
+              <Icon
+                name='save'
+                onPress={onPressAddSave}
+              />
+            )}
+
+            {!hasEditedItem && (
+              <Icon
+                mode='ant_design'
+                name='plus'
+                onPress={onPressAddNewProducts}
+              />
+            )}
           </View>
         </View>
 

@@ -34,7 +34,8 @@ const incrementItem = (currentShoppingList: ShoppingList, productId: string, inc
     if (item.id === productId) {
       return {
         ...item,
-        quantity: item.quantity + incrementor
+        edited: true,
+        quantity: item.quantity + incrementor,
       }
     }
     return item
