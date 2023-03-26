@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Animated, Easing } from 'react-native'
 
 const IDLE_HEIGHT = 0
+const HEIGHT = 1
 
 type AnimatedIconButton = {
   transform: {
@@ -21,12 +22,10 @@ type UseDropDownState = {
   animatedIconButtonStyle: AnimatedIconButton
   animatedBodyStyle: AnimatedBodyStyle
   open: boolean
-  height: number
 }
 
 type UseDropDownActions = {
   onToggleAccordion: () => void
-  setHeight: (value: number) => void
 }
 
 type UseDropDownAnimationData = [
@@ -34,23 +33,23 @@ type UseDropDownAnimationData = [
   actions: UseDropDownActions,
 ]
 
+
 export const useDropDownAnimation = (): UseDropDownAnimationData => {
   const [open, setOpen] = useState(false)
-  const [height, updateHeight] = useState(1)
 
-  const animated = new Animated.Value(open ? height : IDLE_HEIGHT)
+  const animated = new Animated.Value(open ? HEIGHT : IDLE_HEIGHT)
 
   useEffect(() => {
     Animated.timing(animated, {
-      toValue: open ? height : IDLE_HEIGHT,
+      toValue: open ? HEIGHT : IDLE_HEIGHT,
       easing: Easing.inOut(Easing.ease),
       duration: 225,
       useNativeDriver: false,
     }).start()
-  }, [open, height, animated])
+  }, [open, HEIGHT, animated])
 
   const interpolateTransformRotate = animated.interpolate({
-    inputRange: [IDLE_HEIGHT, height],
+    inputRange: [IDLE_HEIGHT, HEIGHT],
     outputRange: ['0deg', '180deg'],
     extrapolate: 'clamp',
   })
@@ -62,7 +61,7 @@ export const useDropDownAnimation = (): UseDropDownAnimationData => {
   })
 
   const interpolateScale = animated.interpolate({
-    inputRange: [height / 5, height],
+    inputRange: [HEIGHT / 5, HEIGHT],
     outputRange: [0.9, 1],
     extrapolate: 'clamp',
   })
@@ -81,20 +80,14 @@ export const useDropDownAnimation = (): UseDropDownAnimationData => {
     setOpen((prevState) => !prevState)
   }
 
-  function setHeight(value: number) {
-    updateHeight(value)
-  }
-
   return [
     {
       animatedIconButtonStyle,
       animatedBodyStyle,
       open,
-      height
     },
     {
       onToggleAccordion,
-      setHeight,
     },
   ]
 }
