@@ -1,5 +1,5 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { FloatButton, Screen } from 'core/components'
+import { FloatButton, Screen, Text } from 'core/components'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
@@ -19,6 +19,19 @@ const renderItem = ({ item }: RenderShoppingListsItem) => {
   )
 }
 
+const EmptyList = () => {
+  return (
+    <View style={styles.emptyListComponent}>
+      <Text>
+        Você ainda nao tem lista de compras.
+      </Text>
+      <Text>
+        Clique no botao a baixo e crie suas listas.
+      </Text>
+
+    </View>
+  )
+}
 
 
 export const ShoppingListHomeScreen = () => {
@@ -31,6 +44,7 @@ export const ShoppingListHomeScreen = () => {
         renderItem={renderItem}
         contentContainerStyle={styles.listContentContainer}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={EmptyList}
       />
       <FloatButton />
     </Screen>
@@ -55,5 +69,9 @@ const styles = StyleSheet.create({
   listContentContainer: {
     marginTop: 20,
     paddingBottom: 40
+  },
+  emptyListComponent: {
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
