@@ -1,4 +1,5 @@
 export { useAPI } from './useApi'
+export { useDropDownAnimation } from './useDropDownAnimation'
 export { useForm } from './useForm'
 export { useGetRequest } from './useGetRequest'
 export { useLocalStorage } from './useLocalStorage'
