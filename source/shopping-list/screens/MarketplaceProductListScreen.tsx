@@ -1,10 +1,11 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Screen, Text } from 'core/components'
-import React from 'react'
+import { Screen, Text, Touchable } from 'core/components'
+import React, { useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { ProductMarketplace } from 'shopping-list/components'
 import { useShoppingList } from 'shopping-list/hooks'
 import { Product } from 'shopping-list/interfaces'
+import { IncrementProductModal } from 'shopping-list/modals'
 
 interface RenderItemProps {
   item: Product
@@ -12,28 +13,43 @@ interface RenderItemProps {
 
 export const MarketplaceProductListScreen = () => {
   const [{ currentMarketplace }] = useShoppingList()
+  const [selectedProduct, setSelectedProduct] = useState<Product>()
 
   const { products } = currentMarketplace
 
   const renderItem = ({ item }: RenderItemProps) => {
+    const onPress = () => {
+      setSelectedProduct(item)
+    }
+
     return (
-      <View style={styles.productContainer}>
+      <Touchable onPress={onPress} style={styles.productContainer}>
         <ProductMarketplace product={item} />
-      </View>
+      </Touchable>
     )
+  }
+
+  const onCloseRequest = () => {
+    setSelectedProduct(undefined)
   }
 
   return (
     <Screen contentContainerStyles={styles.container}>
       <View style={styles.headerContainer}>
         <Text fontSize={16} bold>
-          Olá mundo!
+          {currentMarketplace.name}
         </Text>
       </View>
 
       <FlatList
         data={products}
         renderItem={renderItem}
+      />
+
+      <IncrementProductModal
+        visible={!!selectedProduct}
+        onCloseRequest={onCloseRequest}
+        product={selectedProduct}
       />
     </Screen>
   )
