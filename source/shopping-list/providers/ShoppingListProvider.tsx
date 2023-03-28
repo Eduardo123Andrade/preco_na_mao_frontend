@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react"
+import React, { createContext, useState } from "react"
 import { useRequestMarketplaceList } from "shopping-list/hooks"
 import { Marketplace, Product, ShoppingList } from "shopping-list/interfaces"
 import { MOCKED_CURRENT_MARKETPLACE, MOCKED_SHOPPING_LIST, MOCKED_CURRENT_SHOPPING_LIST } from "shopping-list/utils"
@@ -153,11 +153,6 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
     setShoppingLists(mappedProducts)
     setCurrentShoppingList(updatedCurrentShoppingList)
   }
-
-
-  useEffect(() => {
-    console.log(JSON.stringify(currentShoppingList, null, 2))
-  }, [currentShoppingList])
 
   return <ShoppingListContext.Provider
     children={children}
