@@ -1,9 +1,12 @@
 import React, { createContext, useState } from "react"
-import { Product, ShoppingList } from "shopping-list/interfaces"
+import { useRequestMarketplaceList } from "shopping-list/hooks"
+import { Marketplace, Product, ShoppingList } from "shopping-list/interfaces"
 import { MOCKED_SHOPPING_LIST } from "shopping-list/utils"
 
 interface ShoppingListProviderState {
+  currentMarketplace: Marketplace
   currentShoppingList: ShoppingList
+  marketplaceList: Marketplace[]
   shoppingLists: ShoppingList[]
 }
 
@@ -13,6 +16,7 @@ interface ShoppingListProviderActions {
   incrementProduct: (productId: string) => void
   removeProduct: (productId: string) => void
   removeShoppingList: (id: string) => void
+  selectMarketplace: (marketplace: Marketplace) => void
   selectShoppingList: (shoppingListData: ShoppingList) => void
 }
 
@@ -47,6 +51,8 @@ const incrementItem = (currentShoppingList: ShoppingList, productId: string, inc
 export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ children }) => {
   const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>(MOCKED_SHOPPING_LIST)
   const [currentShoppingList, setCurrentShoppingList] = useState<ShoppingList>()
+  const [currentMarketplace, setCurrentMarketplace] = useState<Marketplace>()
+  const [{ marketplaceList }] = useRequestMarketplaceList()
 
   const addShoppingList = (shoppingListData: ShoppingList) => {
     setShoppingLists(prevState => [...prevState, shoppingListData])
@@ -93,12 +99,17 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
     updateProductList(filteredItems)
   }
 
+  const selectMarketplace = (marketplace: Marketplace) => {
+    setCurrentMarketplace(marketplace)
+  }
 
   return <ShoppingListContext.Provider
     children={children}
     value={[
       {
+        currentMarketplace,
         currentShoppingList,
+        marketplaceList,
         shoppingLists,
       },
       {
@@ -107,6 +118,7 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
         incrementProduct,
         removeShoppingList,
         removeProduct,
+        selectMarketplace,
         selectShoppingList,
       }
     ]}
