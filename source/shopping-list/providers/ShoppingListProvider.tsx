@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react"
 import { useRequestMarketplaceList } from "shopping-list/hooks"
 import { Marketplace, Product, ShoppingList } from "shopping-list/interfaces"
-import { MOCKED_SHOPPING_LIST } from "shopping-list/utils"
+import { MOCKED_CURRENT_MARKETPLACE, MOCKED_SHOPPING_LIST } from "shopping-list/utils"
 
 interface ShoppingListProviderState {
   currentMarketplace: Marketplace
@@ -51,7 +51,7 @@ const incrementItem = (currentShoppingList: ShoppingList, productId: string, inc
 export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ children }) => {
   const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>(MOCKED_SHOPPING_LIST)
   const [currentShoppingList, setCurrentShoppingList] = useState<ShoppingList>()
-  const [currentMarketplace, setCurrentMarketplace] = useState<Marketplace>()
+  const [currentMarketplace, setCurrentMarketplace] = useState<Marketplace>(MOCKED_CURRENT_MARKETPLACE)
   const [{ marketplaceList }] = useRequestMarketplaceList()
 
   const addShoppingList = (shoppingListData: ShoppingList) => {
