@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
   },
   quantityIncrementorContainer: {
     paddingVertical: 20,
-    backgroundColor: '#3c3',
     alignItems: 'center',
   },
   footerContainer: {

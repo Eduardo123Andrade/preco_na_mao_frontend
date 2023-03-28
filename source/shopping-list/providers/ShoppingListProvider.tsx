@@ -50,6 +50,13 @@ const incrementItem = (currentShoppingList: ShoppingList, productId: string, inc
   return mappedItems
 }
 
+const setAllProductsEditedFalse = (shoppingList: ShoppingList) => {
+  const { products } = shoppingList
+
+  const mappedProducts = products.map(product => ({ ...product, edited: false }))
+  return { ...shoppingList, products: mappedProducts }
+}
+
 export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ children }) => {
   const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>(MOCKED_SHOPPING_LIST)
   const [currentShoppingList, setCurrentShoppingList] = useState<ShoppingList>(MOCKED_CURRENT_SHOPPING_LIST)
@@ -136,12 +143,15 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
 
     const mappedProducts = shoppingLists.map(item => {
       if (item.id === currentShoppingList.id) {
-        return currentShoppingList
+        return setAllProductsEditedFalse(currentShoppingList)
       }
-      return item
+      return setAllProductsEditedFalse(item)
     })
 
+    const updatedCurrentShoppingList = setAllProductsEditedFalse(currentShoppingList)
+
     setShoppingLists(mappedProducts)
+    setCurrentShoppingList(updatedCurrentShoppingList)
   }
 
 
