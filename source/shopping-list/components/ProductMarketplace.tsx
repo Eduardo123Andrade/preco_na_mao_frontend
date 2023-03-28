@@ -18,7 +18,6 @@ export const ProductMarketplace: React.FC<ProductMarketplaceProps> = ({ product 
           {product.name}
         </Text>
       </View>
-
       <View style={styles.priceContainer}>
         <Text>
           R$
