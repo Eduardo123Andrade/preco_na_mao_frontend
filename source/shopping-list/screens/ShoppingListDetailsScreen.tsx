@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Icon, Screen, Text } from 'core/components'
 import { formatPrice } from 'core/utils'
@@ -8,9 +9,6 @@ import { Product } from 'shopping-list/components'
 import { useShoppingList } from 'shopping-list/hooks/useShoppingList'
 import { Product as ProductInterface, ShoppingList } from 'shopping-list/interfaces'
 
-interface ShoppingListDetailsScreenProps {
-  shoppingList?: ShoppingList,
-}
 interface RenderItemProps {
   item: ProductInterface
 }
@@ -26,14 +24,17 @@ const renderItem = ({ item }: RenderItemProps) => {
 const sumValues = (previous: number, current: ProductInterface) =>
   previous + (current.quantity * current.price)
 
-export const ShoppingListDetailsScreen = (props: ShoppingListDetailsScreenProps) => {
+export const ShoppingListDetailsScreen = () => {
   const [{ currentShoppingList }] = useShoppingList()
 
   const { products } = currentShoppingList
+  const navigation = useNavigation()
+
   const totalPrice = products.reduce(sumValues, 0)
   const formattedPrice = formatPrice(totalPrice)
 
-  const onPressAddNewProducts = () => console.log('add')
+  const onPressAddNewProducts = () => navigation.navigate('MarketplaceListScreen')
+
 
   const onPressAddStartShopping = () => console.log('start')
 
