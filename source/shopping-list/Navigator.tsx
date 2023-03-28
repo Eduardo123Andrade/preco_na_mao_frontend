@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
-import { ShoppingListHomeScreen, ShoppingListDetailsScreen, CreateShoppingListScreen, MarketplaceListScreen } from './screens'
+import { ShoppingListHomeScreen, ShoppingListDetailsScreen, CreateShoppingListScreen, MarketplaceListScreen, MarketplaceProductListScreen } from './screens'
 import { TabBarIcon } from 'core/components'
 import { ShoppingListProvider } from './providers'
 
@@ -11,7 +11,9 @@ const { Navigator, Screen } = createStackNavigator()
 export const ShoppingListNavigator = () => {
   return (
     <ShoppingListProvider>
-      <Navigator>
+      <Navigator
+        initialRouteName='MarketplaceProductListScreen'
+      >
 
         <Screen
           name='ShoppingListHomeScreen'
@@ -34,8 +36,11 @@ export const ShoppingListNavigator = () => {
           component={MarketplaceListScreen}
           options={MarketplaceListScreen.NavigationOptions}
         />
-
-
+        <Screen
+          name='MarketplaceProductListScreen'
+          component={MarketplaceProductListScreen}
+          options={MarketplaceProductListScreen.NavigationOptions}
+        />
       </Navigator>
     </ShoppingListProvider>
   )
