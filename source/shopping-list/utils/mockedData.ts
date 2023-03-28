@@ -27,7 +27,6 @@ export const MOCKED_SHOPPING_LIST_ITEM: Product[] = [
   },
 ]
 
-
 export const MOCKED_SHOPPING_LIST: ShoppingList[] = [
   {
     id: '1',
@@ -97,5 +96,12 @@ export const MOCKED_MARKETPLACE_LIST: Marketplace[] = [
 export const MOCKED_CURRENT_MARKETPLACE: Marketplace = {
   name: 'Mercado principal',
   id: '1',
+  products: MOCKED_SHOPPING_LIST_ITEM
+}
+
+export const MOCKED_CURRENT_SHOPPING_LIST: ShoppingList = {
+  name: "TEST",
+  date: new Date(),
+  id: '10',
   products: MOCKED_SHOPPING_LIST_ITEM
 }
