@@ -30,7 +30,7 @@ export const BaseModal: React.FC<BaseModalProps> = ({ children, contentContainer
               onPress={_onRequestClose}
             />
           </View>
-          <View style={[styles.contentContainer, contentContainerStyle]}>
+          <View style={[contentContainerStyle]}>
             {children}
           </View>
         </View>
@@ -51,13 +51,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     borderRadius: 30,
     width: 250,
-    height: 200,
     padding: 20,
   },
   headerModal: {
     flexDirection: 'row-reverse'
   },
-  contentContainer: {
-    flex: 1,
-  }
 })

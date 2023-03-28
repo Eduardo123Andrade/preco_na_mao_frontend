@@ -1,5 +1,4 @@
-import { MarketPlace } from './../interfaces/MarketPlaceInterface';
-import { Product, ShoppingList } from 'shopping-list/interfaces';
+import { Product, ShoppingList, Marketplace } from 'shopping-list/interfaces';
 
 export const MOCKED_SHOPPING_LIST_ITEM: Product[] = [
   {
@@ -27,7 +26,6 @@ export const MOCKED_SHOPPING_LIST_ITEM: Product[] = [
     quantity: 4,
   },
 ]
-
 
 export const MOCKED_SHOPPING_LIST: ShoppingList[] = [
   {
@@ -62,29 +60,48 @@ export const MOCKED_SHOPPING_LIST: ShoppingList[] = [
   },
 ]
 
-export const MOCKED_MARKETPLACE_LIST: MarketPlace[] = [
+export const MOCKED_MARKETPLACE_LIST: Marketplace[] = [
   {
     id: '1',
     name: "Mercado 1",
+    products: MOCKED_SHOPPING_LIST_ITEM
   },
   {
     id: '2',
     name: "Mercado 2",
+    products: MOCKED_SHOPPING_LIST_ITEM
   },
   {
     id: '3',
     name: "Mercado 3",
+    products: MOCKED_SHOPPING_LIST_ITEM
   },
   {
     id: '4',
     name: "Mercado 4",
+    products: MOCKED_SHOPPING_LIST_ITEM
   },
   {
     id: '5',
     name: "Mercado 5",
+    products: MOCKED_SHOPPING_LIST_ITEM
   },
   {
     id: '6',
     name: "Mercado 6",
+    products: MOCKED_SHOPPING_LIST_ITEM
   },
 ]
+
+export const MOCKED_CURRENT_MARKETPLACE: Marketplace = {
+  name: 'Mercado principal',
+  id: '1',
+  products: MOCKED_SHOPPING_LIST_ITEM
+}
+
+export const MOCKED_CURRENT_SHOPPING_LIST: ShoppingList = {
+  name: "TEST",
+  date: new Date(),
+  id: '10',
+  products: []
+}

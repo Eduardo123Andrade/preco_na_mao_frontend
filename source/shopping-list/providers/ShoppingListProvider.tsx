@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react"
 import { useRequestMarketplaceList } from "shopping-list/hooks"
 import { Marketplace, Product, ShoppingList } from "shopping-list/interfaces"
-import { MOCKED_SHOPPING_LIST } from "shopping-list/utils"
+import { MOCKED_CURRENT_MARKETPLACE, MOCKED_SHOPPING_LIST, MOCKED_CURRENT_SHOPPING_LIST } from "shopping-list/utils"
 
 interface ShoppingListProviderState {
   currentMarketplace: Marketplace
@@ -16,6 +16,8 @@ interface ShoppingListProviderActions {
   incrementProduct: (productId: string) => void
   removeProduct: (productId: string) => void
   removeShoppingList: (id: string) => void
+  saveProduct: (product: Product, quantity: number) => void
+  saveShoppingList: () => void
   selectMarketplace: (marketplace: Marketplace) => void
   selectShoppingList: (shoppingListData: ShoppingList) => void
 }
@@ -48,10 +50,17 @@ const incrementItem = (currentShoppingList: ShoppingList, productId: string, inc
   return mappedItems
 }
 
+const setAllProductsEditedFalse = (shoppingList: ShoppingList) => {
+  const { products } = shoppingList
+
+  const mappedProducts = products.map(product => ({ ...product, edited: false }))
+  return { ...shoppingList, products: mappedProducts }
+}
+
 export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ children }) => {
   const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>(MOCKED_SHOPPING_LIST)
-  const [currentShoppingList, setCurrentShoppingList] = useState<ShoppingList>()
-  const [currentMarketplace, setCurrentMarketplace] = useState<Marketplace>()
+  const [currentShoppingList, setCurrentShoppingList] = useState<ShoppingList>(MOCKED_CURRENT_SHOPPING_LIST)
+  const [currentMarketplace, setCurrentMarketplace] = useState<Marketplace>(MOCKED_CURRENT_MARKETPLACE)
   const [{ marketplaceList }] = useRequestMarketplaceList()
 
   const addShoppingList = (shoppingListData: ShoppingList) => {
@@ -103,6 +112,48 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
     setCurrentMarketplace(marketplace)
   }
 
+  const saveProduct = (product: Product, quantity: number) => {
+    const { products } = currentShoppingList
+
+    const foundedProduct = products.find((item) => item.id === product.id)
+    const currentProduct = foundedProduct ?? product
+
+    if (!foundedProduct) {
+      products.push(product)
+    }
+
+    const mappedProducts = products.map(item => {
+      if (item.id === currentProduct.id) {
+        return {
+          ...currentProduct,
+          quantity
+        }
+      }
+      return item
+    })
+    updateProductList(mappedProducts)
+  }
+
+  const saveShoppingList = () => {
+    const foundedShoppingList = shoppingLists.find(item => item.id === currentShoppingList.id)
+
+    if (!foundedShoppingList) {
+      setShoppingLists(prevState => [...prevState, currentShoppingList])
+    }
+
+    const mappedProducts = shoppingLists.map(item => {
+      if (item.id === currentShoppingList.id) {
+        return setAllProductsEditedFalse(currentShoppingList)
+      }
+      return setAllProductsEditedFalse(item)
+    })
+
+    const updatedCurrentShoppingList = setAllProductsEditedFalse(currentShoppingList)
+
+    setShoppingLists(mappedProducts)
+    setCurrentShoppingList(updatedCurrentShoppingList)
+  }
+
   return <ShoppingListContext.Provider
     children={children}
     value={[
@@ -118,6 +169,8 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
         incrementProduct,
         removeShoppingList,
         removeProduct,
+        saveProduct,
+        saveShoppingList,
         selectMarketplace,
         selectShoppingList,
       }

@@ -18,8 +18,8 @@ export const MarketplaceListScreen = () => {
 
   const renderItem = ({ item }: RenderItemProps) => {
     const onPress = () => {
-      navigation.navigate('')
       selectMarketplace(item)
+      navigation.navigate('MarketplaceProductListScreen')
     }
 
     return (

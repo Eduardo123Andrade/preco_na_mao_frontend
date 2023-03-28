@@ -25,7 +25,7 @@ const sumValues = (previous: number, current: ProductInterface) =>
   previous + (current.quantity * current.price)
 
 export const ShoppingListDetailsScreen = () => {
-  const [{ currentShoppingList }] = useShoppingList()
+  const [{ currentShoppingList }, { saveShoppingList }] = useShoppingList()
 
   const { products } = currentShoppingList
   const navigation = useNavigation()
@@ -35,10 +35,11 @@ export const ShoppingListDetailsScreen = () => {
 
   const onPressAddNewProducts = () => navigation.navigate('MarketplaceListScreen')
 
-
   const onPressAddStartShopping = () => console.log('start')
 
-  const onPressAddSave = () => console.log('save')
+  const onPressAddSave = () => {
+    saveShoppingList()
+  }
 
   const hasEditedItem = products.find(item => item.edited)
 
