@@ -103,5 +103,5 @@ export const MOCKED_CURRENT_SHOPPING_LIST: ShoppingList = {
   name: "TEST",
   date: new Date(),
   id: '10',
-  products: MOCKED_SHOPPING_LIST_ITEM
+  products: []
 }
