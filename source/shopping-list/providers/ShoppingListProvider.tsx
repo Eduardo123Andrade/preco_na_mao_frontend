@@ -17,6 +17,7 @@ interface ShoppingListProviderActions {
   removeProduct: (productId: string) => void
   removeShoppingList: (id: string) => void
   saveProduct: (product: Product, quantity: number) => void
+  saveShoppingList: () => void
   selectMarketplace: (marketplace: Marketplace) => void
   selectShoppingList: (shoppingListData: ShoppingList) => void
 }
@@ -126,6 +127,28 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
     updateProductList(mappedProducts)
   }
 
+  const saveShoppingList = () => {
+    const foundedShoppingList = shoppingLists.find(item => item.id === currentShoppingList.id)
+
+    if (!foundedShoppingList) {
+      setShoppingLists(prevState => [...prevState, currentShoppingList])
+    }
+
+    const mappedProducts = shoppingLists.map(item => {
+      if (item.id === currentShoppingList.id) {
+        return currentShoppingList
+      }
+      return item
+    })
+
+    setShoppingLists(mappedProducts)
+  }
+
+
+  useEffect(() => {
+    console.log(JSON.stringify(currentShoppingList, null, 2))
+  }, [currentShoppingList])
+
   return <ShoppingListContext.Provider
     children={children}
     value={[
@@ -142,6 +165,7 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
         removeShoppingList,
         removeProduct,
         saveProduct,
+        saveShoppingList,
         selectMarketplace,
         selectShoppingList,
       }

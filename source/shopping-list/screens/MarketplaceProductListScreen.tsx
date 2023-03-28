@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Screen, Text, Touchable } from 'core/components'
+import { Button, Screen, Text, Touchable } from 'core/components'
 import React, { useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { ProductMarketplace } from 'shopping-list/components'
@@ -12,8 +13,10 @@ interface RenderItemProps {
 }
 
 export const MarketplaceProductListScreen = () => {
-  const [{ currentMarketplace }] = useShoppingList()
+  const [{ currentMarketplace }, { saveShoppingList }] = useShoppingList()
   const [selectedProduct, setSelectedProduct] = useState<Product>()
+  const navigation = useNavigation()
+
 
   const { products } = currentMarketplace
 
@@ -31,6 +34,12 @@ export const MarketplaceProductListScreen = () => {
 
   const onCloseRequest = () => {
     setSelectedProduct(undefined)
+  }
+
+  const onPress = () => {
+    // TODO integrar com o backend
+    saveShoppingList()
+    navigation.navigate('ShoppingListHomeScreen')
   }
 
   return (
@@ -51,6 +60,11 @@ export const MarketplaceProductListScreen = () => {
         onCloseRequest={onCloseRequest}
         product={selectedProduct}
       />
+      <View>
+        <Button onPress={onPress}>
+          Salvar
+        </Button>
+      </View>
     </Screen>
   )
 }
