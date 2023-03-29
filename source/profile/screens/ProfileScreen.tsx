@@ -45,7 +45,7 @@ export const ProfileScreen = () => {
 
   const onPress = () => handleSubmit()
 
-  const goToUpdatePasswordScreen = () => navigation.navigate('')
+  const goToUpdatePasswordScreen = () => navigation.navigate('UpdatePassword')
 
 
   return (
