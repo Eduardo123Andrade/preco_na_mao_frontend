@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Icon, Screen, Text } from 'core/components'
+import { SHOPPING_LIST_KEY } from 'core/constants'
+import { useLocalStorage } from 'core/hooks'
 import { formatPrice } from 'core/utils'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -26,6 +28,7 @@ const sumValues = (previous: number, current: ProductInterface) =>
 
 export const ShoppingListDetailsScreen = () => {
   const [{ currentShoppingList }, { saveShoppingList }] = useShoppingList()
+  const [, { storeData }] = useLocalStorage<ShoppingList>()
 
   const { products } = currentShoppingList
   const navigation = useNavigation()
@@ -35,7 +38,9 @@ export const ShoppingListDetailsScreen = () => {
 
   const onPressAddNewProducts = () => navigation.navigate('MarketplaceListScreen')
 
-  const onPressAddStartShopping = () => console.log('start')
+  const onPressAddStartShopping = () => {
+    storeData(SHOPPING_LIST_KEY, currentShoppingList)
+  }
 
   const onPressAddSave = () => {
     saveShoppingList()
