@@ -3,13 +3,13 @@ import { StackNavigationOptions } from '@react-navigation/stack'
 import { Icon, Screen, Text } from 'core/components'
 import { SHOPPING_LIST_KEY } from 'core/constants'
 import { useLocalStorage } from 'core/hooks'
-import { formatPrice } from 'core/utils'
+import { formatPrice, sumValues } from 'core/utils'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { Product } from 'shopping-list/components'
 import { useShoppingList } from 'shopping-list/hooks/useShoppingList'
-import { Product as ProductInterface, ShoppingList } from 'shopping-list/interfaces'
+import { Product as ProductInterface, ShoppingList } from 'core/interfaces'
 
 interface RenderItemProps {
   item: ProductInterface
@@ -23,8 +23,7 @@ const renderItem = ({ item }: RenderItemProps) => {
   )
 }
 
-const sumValues = (previous: number, current: ProductInterface) =>
-  previous + (current.quantity * current.price)
+
 
 export const ShoppingListDetailsScreen = () => {
   const [{ currentShoppingList }, { saveShoppingList }] = useShoppingList()

@@ -1,7 +1,9 @@
+import { Product, ShoppingList } from "core/interfaces"
 import React, { createContext, useState } from "react"
 import { useRequestMarketplaceList } from "shopping-list/hooks"
-import { Marketplace, Product, ShoppingList } from "shopping-list/interfaces"
+import { Marketplace } from "shopping-list/interfaces"
 import { MOCKED_CURRENT_MARKETPLACE, MOCKED_SHOPPING_LIST, MOCKED_CURRENT_SHOPPING_LIST } from "shopping-list/utils"
+import { incrementProduct as coreIncrementProduct } from 'core/utils'
 
 interface ShoppingListProviderState {
   currentMarketplace: Marketplace
@@ -33,22 +35,6 @@ interface ShoppingListProviderProps {
   children: React.ReactNode
 }
 
-const incrementItem = (currentShoppingList: ShoppingList, productId: string, incrementor: number) => {
-  const { products } = currentShoppingList
-
-  const mappedItems = products.map(item => {
-    if (item.id === productId) {
-      return {
-        ...item,
-        edited: true,
-        quantity: item.quantity + incrementor,
-      }
-    }
-    return item
-  })
-
-  return mappedItems
-}
 
 const setAllProductsEditedFalse = (shoppingList: ShoppingList) => {
   const { products } = shoppingList
@@ -89,13 +75,15 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
   }
 
   const incrementProduct = (productId: string) => {
-    const mappedItems = incrementItem(currentShoppingList, productId, 1)
+    const { products } = currentShoppingList
+    const mappedItems = coreIncrementProduct(products, productId, 1)
 
     updateProductList(mappedItems)
   }
 
   const decrementProduct = (productId: string) => {
-    const mappedItems = incrementItem(currentShoppingList, productId, -1)
+    const { products } = currentShoppingList
+    const mappedItems = coreIncrementProduct(products, productId, -1)
 
     updateProductList(mappedItems)
   }
