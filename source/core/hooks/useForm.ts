@@ -23,7 +23,7 @@ interface UseFormProps<Value> {
 }
 
 export const useForm =
-  <Value = unknown, FieldInputProps = unknown>(props: UseFormProps<Value>) => {
+  <Value = unknown, FieldInputProps = string>(props: UseFormProps<Value>) => {
 
     const formik = useFormik({
       validateOnMount: true,
