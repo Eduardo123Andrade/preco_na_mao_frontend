@@ -1,7 +1,7 @@
 import { InputStatus, Mask } from 'core/types'
 import React, { forwardRef, useCallback, useState } from 'react'
 import { StyleSheet, View, TextInput, TextInputProps } from 'react-native'
-import { Icon, Text } from 'core/components'
+import { Icon, Text, Touchable } from 'core/components'
 import { MaskInput } from './maskedInput'
 
 
@@ -12,15 +12,19 @@ const statusColor = {
 }
 
 interface InputTextProps extends TextInputProps {
+  disabled?: boolean
   label?: string
   mask?: Mask
+  onPressOnDisabled?: () => void
   status?: InputStatus
   subtitle?: string
 }
 
 const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
+  disabled,
   label,
   mask,
+  onPressOnDisabled,
   style,
   status,
   subtitle,
@@ -29,8 +33,9 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
   const [secureTextEntry, setSecureTextEntryValue] = useState(initialSecureTextEntry)
 
   const toggleSecureTextEntry = useCallback(() => {
+    if (disabled) return
     setSecureTextEntryValue((prevState) => !prevState)
-  }, [setSecureTextEntryValue])
+  }, [disabled, setSecureTextEntryValue])
 
   const defaultSideElement = useCallback(() => {
     if (initialSecureTextEntry) {
@@ -47,9 +52,13 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
     }
   }, [secureTextEntry, toggleSecureTextEntry, initialSecureTextEntry])
 
+  const _onPressOnDisabled = () => {
+    if (disabled && typeof onPressOnDisabled === 'function')
+      onPressOnDisabled()
+  }
 
   return (
-    <View>
+    <Touchable onPress={_onPressOnDisabled} >
       <View style={[styles.container, { borderColor: statusColor[status] }]}>
         <View style={styles.textInputContainer}>
           {!!mask ? <MaskInput mask={mask} {...rest} /> :
@@ -59,6 +68,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
                 ref={ref}
                 style={[styles.inputText, style]}
                 secureTextEntry={secureTextEntry}
+                editable={!disabled}
               />
               {defaultSideElement()}
             </View>
@@ -70,7 +80,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
           {subtitle}
         </Text>
       </View>}
-    </View>
+    </Touchable>
   )
 }
 
