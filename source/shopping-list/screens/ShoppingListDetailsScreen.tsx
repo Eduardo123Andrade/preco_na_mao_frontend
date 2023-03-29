@@ -3,7 +3,7 @@ import { StackNavigationOptions } from '@react-navigation/stack'
 import { Icon, Screen, Text } from 'core/components'
 import { SHOPPING_LIST_KEY } from 'core/constants'
 import { useLocalStorage } from 'core/hooks'
-import { formatPrice, sumValues } from 'core/utils'
+import { formatPrice, calculateTotalPrice } from 'core/utils'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
@@ -32,7 +32,7 @@ export const ShoppingListDetailsScreen = () => {
   const { products } = currentShoppingList
   const navigation = useNavigation()
 
-  const totalPrice = products.reduce(sumValues, 0)
+  const totalPrice = products.reduce(calculateTotalPrice, 0)
   const formattedPrice = formatPrice(totalPrice)
 
   const onPressAddNewProducts = () => navigation.navigate('MarketplaceListScreen')

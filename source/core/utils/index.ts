@@ -1,7 +1,7 @@
 export { formatDate } from './formatDate'
 export { formatPrice } from './formatPrice'
 export { incrementProduct } from './incrementProduct'
-export { sumValues } from './sumValues'
+export { calculateTotalPrice } from './calculateTotalPrice'
 export { zeroToLeft } from './zeroToLeft'
 
 
