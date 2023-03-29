@@ -1,2 +1,2 @@
 export { ProfileScreen } from './ProfileScreen'
-export { ValidatePasswordScreen } from './ValidatePasswordScreen'
+export { UpdatePasswordScreen } from './UpdatePasswordScreen'

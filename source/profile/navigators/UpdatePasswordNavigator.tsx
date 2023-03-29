@@ -1,5 +1,5 @@
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
-import { ValidatePasswordScreen } from 'profile/screens'
+import { UpdatePasswordScreen } from 'profile/screens'
 import React from 'react'
 
 
@@ -9,9 +9,9 @@ export const UpdatePasswordNavigator = () => {
   return (
     <Navigator>
       <Screen
-        name='ValidatePasswordScreen'
-        component={ValidatePasswordScreen}
-        options={ValidatePasswordScreen.NavigationOptions}
+        name='UpdatePasswordScreen'
+        component={UpdatePasswordScreen}
+        options={UpdatePasswordScreen.NavigationOptions}
       />
     </Navigator>
   )
