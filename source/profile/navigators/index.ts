@@ -1,0 +1,1 @@
+export { UpdatePasswordNavigator } from './UpdatePasswordNavigator'
