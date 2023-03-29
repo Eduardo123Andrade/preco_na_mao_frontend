@@ -1,11 +1,11 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
-import { useForm } from 'core/hooks'
+import { useErrorModal, useForm } from 'core/hooks'
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation } from 'core/validations'
-import { useErrorModal, useRequestSingUp, useSingUp } from 'authentication/hooks'
+import { useRequestSingUp, useSingUp } from 'authentication/hooks'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { SimpleModal } from 'core/modals'
 
@@ -53,7 +53,7 @@ export const SingUpPasswordScreen = () => {
     mutate({ ...user, password, confirmPassword })
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserPassword, string>({
+  const { handleSubmit, isValid, getFieldProps } = useForm<UserPassword>({
     onSubmit,
     validationSchema: PASSWORD_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,

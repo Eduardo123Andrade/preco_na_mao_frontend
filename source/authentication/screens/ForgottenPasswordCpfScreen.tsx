@@ -1,13 +1,13 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
-import { useForm } from 'core/hooks'
+import { useErrorModal, useForm } from 'core/hooks'
 import React, { useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation, validateCPF } from 'core/validations'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { useNavigation } from '@react-navigation/native'
-import { useErrorModal, useForgottenPassword, useRequestAccessToken } from 'authentication/hooks'
+import { useForgottenPassword, useRequestAccessToken } from 'authentication/hooks'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { SimpleModal } from 'core/modals'
 
@@ -46,7 +46,7 @@ export const ForgottenPasswordCpfScreen = () => {
     requestAccessToken(cpf)
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserCpf, string>({
+  const { handleSubmit, isValid, getFieldProps } = useForm<UserCpf>({
     onSubmit,
     validationSchema: CPF_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,

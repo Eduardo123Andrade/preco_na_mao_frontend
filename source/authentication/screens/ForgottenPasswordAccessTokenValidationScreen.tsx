@@ -1,11 +1,11 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
-import { useForm } from 'core/hooks'
+import { useErrorModal, useForm } from 'core/hooks'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
-import { useErrorModal, useForgottenPassword, useValidateAccessToken } from 'authentication/hooks'
+import { useForgottenPassword, useValidateAccessToken } from 'authentication/hooks'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { FieldValidation } from 'core/validations'
 import { StackNavigationOptions } from '@react-navigation/stack'
@@ -48,7 +48,7 @@ export const ForgottenPasswordAccessTokenValidationScreen = () => {
     requestValidateAccessToken(cpf, accessToken)
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<AccessToken, string>({
+  const { handleSubmit, isValid, getFieldProps } = useForm<AccessToken>({
     onSubmit,
     validationSchema: ACCESS_TOKEN_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,
