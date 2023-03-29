@@ -27,7 +27,6 @@ export const ValidatePasswordScreen = () => {
 
 
   const onSubmit = ({ password }: Password) => {
-    console.log(password)
     navigation.navigate('UpdatePasswordScreen')
   }
 

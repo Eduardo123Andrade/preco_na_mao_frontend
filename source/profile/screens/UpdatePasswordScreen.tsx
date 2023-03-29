@@ -30,7 +30,6 @@ export const UpdatePasswordScreen = () => {
 
   const onSubmit = (props: UserPasswordForm) => {
     const { cpf } = user
-    console.log(props, cpf)
     navigation.navigate('ProfileScreen')
     // requestUpdatePassword({ ...props, cpf })
   }
