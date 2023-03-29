@@ -72,19 +72,17 @@ export const UpdatePasswordScreen = () => {
         onPress={handleSubmit}
       // isLoading={isLoading}
       >
-        Avançar
+        Salvar
       </Button>
     </Screen>
   )
 }
 
 const navigationOptions: StackNavigationOptions = {
-  title: 'Validar senha'
+  title: 'Atualizar senha'
 }
 
 UpdatePasswordScreen.NavigationOptions = navigationOptions
-
-
 
 const styles = StyleSheet.create({
   container: {
