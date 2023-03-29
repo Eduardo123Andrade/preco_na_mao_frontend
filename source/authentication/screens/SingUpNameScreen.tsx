@@ -15,7 +15,7 @@ interface UserName {
   name: string
 }
 const NAME_VALIDATION_SCHEMA = FieldValidation.object({
-  name: string().label('name').required().test('cpf', 'CPF inválido', validateName),
+  name: string().label('name').required().test('name', 'Nome inválido', validateName),
 })
 
 
@@ -32,7 +32,7 @@ export const SingUpNameScreen = () => {
     navigation.navigate('SingUpCpfScreen')
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserName, string>({
+  const { handleSubmit, isValid, getFieldProps } = useForm<UserName>({
     onSubmit,
     validationSchema: NAME_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,
