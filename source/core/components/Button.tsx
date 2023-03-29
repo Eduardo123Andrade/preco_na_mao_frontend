@@ -7,7 +7,7 @@ import { Touchable } from './Touchable'
 interface ButtonProps extends TouchableHighlightProps {
   children: string,
   isLoading?: boolean
-  onPress: () => void
+  onPress?: () => void
 }
 
 export const Button: React.FC<ButtonProps> = ({ children, style, isLoading, disabled, ...rest }) => {
