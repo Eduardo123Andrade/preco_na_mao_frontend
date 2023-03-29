@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import { User } from "core/interfaces";
+import { MOCKED_USER_DATA } from "core/utils";
 
 
 interface UserContextState {
@@ -8,6 +9,7 @@ interface UserContextState {
 
 interface UserContextActions {
   setUser: (user: User) => void
+  setUserName: (name: string) => void
 }
 
 type UserContextType = [
@@ -22,14 +24,18 @@ interface UserProvider {
 }
 
 export const UserProvider: React.FC<UserProvider> = ({ children }) => {
-  const [user, updateUser] = useState<User>()
+  const [user, updateUser] = useState<User>(MOCKED_USER_DATA)
 
   const setUser = (user: User) => {
     updateUser(user)
   }
 
+  const setUserName = (name: string) => {
+    updateUser(prevState => ({ ...prevState, name }))
+  }
+
   return <UserContext.Provider
     children={children}
-    value={[{ user }, { setUser }]}
+    value={[{ user }, { setUser, setUserName }]}
   />
 }
