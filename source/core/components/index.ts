@@ -1,4 +1,5 @@
 export { Button } from './Button'
+export { CheckBox } from './CheckBox'
 export { Icon } from './Icon'
 export { FloatButton } from './FloatButton'
 export { InputText } from './InputText'
