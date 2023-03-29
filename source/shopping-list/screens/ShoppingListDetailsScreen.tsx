@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Icon, Screen, Text } from 'core/components'
+import { Icon, Screen, Text, TotalPrice } from 'core/components'
 import { SHOPPING_LIST_KEY } from 'core/constants'
 import { useLocalStorage } from 'core/hooks'
 import { formatPrice, calculateTotalPrice } from 'core/utils'
@@ -33,7 +33,7 @@ export const ShoppingListDetailsScreen = () => {
   const navigation = useNavigation()
 
   const totalPrice = products.reduce(calculateTotalPrice, 0)
-  const formattedPrice = formatPrice(totalPrice)
+  // const formattedPrice = formatPrice(totalPrice)
 
   const onPressAddNewProducts = () => navigation.navigate('MarketplaceListScreen')
 
@@ -87,12 +87,7 @@ export const ShoppingListDetailsScreen = () => {
       </View>
 
       <View style={styles.footerContainer}>
-        <Text fontSize={15}>
-          Total
-        </Text>
-        <Text>
-          {`R$ ${formattedPrice}`}
-        </Text>
+        <TotalPrice totalPrice={totalPrice} />
       </View>
     </Screen>
   )
@@ -136,12 +131,6 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   footerContainer: {
-    backgroundColor: '#AAA',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 30,
-    paddingHorizontal: 20,
     marginHorizontal: -20,
   }
 })
