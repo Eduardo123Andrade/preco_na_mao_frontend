@@ -34,7 +34,7 @@ export const SingUpCpfScreen = () => {
     navigation.navigate('SingUpPhoneScreen')
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserCpf, string>({
+  const { handleSubmit, isValid, getFieldProps } = useForm<UserCpf>({
     onSubmit,
     validationSchema: CPF_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,

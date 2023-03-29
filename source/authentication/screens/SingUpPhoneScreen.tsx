@@ -37,7 +37,7 @@ export const SingUpPhoneScreen = () => {
 
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserPhone, string>({
+  const { handleSubmit, isValid, getFieldProps } = useForm<UserPhone>({
     onSubmit,
     validationSchema: PHONE_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,
