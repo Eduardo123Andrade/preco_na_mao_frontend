@@ -35,7 +35,7 @@ export const LoginScreen = () => {
     requestLogin(cpf, password)
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<Login, string>({
+  const { handleSubmit, isValid, getFieldProps } = useForm<Login>({
     onSubmit,
     validationSchema: loginValidationSchema,
     initialValues: INITIAL_VALUES,

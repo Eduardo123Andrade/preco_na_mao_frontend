@@ -10,7 +10,6 @@ interface FloatButtonProps {
 const SIZE = 50
 
 export const FloatButton: React.FC<FloatButtonProps> = ({ onPress }) => {
-  // const onPress = () => console.log('float button')
   return (
     <Touchable onPress={onPress} style={styles.container}>
       <Text fontSize={25} color='#FFF' >

@@ -31,7 +31,7 @@ export const CreateShoppingListScreen = () => {
     navigation.navigate('MarketplaceListScreen')
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<MarketplaceName, string>({
+  const { handleSubmit, isValid, getFieldProps } = useForm<MarketplaceName>({
     onSubmit,
     validationSchema: MARKETPLACE_NAME_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,

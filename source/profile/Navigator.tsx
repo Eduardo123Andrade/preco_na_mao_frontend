@@ -3,6 +3,7 @@ import React from 'react'
 import { ProfileScreen } from 'profile/screens'
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import { TabBarIcon } from 'core/components'
+import { UpdatePasswordNavigator } from './navigators'
 
 
 const { Navigator, Screen } = createStackNavigator()
@@ -14,6 +15,12 @@ export const ProfileNavigator = () => {
         name='ProfileScreen'
         component={ProfileScreen}
         options={ProfileScreen.NavigationOptions}
+      />
+
+      <Screen
+        name='UpdatePassword'
+        component={UpdatePasswordNavigator}
+        options={UpdatePasswordNavigator.NavigationOptions}
       />
     </Navigator>
   )

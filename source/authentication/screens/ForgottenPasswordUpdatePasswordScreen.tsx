@@ -1,38 +1,19 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
-import { useForm } from 'core/hooks'
+import { useErrorModal, useForm, useUpdatePassword } from 'core/hooks'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { useErrorModal, useForgottenPassword, useUpdatePassword } from 'authentication/hooks'
-import { FieldValidation } from 'core/validations'
+import { useForgottenPassword } from 'authentication/hooks'
 import { SimpleModal } from 'core/modals'
+import { PASSWORD_VALIDATION_SCHEMA } from 'core/validations/schemas'
+import { UserPasswordForm } from 'core/interfaces'
 
 
-const { string, ref } = FieldValidation
 
-
-interface UserPassword {
-  password: string
-  confirmPassword: string
-}
-
-
-const PASSWORD_VALIDATION_SCHEMA = FieldValidation.object({
-  password: string().min(6).required("É preciso atender a todos os requisitos").label('Senha'),
-  confirmPassword: string()
-    .oneOf(
-      [ref('password')],
-      'A nova senha deve ser igual a confirmação da senha.',
-    )
-    .required()
-    .label('Confirmação de Senha'),
-
-})
-
-const INITIAL_VALUES = {
+const INITIAL_VALUES: UserPasswordForm = {
   password: '',
   confirmPassword: '',
 }
@@ -51,12 +32,12 @@ export const ForgottenPasswordUpdatePasswordScreen = () => {
     }
   })
 
-  const onSubmit = (props: UserPassword) => {
+  const onSubmit = (props: UserPasswordForm) => {
     const { cpf } = forgottenPassword
     requestUpdatePassword({ ...props, cpf })
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserPassword, string>({
+  const { handleSubmit, isValid, getFieldProps } = useForm<UserPasswordForm>({
     onSubmit,
     validationSchema: PASSWORD_VALIDATION_SCHEMA,
     initialValues: INITIAL_VALUES,
