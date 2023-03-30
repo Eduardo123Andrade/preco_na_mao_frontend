@@ -1,46 +1,76 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Screen, Text } from 'core/components'
-import { SHOPPING_LIST_KEY } from 'core/constants'
-import { useLocalStorage } from 'core/hooks'
-import { formatDate } from 'core/utils'
+import { Screen, Text, TotalPrice } from 'core/components'
+import { formatDate, calculateTotalPrice } from 'core/utils'
 import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { ProductListItem } from 'home/components'
-import { ShoppingList } from 'shopping-list/interfaces'
-import { MOCKED_CURRENT_SHOPPING_LIST } from 'shopping-list/utils'
+import { ListDetails, ProductListItem } from 'home/components'
+import { useCurrentShoppingList } from 'home/hooks'
+import { Product } from 'core/interfaces'
+import { FlatList } from 'react-native-gesture-handler'
 
 
-const { name, date, products } = MOCKED_CURRENT_SHOPPING_LIST
+interface RenderItemProps {
+  item: Product
+}
 
-const [firstElement] = products
+const renderItem = ({ item }: RenderItemProps) => {
+  return (
+    <View key={`${item.id}`} style={styles.itemContainer}>
+      <ProductListItem product={item} />
+    </View>
+  )
+}
 
-console.log(JSON.stringify(products, null, 2))
-console.log(JSON.stringify(firstElement, null, 2))
+const EmptyList = () => {
+  return (
+    <View style={styles.emptyListComponent}>
+      <Text fontSize={16} bold>
+        Você ainda não começou suas compras.
+      </Text>
+      <Text fontSize={16}>
+        Clique no botao de play no detalhe da lista e comece imediatamente.
+      </Text>
+    </View>
+  )
+}
 
 export const HomeScreen = () => {
-  const [{ data }, { getData }] = useLocalStorage<ShoppingList>()
+  const [{ shoppingList }, { retrieveData }] = useCurrentShoppingList()
+
+  const { name, date, products = [] } = shoppingList ?? {}
   const navigation = useNavigation()
-  const formattedDate = formatDate(date)
+
+  const filteredProducts = products.filter(product => product.checked)
+  const totalPrice = filteredProducts.reduce(calculateTotalPrice, 0)
+
 
   useEffect(() => navigation.addListener('focus', () => {
-    // getData(SHOPPING_LIST_KEY)
-  }), [navigation, getData])
+    retrieveData()
+  }), [navigation, retrieveData])
 
 
   return (
     <Screen contentContainerStyles={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text>
-          {`Lista: ${name}`}
-        </Text>
-        <Text>
-          {formattedDate}
-        </Text>
+      <View>
+        {!!shoppingList && (
+          <View style={styles.titleContainer}>
+            <ListDetails
+              name={name}
+              date={date}
+            />
+          </View>
+        )}
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          ListEmptyComponent={EmptyList}
+        />
       </View>
 
-      <ProductListItem product={firstElement} />
-
+      <View>
+        <TotalPrice totalPrice={totalPrice} />
+      </View>
     </Screen>
   )
 }
@@ -48,7 +78,7 @@ export const HomeScreen = () => {
 
 const navigationOptions: StackNavigationOptions = {
   // title: ''
-  // headerShown: false,
+  headerShown: false,
 }
 
 HomeScreen.NavigationOptions = navigationOptions
@@ -56,12 +86,20 @@ HomeScreen.NavigationOptions = navigationOptions
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
+    paddingHorizontal: 0,
   },
   titleContainer: {
-    // backgroundColor: '#Ff1',
-    paddingVertical: 24
-    // alignItems: 'center',
+    paddingVertical: 24,
+    paddingHorizontal: 20
+  },
+  itemContainer: {
+    borderBottomWidth: 0.5,
+    paddingHorizontal: 20
+  },
+  emptyListComponent: {
+    paddingTop: 24,
+    paddingHorizontal: 40,
   },
 })
 
