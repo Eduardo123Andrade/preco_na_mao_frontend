@@ -1,6 +1,7 @@
 import { MOCKED_USER_DATA } from 'core/utils';
 import { useState } from 'react';
 import { useUser } from "core/hooks"
+import { User } from 'core/interfaces';
 // import { usePostRequest, useUser } from "core/hooks"
 // import { User } from "core/interfaces"
 // import { UsePostRequestStatus } from 'core/hooks/usePostRequest';
@@ -22,7 +23,8 @@ interface UseLoginState {
 }
 
 interface UseLoginActions {
-  requestLogin: (cpf: string, password: string) => void
+  // requestLogin: (cpf: string, password: string) => void
+  requestLogin: (cpf: string, password: string, user?: User) => void
 }
 
 type UseLoginData = [
@@ -47,7 +49,7 @@ export const useLogin = (): UseLoginData => {
   //   }
   // })
 
-  const requestLogin = (cpf: string, password: string) => {
+  const requestLogin = (cpf: string, password: string, user = MOCKED_USER_DATA) => {
     // mutate({ cpf, password })
     setLoading(true)
     setTimeout(() => {
@@ -55,7 +57,7 @@ export const useLogin = (): UseLoginData => {
       console.log(cpf, password)
       if (cpf === '09907658499' && password === '123123') {
         setStatus('SUCCESS')
-        return setUser(MOCKED_USER_DATA)
+        return setUser(user)
       }
       console.log('oi')
       setStatus('ERROR')
