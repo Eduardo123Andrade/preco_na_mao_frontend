@@ -1,13 +1,15 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Icon, Screen, Text } from 'core/components'
-import { formatPrice } from 'core/utils'
+import { Icon, Screen, Text, TotalPrice } from 'core/components'
+import { SHOPPING_LIST_KEY } from 'core/constants'
+import { useLocalStorage } from 'core/hooks'
+import { calculateTotalPrice } from 'core/utils'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { Product } from 'shopping-list/components'
 import { useShoppingList } from 'shopping-list/hooks/useShoppingList'
-import { Product as ProductInterface, ShoppingList } from 'shopping-list/interfaces'
+import { Product as ProductInterface, ShoppingList } from 'core/interfaces'
 
 interface RenderItemProps {
   item: ProductInterface
@@ -21,21 +23,21 @@ const renderItem = ({ item }: RenderItemProps) => {
   )
 }
 
-const sumValues = (previous: number, current: ProductInterface) =>
-  previous + (current.quantity * current.price)
-
 export const ShoppingListDetailsScreen = () => {
   const [{ currentShoppingList }, { saveShoppingList }] = useShoppingList()
+  const [, { storeData }] = useLocalStorage<ShoppingList>()
 
   const { products } = currentShoppingList
   const navigation = useNavigation()
 
-  const totalPrice = products.reduce(sumValues, 0)
-  const formattedPrice = formatPrice(totalPrice)
+  const totalPrice = products.reduce(calculateTotalPrice, 0)
 
   const onPressAddNewProducts = () => navigation.navigate('MarketplaceListScreen')
 
-  const onPressAddStartShopping = () => console.log('start')
+  const onPressAddStartShopping = () => {
+    storeData(SHOPPING_LIST_KEY, currentShoppingList)
+    navigation.navigate('Home')
+  }
 
   const onPressAddSave = () => {
     saveShoppingList()
@@ -83,12 +85,7 @@ export const ShoppingListDetailsScreen = () => {
       </View>
 
       <View style={styles.footerContainer}>
-        <Text fontSize={15}>
-          Total
-        </Text>
-        <Text>
-          {`R$ ${formattedPrice}`}
-        </Text>
+        <TotalPrice totalPrice={totalPrice} />
       </View>
     </Screen>
   )
@@ -132,12 +129,6 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   footerContainer: {
-    backgroundColor: '#AAA',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 30,
-    paddingHorizontal: 20,
     marginHorizontal: -20,
   }
 })

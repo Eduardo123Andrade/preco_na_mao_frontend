@@ -3,7 +3,7 @@ import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, InputText, Screen } from 'core/components'
 import { useForm, useUser } from 'core/hooks'
 import { FieldValidation, validateName } from 'core/validations'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 const { string } = FieldValidation

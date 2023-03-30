@@ -4,7 +4,7 @@ import { formatPrice } from 'core/utils'
 import React from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
 import { useShoppingList } from 'shopping-list/hooks/useShoppingList'
-import { Product as ProductInterface } from 'shopping-list/interfaces'
+import { Product as ProductInterface } from 'core/interfaces'
 import { ActionComponent } from './ActionComponent'
 
 interface ProductProps {

@@ -2,7 +2,7 @@ import { Text } from 'core/components'
 import { formatPrice } from 'core/utils'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Product } from 'shopping-list/interfaces'
+import { Product } from 'core/interfaces'
 
 interface ProductMarketplaceProps {
   product: Product

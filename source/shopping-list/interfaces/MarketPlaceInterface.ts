@@ -1,4 +1,4 @@
-import { Product } from "./ProductInterface"
+import { Product } from "core/interfaces"
 
 export interface Marketplace {
   id: string

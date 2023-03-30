@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { Card } from 'shopping-list/components'
 import { useShoppingList } from 'shopping-list/hooks'
-import { ShoppingList } from 'shopping-list/interfaces'
+import { ShoppingList } from 'core/interfaces'
 
 
 interface RenderShoppingListsItem {

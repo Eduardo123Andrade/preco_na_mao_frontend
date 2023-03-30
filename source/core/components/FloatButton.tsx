@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
+import { Icon } from './Icon'
 import { Text } from './Text'
 import { Touchable } from './Touchable'
 
@@ -12,9 +13,12 @@ const SIZE = 50
 export const FloatButton: React.FC<FloatButtonProps> = ({ onPress }) => {
   return (
     <Touchable onPress={onPress} style={styles.container}>
-      <Text fontSize={25} color='#FFF' >
-        +
-      </Text>
+      <Icon
+        mode='ant_design'
+        name='plus'
+        onPress={onPress}
+        color='#FFF'
+      />
     </Touchable>
   )
 }

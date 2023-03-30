@@ -4,7 +4,7 @@ import { formatDate } from 'core/utils'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { useShoppingList } from 'shopping-list/hooks/useShoppingList'
-import { ShoppingList } from 'shopping-list/interfaces'
+import { ShoppingList } from 'core/interfaces'
 import { RenderTextWithSeparator } from './RenderTextWithSeparator'
 
 interface CardProps {

@@ -1,4 +1,5 @@
-import { Product, ShoppingList, Marketplace } from 'shopping-list/interfaces';
+import { Marketplace } from 'shopping-list/interfaces';
+import { Product, ShoppingList } from 'core/interfaces'
 
 export const MOCKED_SHOPPING_LIST_ITEM: Product[] = [
   {
@@ -103,5 +104,5 @@ export const MOCKED_CURRENT_SHOPPING_LIST: ShoppingList = {
   name: "TEST",
   date: new Date(),
   id: '10',
-  products: []
+  products: MOCKED_SHOPPING_LIST_ITEM
 }

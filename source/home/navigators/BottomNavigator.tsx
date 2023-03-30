@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { StackNavigationOptions } from '@react-navigation/stack'
 import { ProfileNavigator } from 'profile'
 import React from 'react'
 import { ShoppingListNavigator } from 'shopping-list'
@@ -31,3 +32,9 @@ export const HomeBottomNavigator = () => {
     </Navigator>
   )
 }
+
+const navigationOptions: StackNavigationOptions = {
+  headerShown: false,
+}
+
+HomeBottomNavigator.NavigationOptions = navigationOptions

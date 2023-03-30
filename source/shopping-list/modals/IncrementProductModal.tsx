@@ -2,7 +2,7 @@ import { Text, Touchable } from 'core/components'
 import { BaseModal } from 'core/modals'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Product, ShoppingList } from 'shopping-list/interfaces'
+import { Product, ShoppingList } from 'core/interfaces'
 import { ActionComponent } from 'shopping-list/components'
 import { useShoppingList } from 'shopping-list/hooks'
 

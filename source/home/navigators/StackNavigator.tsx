@@ -2,9 +2,7 @@ import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { HomeScreen } from 'home/screens'
 import React from 'react'
-import { Icon, TabBarIcon } from 'core/components'
-
-
+import { TabBarIcon } from 'core/components'
 
 const { Navigator, Screen } = createStackNavigator()
 

@@ -1,20 +1,22 @@
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
 import React from 'react'
 import { HomeBottomNavigator } from './navigators'
-import { HomeScreen } from './screens'
+import { CurrentShoppingListProvider } from './providers'
 
 
 const { Navigator, Screen } = createStackNavigator()
 
 export const HomeNavigator = () => {
   return (
-    <Navigator>
-      <Screen
-        name='HomeScreen'
-        component={HomeBottomNavigator}
-        options={HomeScreen.NavigationOptions}
-      />
-    </Navigator>
+    <CurrentShoppingListProvider>
+      <Navigator>
+        <Screen
+          name='HomeScreen'
+          component={HomeBottomNavigator}
+          options={HomeBottomNavigator.NavigationOptions}
+        />
+      </Navigator>
+    </CurrentShoppingListProvider>
   )
 }
 
