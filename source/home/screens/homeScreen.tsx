@@ -69,7 +69,7 @@ export const HomeScreen = () => {
       </View>
 
       <View>
-        <TotalPrice totalPrice={totalPrice} />
+        {!!shoppingList && <TotalPrice totalPrice={totalPrice} />}
       </View>
     </Screen>
   )
