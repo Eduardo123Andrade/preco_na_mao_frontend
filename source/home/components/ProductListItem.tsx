@@ -1,26 +1,29 @@
 import { CheckBox, Text } from 'core/components'
-import React, { useState } from 'react'
+import { Product } from 'core/interfaces'
+import { useCurrentShoppingList } from 'home/hooks'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { ActionComponent } from 'shopping-list/components'
-import { Product } from 'shopping-list/interfaces'
 
 interface ProductListItemProps {
   product: Product
 }
 
 export const ProductListItem: React.FC<ProductListItemProps> = ({ product }) => {
-  const [checked, setChecked] = useState(false)
-  const { name, quantity } = product
+  const [, { onDecrement, onIncrement, onToggleCheckItem }] = useCurrentShoppingList()
+  const { name, quantity, checked } = product
 
   const toggleCheckBox = (value: boolean) => {
-    setChecked(value)
+    onToggleCheckItem(product.id, value)
   }
 
   const onPressDecrement = () => {
     if (quantity > 0)
-      return
+      return onDecrement(product.id)
   }
-  const onPressIncrement = () => { }
+  const onPressIncrement = () => {
+    onIncrement(product.id)
+  }
 
   return (
     <View style={styles.container}>
@@ -49,7 +52,7 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({ product }) => 
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
+    // borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     // backgroundColor: '#F11',
