@@ -1,5 +1,5 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Screen, Text, Touchable } from 'core/components'
+import { Screen, Touchable } from 'core/components'
 import React from 'react'
 import { FlatList, StyleSheet, View, } from 'react-native'
 import { Marketplace } from 'shopping-list/components'

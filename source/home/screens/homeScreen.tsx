@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Screen, Text, TotalPrice } from 'core/components'
-import { formatDate, calculateTotalPrice } from 'core/utils'
+import { calculateTotalPrice } from 'core/utils'
 import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { ListDetails, ProductListItem } from 'home/components'
@@ -77,7 +77,6 @@ export const HomeScreen = () => {
 
 
 const navigationOptions: StackNavigationOptions = {
-  // title: ''
   headerShown: false,
 }
 

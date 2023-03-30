@@ -1,4 +1,5 @@
-import { Product, ShoppingList, Marketplace } from 'shopping-list/interfaces';
+import { Marketplace } from 'shopping-list/interfaces';
+import { Product, ShoppingList } from 'core/interfaces'
 
 export const MOCKED_SHOPPING_LIST_ITEM: Product[] = [
   {

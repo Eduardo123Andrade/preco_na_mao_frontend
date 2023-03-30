@@ -52,20 +52,16 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({ product }) => 
 
 const styles = StyleSheet.create({
   container: {
-    // borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    // backgroundColor: '#F11',
     paddingVertical: 16
   },
   nameContainer: {
     flex: 0.65,
-    // backgroundColor: '#FF1',
   },
   actionContainer: {
     flex: 0.35,
     flexDirection: 'row',
-    // backgroundColor: '#3c3',
     justifyContent: 'flex-end'
   }
 })
