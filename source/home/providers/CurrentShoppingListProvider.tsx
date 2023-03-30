@@ -9,6 +9,7 @@ interface CurrentShoppingListState {
 }
 
 interface CurrentShoppingListActions {
+  clearStorage: () => void
   onDecrement: (productId: string) => void
   onIncrement: (productId: string) => void
   onToggleCheckItem: (productId: string, value: boolean) => void
@@ -54,6 +55,11 @@ const toggleProductItem = (products: Product[], productId: string, value: boolea
 export const CurrentShoppingListProvider: React.FC<CurrentShoppingListProviderProps> = ({ children }) => {
   const [{ data }, { getData, storeData }] = useLocalStorage<ShoppingList>()
   const [shoppingList, setShoppingList] = useState<ShoppingList>()
+
+  const clearStorage = () => {
+    setShoppingList(undefined)
+    storeData(SHOPPING_LIST_KEY, null)
+  }
 
   const onDecrement = (productId: string) => {
     if (!shoppingList)
@@ -103,6 +109,7 @@ export const CurrentShoppingListProvider: React.FC<CurrentShoppingListProviderPr
     value={[
       { shoppingList },
       {
+        clearStorage,
         onDecrement,
         onIncrement,
         onToggleCheckItem,
