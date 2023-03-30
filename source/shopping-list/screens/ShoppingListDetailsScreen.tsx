@@ -23,8 +23,6 @@ const renderItem = ({ item }: RenderItemProps) => {
   )
 }
 
-
-
 export const ShoppingListDetailsScreen = () => {
   const [{ currentShoppingList }, { saveShoppingList }] = useShoppingList()
   const [, { storeData }] = useLocalStorage<ShoppingList>()
@@ -33,12 +31,12 @@ export const ShoppingListDetailsScreen = () => {
   const navigation = useNavigation()
 
   const totalPrice = products.reduce(calculateTotalPrice, 0)
-  // const formattedPrice = formatPrice(totalPrice)
 
   const onPressAddNewProducts = () => navigation.navigate('MarketplaceListScreen')
 
   const onPressAddStartShopping = () => {
     storeData(SHOPPING_LIST_KEY, currentShoppingList)
+    navigation.navigate('Home')
   }
 
   const onPressAddSave = () => {
