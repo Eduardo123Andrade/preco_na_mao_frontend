@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { ProductMarketplace } from 'shopping-list/components'
 import { useShoppingList } from 'shopping-list/hooks'
-import { Product } from 'shopping-list/interfaces'
+import { Product } from 'core/interfaces'
 import { IncrementProductModal } from 'shopping-list/modals'
 
 interface RenderItemProps {
