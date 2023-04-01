@@ -20,13 +20,13 @@ export const Icon: React.FC<IconProps> = ({
   const props = { color, size, style, ...rest }
 
   if (mode === 'ant_design')
-    return <AntDesign style={styles.container} {...props} />
+    return <AntDesign {...props} />
 
-  return <MaterialIcons style={styles.container} {...props} />
+  return <MaterialIcons {...props} />
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5
+    padding: 5,
   }
 })
