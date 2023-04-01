@@ -7,7 +7,7 @@ import { Text } from 'core/components'
 import { useForm } from 'core/hooks'
 import { SimpleModal } from 'core/modals'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet, View } from 'react-native'
 
 
@@ -27,12 +27,16 @@ export const LoginScreen = () => {
   const [value, setValue] = useState<string>()
   const navigation = useNavigation()
   const [{ isLoading, error, status }, { requestLogin }] = useLogin()
-  const [showErrorModal, setShowErrorModal] = useState(status === 'error')
+  const [showErrorModal, setShowErrorModal] = useState(false)
 
+  useEffect(() => {
+    setShowErrorModal(status === 'ERROR')
+  }, [status])
 
 
   const onSubmit = ({ cpf, password }: Login) => {
-    requestLogin(cpf, password)
+    const cleanCpf = cpf.replace(REGEXP_ONLY_NUMBERS, '')
+    requestLogin(cleanCpf, password)
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<Login>({
@@ -119,7 +123,7 @@ export const LoginScreen = () => {
       </View>
       <SimpleModal
         visible={showErrorModal}
-        message={error}
+        message='Login ou senha invalido'
         onRequestClose={onRequestClose}
       />
     </Screen>

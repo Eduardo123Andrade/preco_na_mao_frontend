@@ -38,7 +38,8 @@ export const SingUpNameScreen = () => {
     initialValues: INITIAL_VALUES,
   })
 
-  const onPress = () => handleSubmit
+  // Ajustar em dev
+  const onPress = () => handleSubmit()
 
   return (
     <AuthenticationScreen

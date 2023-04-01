@@ -32,18 +32,20 @@ export const ForgottenPasswordCpfScreen = () => {
   const [{ forgottenPassword }, { setForgottenPasswordData }] = useForgottenPassword()
   const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
-  const [{ isLoading }, { requestAccessToken }] = useRequestAccessToken({
-    onSuccess: () => {
-      navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
-    },
-    onError: ({ message }) => {
-      startModalError(message)
-    }
-  })
+  // const [{ isLoading }, { requestAccessToken }] = useRequestAccessToken({
+  //   onSuccess: () => {
+  //     navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
+  //   },
+  //   onError: ({ message }) => {
+  //     startModalError(message)
+  //   }
+  // })
 
   const onSubmit = ({ cpf }: UserCpf) => {
-    setForgottenPasswordData({ cpf })
-    requestAccessToken(cpf)
+    // setForgottenPasswordData({ cpf })
+    // requestAccessToken(cpf)
+    //     navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
+
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<UserCpf>({
@@ -70,7 +72,7 @@ export const ForgottenPasswordCpfScreen = () => {
     <AuthenticationScreen
       disabled={!isValid}
       onPress={handleSubmit}
-      isLoading={isLoading}
+    // isLoading={isLoading}
     >
       <View style={styles.titleContainer}>
         <Text>

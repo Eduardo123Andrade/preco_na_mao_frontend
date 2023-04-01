@@ -24,7 +24,7 @@ interface UserProvider {
 }
 
 export const UserProvider: React.FC<UserProvider> = ({ children }) => {
-  const [user, updateUser] = useState<User>(MOCKED_USER_DATA)
+  const [user, updateUser] = useState<User>()
 
   const setUser = (user: User) => {
     updateUser(user)

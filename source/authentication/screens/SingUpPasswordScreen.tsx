@@ -5,9 +5,10 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import { FieldValidation } from 'core/validations'
-import { useRequestSingUp, useSingUp } from 'authentication/hooks'
+import { useLogin, useRequestSingUp, useSingUp } from 'authentication/hooks'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { SimpleModal } from 'core/modals'
+import { User } from 'core/interfaces'
 
 
 const { string, ref } = FieldValidation
@@ -37,20 +38,23 @@ const INITIAL_VALUES = {
 
 export const SingUpPasswordScreen = () => {
   const [{ user }] = useSingUp()
+  const [, { requestLogin }] = useLogin()
   const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
 
-  const { mutate, isLoading } = useRequestSingUp({
-    onSuccess: () => {
+  // const { mutate, isLoading } = useRequestSingUp({
+  //   onSuccess: () => {
 
-    },
-    onError: ({ message }) => {
-      startModalError(message)
-    }
-  })
+  //   },
+  //   onError: ({ message }) => {
+  //     startModalError(message)
+  //   }
+  // })
 
   const onSubmit = ({ password, confirmPassword }: UserPassword) => {
-    mutate({ ...user, password, confirmPassword })
+    const userData: any = { ...user, isLogged: true }
+    requestLogin(user.cpf, password, userData)
+    // mutate({ ...user, password, confirmPassword })
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<UserPassword>({
@@ -63,7 +67,7 @@ export const SingUpPasswordScreen = () => {
     <AuthenticationScreen
       disabled={!isValid}
       onPress={handleSubmit}
-      isLoading={isLoading}
+    // isLoading={isLoading}
     >
       <View style={styles.titleContainer}>
         <Text>
