@@ -23,18 +23,19 @@ export const ForgottenPasswordUpdatePasswordScreen = () => {
   const [{ forgottenPassword }] = useForgottenPassword()
   const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
-  const [{ isLoading }, { requestUpdatePassword }] = useUpdatePassword({
-    onSuccess: () => {
-      navigation.navigate("Home")
-    },
-    onError: ({ message }) => {
-      startModalError(message)
-    }
-  })
+  // const [{ isLoading }, { requestUpdatePassword }] = useUpdatePassword({
+  //   onSuccess: () => {
+  //     navigation.navigate("Home")
+  //   },
+  //   onError: ({ message }) => {
+  //     startModalError(message)
+  //   }
+  // })
 
   const onSubmit = (props: UserPasswordForm) => {
-    const { cpf } = forgottenPassword
-    requestUpdatePassword({ ...props, cpf })
+    navigation.navigate("Home")
+    // const { cpf } = forgottenPassword
+    // requestUpdatePassword({ ...props, cpf })
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<UserPasswordForm>({
@@ -47,7 +48,7 @@ export const ForgottenPasswordUpdatePasswordScreen = () => {
     <AuthenticationScreen
       disabled={!isValid}
       onPress={handleSubmit}
-      isLoading={isLoading}
+    // isLoading={isLoading}
     >
       <View style={styles.titleContainer}>
         <Text>
