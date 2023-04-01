@@ -5,6 +5,9 @@ import { Icon, Text, Touchable } from 'core/components'
 import { MaskInput } from './maskedInput'
 
 
+const PLACE_HOLDER_TEXT_COLOR = '#AAA'
+
+
 const statusColor = {
   'ERROR': '#FF0011',
   'SUCCESS': "#000",
@@ -58,17 +61,23 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
   }
 
   return (
-    <Touchable onPress={_onPressOnDisabled} >
+    <Touchable onPress={_onPressOnDisabled}>
       <View style={[styles.container, { borderColor: statusColor[status] }]}>
         <View style={styles.textInputContainer}>
-          {!!mask ? <MaskInput mask={mask} {...rest} /> :
+          {!!mask ? <MaskInput
+            mask={mask}
+            placeholderTextColor={PLACE_HOLDER_TEXT_COLOR}
+            style={styles.maskInputTextColor}
+            {...rest}
+          /> :
             <View style={styles.inputTextContainer}>
               <TextInput
-                {...rest}
                 ref={ref}
                 style={[styles.inputText, style]}
                 secureTextEntry={secureTextEntry}
                 editable={!disabled}
+                placeholderTextColor={PLACE_HOLDER_TEXT_COLOR}
+                {...rest}
               />
               {defaultSideElement()}
             </View>
@@ -100,7 +109,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   inputText: {
-    flex: 1
+    flex: 1,
+    color: '#000'
+  },
+  maskInputTextColor: {
+    color: '#000'
   },
   subtitleContainer: {
     paddingTop: 5,
