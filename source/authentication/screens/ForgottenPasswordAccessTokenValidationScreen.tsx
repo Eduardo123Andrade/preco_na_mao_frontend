@@ -1,8 +1,8 @@
 import { AuthenticationScreen } from 'authentication/components'
-import { InputText } from 'core/components'
+import { InputText, Text } from 'core/components'
 import { useErrorModal, useForm } from 'core/hooks'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
 import { useForgottenPassword, useValidateAccessToken } from 'authentication/hooks'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableHighlightProps, TouchableNativeFeedback, View } from 'react-native'
+import { StyleSheet, TouchableHighlightProps, TouchableNativeFeedback, View } from 'react-native'
 
 interface TouchableProps extends TouchableHighlightProps {
   children: React.ReactNode,

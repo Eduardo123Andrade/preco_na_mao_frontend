@@ -1,8 +1,8 @@
 import { AuthenticationScreen } from 'authentication/components'
-import { InputText } from 'core/components'
+import { InputText, Text } from 'core/components'
 import { useErrorModal, useForm } from 'core/hooks'
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 import { FieldValidation } from 'core/validations'
 import { useLogin, useRequestSingUp, useSingUp } from 'authentication/hooks'

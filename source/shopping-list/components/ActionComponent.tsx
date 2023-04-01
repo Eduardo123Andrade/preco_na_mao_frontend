@@ -1,7 +1,8 @@
 import { zeroToLeft } from 'core/utils'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { ProductButton } from './ProductButton'
+import { Text } from 'core/components'
 
 interface ActionComponentProps {
   number: number
