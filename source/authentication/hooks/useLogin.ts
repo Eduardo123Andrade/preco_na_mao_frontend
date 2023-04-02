@@ -1,6 +1,7 @@
+import { USER_KEY } from './../../core/constants/localStorageKeys';
 import { MOCKED_USER_DATA } from 'core/utils';
 import { useState } from 'react';
-import { useUser } from "core/hooks"
+import { useLocalStorage, useUser } from "core/hooks"
 import { User } from 'core/interfaces';
 // import { usePostRequest, useUser } from "core/hooks"
 // import { User } from "core/interfaces"
@@ -38,11 +39,14 @@ export const useLogin = (): UseLoginData => {
   const [error, setError] = useState<string>()
   const [isLoading, setLoading] = useState(false)
   const [status, setStatus] = useState<Status>('IDLE')
+  const [, { storeData }] = useLocalStorage<User>()
 
 
   // const { mutate, status, isLoading } = usePostRequest<ResponseData, LoginVariable, string>('/login', {
   //   onSuccess: ({ data }) => {
-  //     setUser(data)
+  // const userData = {...user, isLogged: true}
+  // storeData(USER_KEY, userData)
+  //     setUser(userData)
   //   },
   //   onError: ({ message }) => {
   //     setError(message)
@@ -57,9 +61,10 @@ export const useLogin = (): UseLoginData => {
       console.log(cpf, password)
       if (cpf === '09907658499' && password === '123123') {
         setStatus('SUCCESS')
-        return setUser(user)
+        const userData = { ...user, isLogged: true }
+        storeData(USER_KEY, userData)
+        return setUser(userData)
       }
-      console.log('oi')
       setStatus('ERROR')
       setError('invalid credentials')
     }, 1500)

@@ -8,7 +8,10 @@ const { Navigator, Screen } = createStackNavigator()
 
 
 export const App = () => {
-  const [{ user }] = useUser()
+  const [{ user, retrievingUserData }] = useUser()
+
+  if (retrievingUserData)
+    return <></>
 
   return (
     <Navigator>
