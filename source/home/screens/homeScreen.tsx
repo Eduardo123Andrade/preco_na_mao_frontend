@@ -49,7 +49,6 @@ export const HomeScreen = () => {
     retrieveData()
   }), [navigation, retrieveData])
 
-
   return (
     <Screen contentContainerStyles={styles.container}>
       <View>

@@ -1,10 +1,12 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { User } from "core/interfaces";
-import { MOCKED_USER_DATA } from "core/utils";
+import { useLocalStorage } from "core/hooks";
+import { USER_KEY } from "core/constants";
 
 
 interface UserContextState {
   user: User
+  retrievingUserData: boolean
 }
 
 interface UserContextActions {
@@ -25,6 +27,19 @@ interface UserProvider {
 
 export const UserProvider: React.FC<UserProvider> = ({ children }) => {
   const [user, updateUser] = useState<User>()
+  const [{ data }, { getData }] = useLocalStorage<User>()
+  const [retrievingUserData, setRetrievingUserData] = useState(true)
+
+  useEffect(() => {
+    getData(USER_KEY)
+  }, [getData])
+
+  useEffect(() => {
+    if (data && !user) {
+      updateUser(data)
+      setRetrievingUserData(false)
+    }
+  }, [data, user, updateUser])
 
   const setUser = (user: User) => {
     updateUser(user)
@@ -36,6 +51,6 @@ export const UserProvider: React.FC<UserProvider> = ({ children }) => {
 
   return <UserContext.Provider
     children={children}
-    value={[{ user }, { setUser, setUserName }]}
+    value={[{ user, retrievingUserData }, { setUser, setUserName }]}
   />
 }
