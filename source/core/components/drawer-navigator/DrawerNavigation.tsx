@@ -43,7 +43,6 @@ export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onR
     >
       <View style={styles.container}>
         <Touchable
-          enableFeedback={false}
           onPress={onPress}
           style={styles.subContainer}
         >
