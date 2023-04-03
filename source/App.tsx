@@ -2,6 +2,7 @@ import { createStackNavigator, StackNavigationOptions } from '@react-navigation/
 import { AuthenticationNavigator } from 'authentication';
 import { useUser } from 'core/hooks';
 import { HomeNavigator } from 'home';
+import { ProfileNavigator } from 'profile';
 import React from 'react';
 
 const { Navigator, Screen } = createStackNavigator()
@@ -22,11 +23,18 @@ export const App = () => {
           options={AuthenticationNavigator.NavigationOptions}
         />
       ) : (
-        <Screen
-          name='Home'
-          component={HomeNavigator}
-          options={HomeNavigator.NavigationOptions}
-        />
+        <>
+          <Screen
+            name='Home'
+            component={HomeNavigator}
+            options={HomeNavigator.NavigationOptions}
+          />
+          <Screen
+            name='Profile'
+            component={ProfileNavigator}
+            options={ProfileNavigator.NavigationOptions}
+          />
+        </>
       )}
     </Navigator>
   );

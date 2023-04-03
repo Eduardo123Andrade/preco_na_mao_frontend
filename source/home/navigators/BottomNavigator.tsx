@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { ProfileNavigator } from 'profile'
 import React from 'react'
 import { ShoppingListNavigator } from 'shopping-list'
 import { HomeNavigatorNavigator } from './StackNavigator'
@@ -9,15 +8,7 @@ const { Navigator, Screen } = createBottomTabNavigator()
 
 export const HomeBottomNavigator = () => {
   return (
-    <Navigator
-      initialRouteName='Home'
-    >
-      <Screen
-        name='Profile'
-        component={ProfileNavigator}
-        options={ProfileNavigator.NavigationOptions}
-      />
-
+    <Navigator>
       <Screen
         name='Home'
         component={HomeNavigatorNavigator}
