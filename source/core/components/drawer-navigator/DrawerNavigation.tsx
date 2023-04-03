@@ -4,6 +4,7 @@ import { Modal, StyleSheet, View } from 'react-native'
 import { Text } from '../Text'
 import { Touchable } from '../Touchable'
 import { DrawerNavigatorItem } from './DrawerNavigatorItem'
+import { useLogin } from 'authentication/hooks'
 
 
 const BORDER_RADIUS = 20
@@ -14,6 +15,7 @@ interface DrawerNavigationProps {
 }
 
 export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onRequestClose }) => {
+  const [, { requestLogout }] = useLogin()
   const navigation = useNavigation()
 
   const onPress = () => {
@@ -21,7 +23,7 @@ export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onR
   }
 
   const logout = () => {
-    console.log('sair')
+    requestLogout()
   }
 
   const goToProfile = () => {
