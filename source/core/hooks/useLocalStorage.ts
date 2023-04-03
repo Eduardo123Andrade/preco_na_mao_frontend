@@ -8,7 +8,7 @@ interface UseLocalStorageState<T> {
 
 interface UseLocalStorageActions<T> {
   storeData: (key: string, data: T) => void,
-  getData: (key: string) => void
+  getData: (key: string) => Promise<T>
 }
 
 type UseLocalStorageData<T> = [
@@ -37,7 +37,7 @@ export const useLocalStorage = <TData = unknown>(): UseLocalStorageData<TData> =
     } catch (e) {
     }
   }
-  getData
+
   return [
     {
       data
