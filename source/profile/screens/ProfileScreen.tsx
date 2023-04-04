@@ -45,8 +45,23 @@ export const ProfileScreen = () => {
 
   const onPress = () => handleSubmit()
 
-  const goToUpdatePasswordScreen = () => navigation.navigate('UpdatePassword')
+  const goToUpdatePasswordScreen = () => {
+    navigation.navigate('UpdatePassword', {
+      screen: 'ValidatePasswordScreen',
+      params: {
+        nextRouterName: 'UpdatePasswordScreen',
+      }
+    })
+  }
 
+  const goToUpdatePhoneNumberScreen = () => {
+    navigation.navigate('UpdatePhoneNumber', {
+      screen: 'ValidatePasswordScreen',
+      params: {
+        nextRouterName: 'UpdatePhoneNumber',
+      }
+    })
+  }
 
   return (
     <Screen contentContainerStyles={styles.container}>
@@ -55,6 +70,12 @@ export const ProfileScreen = () => {
           {...restNameFieldProps}
           value={name}
           onChangeText={_onChangeText}
+        />
+
+        <InputText
+          disabled
+          value={user.phone}
+          onPressOnDisabled={goToUpdatePhoneNumberScreen}
         />
 
         <InputText
