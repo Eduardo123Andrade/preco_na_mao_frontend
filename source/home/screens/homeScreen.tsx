@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Screen, Text, TotalPrice } from 'core/components'
+import { Header, Screen, Text, TotalPrice } from 'core/components'
 import { calculateTotalPrice } from 'core/utils'
 import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -76,7 +76,7 @@ export const HomeScreen = () => {
 
 
 const navigationOptions: StackNavigationOptions = {
-  headerShown: false,
+  header: () => <Header />
 }
 
 HomeScreen.NavigationOptions = navigationOptions

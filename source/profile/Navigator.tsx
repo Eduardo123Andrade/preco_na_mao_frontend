@@ -1,8 +1,6 @@
-import { createStackNavigator } from '@react-navigation/stack'
+import { StackNavigationOptions, createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { ProfileScreen } from 'profile/screens'
-import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
-import { TabBarIcon } from 'core/components'
 import { UpdatePasswordNavigator } from './navigators'
 
 
@@ -27,10 +25,8 @@ export const ProfileNavigator = () => {
 }
 
 
-const navigationOptions: BottomTabNavigationOptions = {
+const navigationOptions: StackNavigationOptions = {
   headerShown: false,
-  tabBarIcon: ({ focused }) => <TabBarIcon iconName='supervised-user-circle' focused={focused} />
-
 }
 
 ProfileNavigator.NavigationOptions = navigationOptions

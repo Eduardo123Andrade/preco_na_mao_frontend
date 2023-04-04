@@ -26,6 +26,7 @@ interface UseLoginState {
 interface UseLoginActions {
   // requestLogin: (cpf: string, password: string) => void
   requestLogin: (cpf: string, password: string, user?: User) => void
+  requestLogout: () => void
 }
 
 type UseLoginData = [
@@ -70,5 +71,10 @@ export const useLogin = (): UseLoginData => {
     }, 1500)
   }
 
-  return [{ error, isLoading, status }, { requestLogin }]
+  const requestLogout = () => {
+    setUser({ ...MOCKED_USER_DATA, isLogged: false })
+    storeData(USER_KEY, null)
+  }
+
+  return [{ error, isLoading, status }, { requestLogin, requestLogout }]
 }

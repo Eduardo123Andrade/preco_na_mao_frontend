@@ -60,6 +60,9 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
       onPressOnDisabled()
   }
 
+  const color = disabled ? '#AAA' : '#000'
+
+
   return (
     <Touchable onPress={_onPressOnDisabled}>
       <View style={[styles.container, { borderColor: statusColor[status] }]}>
@@ -73,7 +76,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
             <View style={styles.inputTextContainer}>
               <TextInput
                 ref={ref}
-                style={[styles.inputText, style]}
+                style={[styles.inputText, { color: color }, style]}
                 secureTextEntry={secureTextEntry}
                 editable={!disabled}
                 placeholderTextColor={PLACE_HOLDER_TEXT_COLOR}
@@ -84,12 +87,14 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
           }
         </View>
       </View>
-      {!!subtitle && <View style={styles.subtitleContainer}>
-        <Text fontSize={12} color={statusColor[status]} >
-          {subtitle}
-        </Text>
-      </View>}
-    </Touchable>
+      {
+        !!subtitle && <View style={styles.subtitleContainer}>
+          <Text fontSize={12} color={statusColor[status]} >
+            {subtitle}
+          </Text>
+        </View>
+      }
+    </Touchable >
   )
 }
 
@@ -110,7 +115,6 @@ const styles = StyleSheet.create({
   },
   inputText: {
     flex: 1,
-    color: '#000'
   },
   maskInputTextColor: {
     color: '#000'

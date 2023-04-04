@@ -31,15 +31,14 @@ export const UserProvider: React.FC<UserProvider> = ({ children }) => {
   const [retrievingUserData, setRetrievingUserData] = useState(true)
 
   useEffect(() => {
+    console.log('oi')
     getData(USER_KEY)
-  }, [getData])
+      .then(user => {
+        if (user) updateUser(user)
+        setRetrievingUserData(false)
+      })
+  }, [])
 
-  useEffect(() => {
-    if (data && !user) {
-      updateUser(data)
-      setRetrievingUserData(false)
-    }
-  }, [data, user, updateUser])
 
   const setUser = (user: User) => {
     updateUser(user)
