@@ -55,10 +55,10 @@ export const ProfileScreen = () => {
   }
 
   const goToUpdatePhoneNumberScreen = () => {
-    navigation.navigate('UpdatePhoneNumber', {
+    navigation.navigate('PhoneNumberScreen', {
       screen: 'ValidatePasswordScreen',
       params: {
-        nextRouterName: 'UpdatePhoneNumber',
+        nextRouterName: 'PhoneNumberScreen',
       }
     })
   }

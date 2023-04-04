@@ -5,7 +5,7 @@ import { UserPhoneForm } from 'core/interfaces'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-export const UpdatePhoneNumber = () => {
+export const PhoneNumberScreen = () => {
   const onSubmit = ({ phone }: UserPhoneForm) => {
     console.log({ phone })
   }
@@ -45,10 +45,10 @@ export const UpdatePhoneNumber = () => {
 
 
 const navigationOptions: StackNavigationOptions = {
-  title: 'Atulizar telefone'
+  title: 'Novo telefone'
 }
 
-UpdatePhoneNumber.NavigationOptions = navigationOptions
+PhoneNumberScreen.NavigationOptions = navigationOptions
 
 const styles = StyleSheet.create({
   container: {

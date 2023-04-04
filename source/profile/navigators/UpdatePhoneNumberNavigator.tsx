@@ -1,6 +1,6 @@
 
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
-import { UpdatePasswordScreen, UpdatePhoneNumber, ValidatePasswordScreen } from 'profile/screens'
+import { UpdatePasswordScreen, PhoneNumberScreen, ValidatePasswordScreen } from 'profile/screens'
 import React from 'react'
 
 
@@ -9,7 +9,7 @@ const { Navigator, Screen } = createStackNavigator()
 export const UpdatePhoneNumberNavigator = () => {
   return (
     <Navigator
-      initialRouteName='UpdatePhoneNumber'
+      initialRouteName='PhoneNumberScreen'
     >
       <Screen
         name='ValidatePasswordScreen'
@@ -21,9 +21,9 @@ export const UpdatePhoneNumberNavigator = () => {
 
       />
       <Screen
-        name='UpdatePhoneNumber'
-        component={UpdatePhoneNumber}
-        options={UpdatePhoneNumber.NavigationOptions}
+        name='PhoneNumberScreen'
+        component={PhoneNumberScreen}
+        options={PhoneNumberScreen.NavigationOptions}
       />
     </Navigator>
   )

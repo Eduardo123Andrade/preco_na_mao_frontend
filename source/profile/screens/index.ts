@@ -1,4 +1,4 @@
 export { ProfileScreen } from './ProfileScreen'
 export { UpdatePasswordScreen } from './UpdatePasswordScreen'
-export { UpdatePhoneNumber } from './UpdatePhoneNumber'
+export { PhoneNumberScreen } from './PhoneNumberScreen'
 export { ValidatePasswordScreen } from './ValidatePasswordScreen'
