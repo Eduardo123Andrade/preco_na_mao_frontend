@@ -63,13 +63,13 @@ export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onR
     requestLogout()
   }
 
-  function onPressBackground() {
+  function onCloseDrawer() {
     setSideBarStatus('CLOSING')
   }
 
   const goToProfile = () => {
+    onCloseDrawer()
     navigation.navigate('Profile')
-    onRequestClose()
   }
 
   const _onRequestClose = () => {
@@ -86,7 +86,7 @@ export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onR
     >
       <View style={styles.container}>
         <Touchable
-          onPress={onPressBackground}
+          onPress={onCloseDrawer}
           style={styles.subContainer}
           enableFeedback={false}
         >
