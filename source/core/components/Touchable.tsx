@@ -1,28 +1,35 @@
 import React from 'react'
-import { StyleSheet, TouchableHighlightProps, TouchableNativeFeedback, View } from 'react-native'
+import { TouchableHighlightProps, TouchableWithoutFeedback, TouchableNativeFeedback, View } from 'react-native'
 
-interface TouchableProps extends TouchableHighlightProps {
-  children: React.ReactNode,
-}
 
 const DEFAULT_LIGHT_UNDERLAY_COLOR = "#FFFFFF42"
 
+interface TouchableProps extends TouchableHighlightProps {
+  children: React.ReactNode,
+  enableFeedback?: boolean
 
-export const Touchable: React.FC<TouchableProps> = ({ children, style, disabled, ...rest }) => {
-  return (
-    <TouchableNativeFeedback
-      background={TouchableNativeFeedback.Ripple(DEFAULT_LIGHT_UNDERLAY_COLOR, false)}
-      {...rest}
-      disabled={disabled}>
-      <View style={[styles.container, style]}>
-        <View>{children}</View>
-      </View>
-    </TouchableNativeFeedback>)
+}
+const InternalTouchable: React.FC<TouchableProps> = ({ enableFeedback, ...rest }) => {
+  if (enableFeedback)
+    return <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(DEFAULT_LIGHT_UNDERLAY_COLOR, false)} {...rest} />
+
+  return <TouchableWithoutFeedback {...rest} />
 }
 
+export const Touchable: React.FC<TouchableProps> = ({
+  children,
+  disabled,
+  enableFeedback = true,
+  style,
+  ...rest }) => {
 
-const styles = StyleSheet.create({
-  container: {
-
-  }
-})
+  return (
+    <InternalTouchable
+      enableFeedback={enableFeedback}
+      {...rest}>
+      <View style={style}>
+        <View>{children}</View>
+      </View>
+    </InternalTouchable>
+  )
+}

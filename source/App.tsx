@@ -3,7 +3,7 @@ import { AuthenticationNavigator } from 'authentication';
 import { useUser } from 'core/hooks';
 import { HomeNavigator } from 'home';
 import { ProfileNavigator } from 'profile';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const { Navigator, Screen } = createStackNavigator()
 
