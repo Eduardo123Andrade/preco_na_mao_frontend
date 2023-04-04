@@ -34,7 +34,6 @@ export const SingUpPhoneScreen = () => {
   const onSubmit = ({ phone }: UserPhone) => {
     setRegisterUserData({ phone })
     navigation.navigate("SingUpPasswordScreen")
-
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<UserPhone>({
