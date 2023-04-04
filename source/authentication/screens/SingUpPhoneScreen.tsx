@@ -1,53 +1,26 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText, Text } from 'core/components'
-import { useForm } from 'core/hooks'
+import { usePhoneNumberForm } from 'core/hooks'
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
-import { FieldValidation } from 'core/validations'
-import { REGEXP_ONLY_NUMBERS } from 'core/utils'
-import { useSingUp } from 'authentication/hooks'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
+import { useSingUp } from 'authentication/hooks'
+import { UserPhoneForm } from 'core/interfaces'
 
-
-const { string } = FieldValidation
-
-interface UserPhone {
-  phone: string
-}
-
-const PHONE_VALIDATION_SCHEMA = FieldValidation.object({
-  phone: string().length(11).required(),
-})
-
-
-const INITIAL_VALUES = {
-  phone: '',
-}
 
 export const SingUpPhoneScreen = () => {
   const navigation = useNavigation()
   const [, { setRegisterUserData }] = useSingUp()
 
 
-  const onSubmit = ({ phone }: UserPhone) => {
+  const onSubmit = ({ phone }: UserPhoneForm) => {
     setRegisterUserData({ phone })
     navigation.navigate("SingUpPasswordScreen")
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserPhone>({
-    onSubmit,
-    validationSchema: PHONE_VALIDATION_SCHEMA,
-    initialValues: INITIAL_VALUES,
-  })
-
-  const { onChangeText: onChangeTextPhone, value: phoneFieldValue, ...restPhoneFieldProps } = getFieldProps('phone')
-
-  const _onChangeTextPhone = (text: string) => {
-    const pureText = text.replace(REGEXP_ONLY_NUMBERS, "")
-    onChangeTextPhone(pureText)
-  }
+  const [{ isValid, fieldProps }, { handleSubmit }] = usePhoneNumberForm({ onSubmit })
 
   const onPress = () => handleSubmit()
 
@@ -67,9 +40,7 @@ export const SingUpPhoneScreen = () => {
           mask='phone'
           keyboardType='numeric'
           placeholder='Celular'
-          value={phoneFieldValue}
-          onChangeText={_onChangeTextPhone}
-          {...restPhoneFieldProps}
+          {...fieldProps}
         />
       </View>
     </AuthenticationScreen>
