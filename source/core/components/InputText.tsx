@@ -115,7 +115,6 @@ const styles = StyleSheet.create({
   },
   inputText: {
     flex: 1,
-    // color: '#000'
   },
   maskInputTextColor: {
     color: '#000'
