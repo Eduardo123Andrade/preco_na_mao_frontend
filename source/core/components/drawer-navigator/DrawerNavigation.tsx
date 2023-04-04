@@ -1,29 +1,70 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { Modal, StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Animated, Dimensions, Modal, StyleSheet, View } from 'react-native'
 import { Text } from '../Text'
 import { Touchable } from '../Touchable'
 import { DrawerNavigatorItem } from './DrawerNavigatorItem'
 import { useLogin } from 'authentication/hooks'
 
 
+const { width: WIDTH } = Dimensions.get('screen')
+
 const BORDER_RADIUS = 20
+
+const SEVEN_HUNDRED_MILLISECONDS = 700
+const SIDE_MENU_WIDTH = WIDTH * 0.75
+const translateX = new Animated.Value(-SIDE_MENU_WIDTH)
+const transform = [{ translateX }]
+
+const openAnimation = Animated.timing(translateX, {
+  toValue: 0,
+  duration: SEVEN_HUNDRED_MILLISECONDS,
+  useNativeDriver: false,
+})
+
+const closeAnimation = Animated.timing(translateX, {
+  toValue: -SIDE_MENU_WIDTH,
+  duration: SEVEN_HUNDRED_MILLISECONDS,
+  useNativeDriver: false,
+})
+
 
 interface DrawerNavigationProps {
   visible: boolean
   onRequestClose: () => void
 }
 
+type SideBarStatus = 'IDLE' | 'VISIBLE' | 'CLOSING' | 'CLOSED'
+
 export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onRequestClose }) => {
+  const [sideBarStatus, setSideBarStatus] = useState<SideBarStatus>('IDLE')
   const [, { requestLogout }] = useLogin()
   const navigation = useNavigation()
 
-  const onPress = () => {
-    onRequestClose()
-  }
+
+  useEffect(() => {
+    if (visible)
+      openAnimation.start()
+  }, [visible])
+
+
+  useEffect(() => {
+    if (sideBarStatus === 'CLOSING') {
+      closeAnimation.start(({ finished }) => {
+        if (finished) {
+          setSideBarStatus('CLOSED')
+          onRequestClose()
+        }
+      })
+    }
+  }, [sideBarStatus, setSideBarStatus])
 
   const logout = () => {
     requestLogout()
+  }
+
+  function onPressBackground() {
+    setSideBarStatus('CLOSING')
   }
 
   const goToProfile = () => {
@@ -45,10 +86,14 @@ export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onR
     >
       <View style={styles.container}>
         <Touchable
-          onPress={onPress}
+          onPress={onPressBackground}
           style={styles.subContainer}
+          enableFeedback={false}
         >
-          <View style={styles.card}>
+          <Animated.View style={[
+            styles.card,
+            { transform }
+          ]}>
             <View>
               <DrawerNavigatorItem onPress={goToProfile} />
             </View>
@@ -70,7 +115,7 @@ export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onR
               </Text>
             </View>
 
-          </View>
+          </Animated.View>
         </Touchable>
       </View>
     </Modal>
