@@ -53,6 +53,7 @@ export const MarketplaceProductListScreen = () => {
       <FlatList
         data={products}
         renderItem={renderItem}
+        contentContainerStyle={styles.listContentContainer}
       />
 
       <IncrementProductModal
@@ -73,7 +74,7 @@ export const MarketplaceProductListScreen = () => {
 
 const navigationOptions: StackNavigationOptions = {
   headerBackground: () => <View style={{ backgroundColor: '#f2f2f2' }} />,
-  title: 'Mercados'
+  title: 'Produtos'
 }
 
 MarketplaceProductListScreen.NavigationOptions = navigationOptions
@@ -89,5 +90,8 @@ const styles = StyleSheet.create({
   productContainer: {
     paddingHorizontal: 20,
     borderBottomWidth: 0.5
-  }
+  },
+  listContentContainer: {
+    flexGrow: 1
+  },
 })
