@@ -5,6 +5,6 @@ export const MOCKED_USER_DATA: User = {
   cpf: '09907658499',
   id: '1',
   isLogged: true,
-  phone: '9999999999',
+  phone: '99999999999',
   token: ''
 }

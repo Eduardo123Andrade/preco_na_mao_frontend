@@ -27,11 +27,10 @@ interface UserProvider {
 
 export const UserProvider: React.FC<UserProvider> = ({ children }) => {
   const [user, updateUser] = useState<User>()
-  const [{ data }, { getData }] = useLocalStorage<User>()
+  const [, { getData }] = useLocalStorage<User>()
   const [retrievingUserData, setRetrievingUserData] = useState(true)
 
   useEffect(() => {
-    console.log('oi')
     getData(USER_KEY)
       .then(user => {
         if (user) updateUser(user)

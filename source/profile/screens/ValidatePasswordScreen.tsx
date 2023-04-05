@@ -1,10 +1,25 @@
-import { useNavigation } from '@react-navigation/native'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, InputText, Screen, Text } from 'core/components'
 import { useForm } from 'core/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FieldValidation } from 'core/validations'
+
+
+
+type RouterParameter = {
+  nextRouterName: string
+}
+
+type RootStackParamList = {
+  ValidatePasswordScreen: RouterParameter
+}
+
+type ValidatePasswordScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'ValidatePasswordScreen'
+>
 
 
 interface Password {
@@ -25,9 +40,11 @@ export const PASSWORD_VALIDATION_SCHEMA = FieldValidation.object({
 export const ValidatePasswordScreen = () => {
   const navigation = useNavigation()
 
+  const route = useRoute<ValidatePasswordScreenRouteProp>()
+  const { nextRouterName } = route.params
 
   const onSubmit = ({ password }: Password) => {
-    navigation.navigate('UpdatePasswordScreen')
+    navigation.navigate(nextRouterName)
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<Password>({
