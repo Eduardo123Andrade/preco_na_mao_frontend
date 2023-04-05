@@ -1,22 +1,23 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, Screen, Text } from 'core/components'
+import { useUser } from 'core/hooks'
 import { formatPhoneNumber } from 'core/utils/formatPhoneNumber'
+import { useUpdatePhoneNumber } from 'profile/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 
 export const ConfirmPhoneNumberScreen = () => {
+  const [{ phoneNumber }] = useUpdatePhoneNumber()
+  const [{ user: { phone } }] = useUser()
   const navigation = useNavigation()
 
-  const phoneNumber = '81998649300'
-  const oldNumber = '00000000000'
   const formattedNumber = formatPhoneNumber(phoneNumber)
-  const formattedOldNumber = formatPhoneNumber(oldNumber)
-
+  const formattedOldNumber = formatPhoneNumber(phone)
 
   const onPress = () => {
-    navigation.navigate("Profile")
+    navigation.navigate("ProfileScreen")
   }
 
 
