@@ -1,4 +1,5 @@
 export { CodeValidationScreen } from './CodeValidationScreen'
+export { ConfirmPhoneNumberScreen } from './ConfirmPhoneNumberScreen'
 export { ProfileScreen } from './ProfileScreen'
 export { UpdatePasswordScreen } from './UpdatePasswordScreen'
 export { PhoneNumberScreen } from './PhoneNumberScreen'
