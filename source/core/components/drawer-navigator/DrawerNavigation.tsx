@@ -34,52 +34,40 @@ interface DrawerNavigationProps {
   onRequestClose: () => void
 }
 
-type SideBarStatus = 'IDLE' | 'VISIBLE' | 'CLOSING' | 'CLOSED'
-
 export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onRequestClose }) => {
-  const [sideBarStatus, setSideBarStatus] = useState<SideBarStatus>('IDLE')
   const [, { requestLogout }] = useLogin()
   const navigation = useNavigation()
-
 
   useEffect(() => {
     if (visible)
       openAnimation.start()
   }, [visible])
 
-
-  useEffect(() => {
-    if (sideBarStatus === 'CLOSING') {
-      closeAnimation.start(({ finished }) => {
-        if (finished) {
-          setSideBarStatus('CLOSED')
-          onRequestClose()
-        }
-      })
-    }
-  }, [sideBarStatus, setSideBarStatus])
+  const onCloseDrawerAnimation = (cb?: CallableFunction) => {
+    closeAnimation.start(({ finished }) => {
+      if (finished) {
+        onRequestClose()
+      }
+      if (typeof cb === 'function')
+        cb()
+    })
+  }
 
   const logout = () => {
-    requestLogout()
+    onCloseDrawerAnimation(() => requestLogout())
   }
 
   function onCloseDrawer() {
-    setSideBarStatus('CLOSING')
+    onCloseDrawerAnimation()
   }
 
   const goToProfile = () => {
-    onCloseDrawer()
-    navigation.navigate('Profile')
-  }
-
-  const _onRequestClose = () => {
-    onRequestClose()
+    onCloseDrawerAnimation(() => navigation.navigate('Profile'))
   }
 
   return (
     <Modal
       visible={visible}
-      onRequestClose={_onRequestClose}
       transparent={true}
       statusBarTranslucent={false}
       animationType='none'
