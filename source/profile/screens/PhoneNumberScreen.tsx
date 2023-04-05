@@ -3,13 +3,16 @@ import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, InputText, Screen, Text } from 'core/components'
 import { usePhoneNumberForm } from 'core/hooks'
 import { UserPhoneForm } from 'core/interfaces'
+import { useUpdatePhoneNumber } from 'profile/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 export const PhoneNumberScreen = () => {
   const navigation = useNavigation()
+  const [, { setPhoneNumber }] = useUpdatePhoneNumber()
+
   const onSubmit = ({ phone }: UserPhoneForm) => {
-    console.log({ phone })
+    setPhoneNumber(phone)
     navigation.navigate('CodeValidationScreen')
   }
 
