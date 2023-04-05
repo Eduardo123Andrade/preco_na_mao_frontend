@@ -12,7 +12,7 @@ export const CodeValidationScreen = () => {
   const navigation = useNavigation()
 
   const onSubmit = ({ accessToken }: CodeValidationForm) => {
-    navigation.navigate('')
+    navigation.navigate('ConfirmPhoneNumberScreen')
   }
 
   const [{ fieldProps, isValid }, { handleSubmit }] = useCodeValidationForm({ onSubmit })
