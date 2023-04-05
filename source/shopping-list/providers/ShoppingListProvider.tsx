@@ -110,15 +110,8 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
       products.push(product)
     }
 
-    const mappedProducts = products.map(item => {
-      if (item.id === currentProduct.id) {
-        return {
-          ...currentProduct,
-          quantity
-        }
-      }
-      return item
-    })
+    const mappedProducts = coreIncrementProduct(products, currentProduct.id, quantity)
+
     updateProductList(mappedProducts)
   }
 

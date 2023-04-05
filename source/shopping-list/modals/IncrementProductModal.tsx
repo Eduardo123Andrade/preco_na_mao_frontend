@@ -74,7 +74,7 @@ export const IncrementProductModal: React.FC<IncrementProductModalProps> = ({
       </View>
 
       <View style={styles.footerContainer}>
-        <Touchable onPress={onPressSave}>
+        <Touchable disabled={!currentQuantity} onPress={onPressSave}>
           <Text>
             Ok
           </Text>

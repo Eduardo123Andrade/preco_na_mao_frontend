@@ -1,16 +1,13 @@
 import { Product } from "core/interfaces"
 
 export const incrementProduct = (products: Product[], productId: string, incrementor: number) => {
-  const mappedItems = products.map(item => {
-    if (item.id === productId) {
-      return {
-        ...item,
-        edited: true,
-        quantity: item.quantity + incrementor,
-      }
-    }
-    return item
-  })
+  const temporaryProducts = [...products]
+  const foundProduct = temporaryProducts.find(product => product.id === productId)
+  const index = temporaryProducts.indexOf(foundProduct)
 
-  return mappedItems
+  const updatedProduct: Product = { ...foundProduct, edited: true, quantity: foundProduct.quantity + incrementor }
+
+  temporaryProducts[index] = updatedProduct
+
+  return temporaryProducts
 }
