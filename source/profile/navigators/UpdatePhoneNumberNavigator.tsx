@@ -11,18 +11,13 @@ export const UpdatePhoneNumberNavigator = () => {
   return (
     <UpdatePhoneNumberProvider>
 
-      <Navigator
-        initialRouteName='PhoneNumberScreen'
-      >
+      <Navigator>
         <Screen
           name='ValidatePasswordScreen'
           component={ValidatePasswordScreen}
           options={ValidatePasswordScreen.NavigationOptions}
-          initialParams={{
-            nextRouterName: ''
-          }}
-
         />
+
         <Screen
           name='PhoneNumberScreen'
           component={PhoneNumberScreen}

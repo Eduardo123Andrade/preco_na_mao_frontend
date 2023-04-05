@@ -8,9 +8,7 @@ const { Navigator, Screen } = createStackNavigator()
 
 export const ProfileNavigator = () => {
   return (
-    <Navigator
-      initialRouteName='UpdatePhoneNumber'
-    >
+    <Navigator>
       <Screen
         name='ProfileScreen'
         component={ProfileScreen}
