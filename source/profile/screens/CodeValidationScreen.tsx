@@ -1,25 +1,28 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Button, InputText, Screen, Text } from 'core/components'
-import { usePhoneNumberForm } from 'core/hooks'
-import { UserPhoneForm } from 'core/interfaces'
+import { Button, InputText, Screen } from 'core/components'
+import { useCodeValidationForm } from 'core/hooks'
+import { CodeValidationForm } from 'core/interfaces'
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
-export const PhoneNumberScreen = () => {
+
+
+export const CodeValidationScreen = () => {
   const navigation = useNavigation()
-  const onSubmit = ({ phone }: UserPhoneForm) => {
-    console.log({ phone })
-    navigation.navigate('CodeValidationScreen')
+
+  const onSubmit = ({ accessToken }: CodeValidationForm) => {
+    navigation.navigate('')
   }
 
-  const [{ isValid, fieldProps }, { handleSubmit }] = usePhoneNumberForm({ onSubmit })
+  const [{ fieldProps, isValid }, { handleSubmit }] = useCodeValidationForm({ onSubmit })
 
   const onPress = () => handleSubmit()
 
   return (
     <Screen contentContainerStyles={styles.container}>
       <View>
+
         <View style={styles.titleContainer}>
           <Text>
             Preço na Mão
@@ -28,9 +31,9 @@ export const PhoneNumberScreen = () => {
 
         <View style={styles.inputTextContainer}>
           <InputText
-            mask='phone'
             keyboardType='numeric'
-            placeholder='Celular'
+            placeholder='Codigo'
+            maxLength={6}
             {...fieldProps}
           />
         </View>
@@ -42,16 +45,18 @@ export const PhoneNumberScreen = () => {
       >
         Avançar
       </Button>
+
     </Screen>
   )
 }
 
 
 const navigationOptions: StackNavigationOptions = {
-  title: 'Novo telefone'
+  title: 'Validar codigo'
 }
 
-PhoneNumberScreen.NavigationOptions = navigationOptions
+CodeValidationScreen.NavigationOptions = navigationOptions
+
 
 const styles = StyleSheet.create({
   container: {

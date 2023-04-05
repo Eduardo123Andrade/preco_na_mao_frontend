@@ -1,6 +1,6 @@
 
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
-import { UpdatePasswordScreen, PhoneNumberScreen, ValidatePasswordScreen } from 'profile/screens'
+import { UpdatePasswordScreen, PhoneNumberScreen, ValidatePasswordScreen, CodeValidationScreen } from 'profile/screens'
 import React from 'react'
 
 
@@ -25,6 +25,13 @@ export const UpdatePhoneNumberNavigator = () => {
         component={PhoneNumberScreen}
         options={PhoneNumberScreen.NavigationOptions}
       />
+      <Screen
+        name='CodeValidationScreen'
+        component={CodeValidationScreen}
+        options={CodeValidationScreen.NavigationOptions}
+      />
+
+
     </Navigator>
   )
 }
