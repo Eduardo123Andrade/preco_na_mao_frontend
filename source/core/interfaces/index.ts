@@ -1,3 +1,4 @@
+export { CodeValidationForm } from './codeValidationFormInterface'
 export { FieldProps } from './fieldPropsInterface'
 export { Product } from './ProductInterface'
 export { ShoppingList } from './ShoppingListInterface'
