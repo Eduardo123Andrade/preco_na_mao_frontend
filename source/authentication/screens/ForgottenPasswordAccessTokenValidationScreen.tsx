@@ -1,38 +1,21 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText, Text } from 'core/components'
-import { useErrorModal, useForm } from 'core/hooks'
+import { useCodeValidationForm, useErrorModal } from 'core/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
 import { useForgottenPassword, useValidateAccessToken } from 'authentication/hooks'
-import { REGEXP_ONLY_NUMBERS } from 'core/utils'
-import { FieldValidation } from 'core/validations'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { SimpleModal } from 'core/modals'
+import { CodeValidationForm } from 'core/interfaces'
 
 
-const { string } = FieldValidation
-
-
-interface AccessToken {
-  accessToken: string
-}
-
-const ACCESS_TOKEN_VALIDATION_SCHEMA = FieldValidation.object({
-  accessToken: string().length(6).label('codigo de accesso').required()
-})
-
-const INITIAL_VALUES = {
-  accessToken: '',
-}
 
 export const ForgottenPasswordAccessTokenValidationScreen = () => {
   const navigation = useNavigation()
   const [{ forgottenPassword }] = useForgottenPassword()
   const [{ show, message }, { startModalError, resetState }] = useErrorModal()
-
-
 
   const [{ isLoading }, { requestValidateAccessToken }] = useValidateAccessToken({
     onSuccess: () => {
@@ -43,23 +26,12 @@ export const ForgottenPasswordAccessTokenValidationScreen = () => {
     }
   })
 
-  const onSubmit = ({ accessToken }: AccessToken) => {
+  const onSubmit = ({ accessToken }: CodeValidationForm) => {
     const { cpf } = forgottenPassword
     requestValidateAccessToken(cpf, accessToken)
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<AccessToken>({
-    onSubmit,
-    validationSchema: ACCESS_TOKEN_VALIDATION_SCHEMA,
-    initialValues: INITIAL_VALUES,
-  })
-
-  const { onChangeText: onChangeTextCpf, value: cpfFieldValue, ...restCpfFieldProps } = getFieldProps('accessToken')
-
-  const _onChangeTextCpf = (text: string) => {
-    const pureText = text.replace(REGEXP_ONLY_NUMBERS, "")
-    onChangeTextCpf(pureText)
-  }
+  const [{ fieldProps, isValid }, { handleSubmit }] = useCodeValidationForm({ onSubmit })
 
 
   return (
@@ -79,9 +51,7 @@ export const ForgottenPasswordAccessTokenValidationScreen = () => {
           keyboardType='numeric'
           placeholder='Codigo'
           maxLength={6}
-          onChangeText={_onChangeTextCpf}
-          value={cpfFieldValue}
-          {...restCpfFieldProps}
+          {...fieldProps}
         />
       </View>
 

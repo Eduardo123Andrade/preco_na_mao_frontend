@@ -1,4 +1,5 @@
 export { useAPI } from './useApi'
+export { useCodeValidationForm } from './useCodeValidationForm'
 export { useDropDownAnimation } from './useDropDownAnimation'
 export { useErrorModal } from './useErrorModal'
 export { useForm } from './useForm'
