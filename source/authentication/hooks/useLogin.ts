@@ -59,7 +59,6 @@ export const useLogin = (): UseLoginData => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-      console.log(cpf, password)
       if (cpf === '09907658499' && password === '123123') {
         setStatus('SUCCESS')
         const userData = { ...user, isLogged: true }
