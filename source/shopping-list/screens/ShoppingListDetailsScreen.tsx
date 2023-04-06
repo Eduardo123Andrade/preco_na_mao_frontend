@@ -39,6 +39,24 @@ export const ShoppingListDetailsScreen = () => {
     navigation.navigate('Home')
   }
 
+
+  /**
+   * router: shopping-list/save-products
+   * body
+   *  listId,
+   *  [
+   *    productId,
+   *    quantity
+   * ]
+   * 
+   * success:
+   *  status: ok
+   * 
+   * error:
+   *  status: _
+   * 
+   */
+
   const onPressAddSave = () => {
     saveShoppingList()
   }

@@ -16,6 +16,18 @@ export const MarketplaceListScreen = () => {
   const [{ marketplaceList }, { selectMarketplace }] = useShoppingList()
   const navigation = useNavigation()
 
+  /**
+   * 
+   * router market-places
+   * 
+   * success: ok,
+   *  response
+   *    markets: []
+   * 
+   * error:
+   *  status:_
+   */
+
   const renderItem = ({ item }: RenderItemProps) => {
     const onPress = () => {
       selectMarketplace(item)

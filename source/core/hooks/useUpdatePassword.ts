@@ -24,6 +24,22 @@ type UseUpdatePasswordData = [
 
 export const useUpdatePassword = (options: UsePutRequestOptionsType<unknown, unknown, UseUpdatePasswordVariables>): UseUpdatePasswordData => {
 
+
+  /**
+   * router: user/update-password
+   *  body: 
+   *    cpf,
+   *    password,
+   *    confirmPassword
+   * 
+   * sucesso:
+   *   status: ok
+   * 
+   * error:
+   *  status: _
+   *    senha invalida
+   */
+
   const { mutate, isLoading } = usePutRequest('/update-password', options)
 
   const requestUpdatePassword = (props: UseUpdatePasswordVariables) => {

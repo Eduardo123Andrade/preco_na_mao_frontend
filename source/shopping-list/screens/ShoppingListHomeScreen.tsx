@@ -44,8 +44,24 @@ const HeaderList = () => {
 }
 
 export const ShoppingListHomeScreen = () => {
+  /**
+   * router: shopping-list/:userId
+   * 
+   * success:
+   *  status: ok
+   *  response:
+   *    shoppingList: []
+   * 
+   * 
+   * error:
+   *  status: _
+   * 
+   */
+
+
   const [{ shoppingLists }] = useShoppingList()
   const navigation = useNavigation()
+
 
   const onPress = () => navigation.navigate('CreateShoppingListScreen')
 

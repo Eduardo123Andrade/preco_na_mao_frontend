@@ -17,6 +17,11 @@ export const CodeValidationScreen = () => {
 
   const [{ fieldProps, isValid }, { handleSubmit }] = useCodeValidationForm({ onSubmit })
 
+  /**
+   * usar useValidateAccessToken
+   * 
+   */
+
   const onPress = () => handleSubmit()
 
   return (
