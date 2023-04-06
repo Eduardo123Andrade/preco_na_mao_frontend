@@ -43,6 +43,21 @@ export const ProfileScreen = () => {
     setName(text)
   }
 
+  /**
+   * router: user/update-name
+   * 
+   * body: 
+   *  cpf,
+   *  name
+   * 
+   * success:
+   *  status: ok
+   * 
+   * error:
+   *  status: _
+   * 
+   */
+
   const onPress = () => handleSubmit()
 
   const goToUpdatePasswordScreen = () => {

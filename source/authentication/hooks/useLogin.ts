@@ -43,6 +43,28 @@ export const useLogin = (): UseLoginData => {
   const [, { storeData }] = useLocalStorage<User>()
 
 
+
+  /**
+   * router: auth/login
+   * body:
+   *  cpf
+   *  password
+   * 
+   * sucesso: 
+   *  status: ok
+   *    body:
+   *      user
+   *      token
+   * 
+   * error:
+   *  status: 404
+   *    usuario nao encontrado
+   *          _
+   *    login ou senha invalidos
+   * 
+   */
+
+
   // const { mutate, status, isLoading } = usePostRequest<ResponseData, LoginVariable, string>('/login', {
   //   onSuccess: ({ data }) => {
   // const userData = {...user, isLogged: true}

@@ -16,6 +16,22 @@ export const ConfirmPhoneNumberScreen = () => {
   const formattedNumber = formatPhoneNumber(phoneNumber)
   const formattedOldNumber = formatPhoneNumber(phone)
 
+
+  /**
+   * router: user/update-phone-number
+   * 
+   * body: 
+   *  cpf,
+   *  phoneNumber
+   * 
+   * success: 
+   *  status: ok
+   * 
+   * error:
+   *  status: _
+   * 
+   */
+
   const onPress = () => {
     navigation.navigate("ProfileScreen")
   }

@@ -36,8 +36,21 @@ export const MarketplaceProductListScreen = () => {
     setSelectedProduct(undefined)
   }
 
+
+  /**
+   * router: market-places/:id/products
+   * 
+   * success: 
+   *  status: ok
+   *  response:
+   *    products[]
+   * 
+   * error:
+   *  status: _
+   */
+
+
   const onPress = () => {
-    // TODO integrar com o backend
     saveShoppingList()
     navigation.navigate('ShoppingListHomeScreen')
   }

@@ -26,6 +26,27 @@ export const CreateShoppingListScreen = () => {
   const navigation = useNavigation()
   const { createShoppingList } = useCreateShoppingList()
 
+
+  /**
+   *  router: shopping-list/create
+   *  
+   * body:
+   *  cpf,
+   *  name,
+   * 
+   * success: 
+   *  status: ok
+   *  response:
+   *    id,
+   *    name
+   *    date
+   * 
+   * error:
+   *  status: _
+   *
+   */
+
+
   const onSubmit = ({ name }: MarketplaceName) => {
     createShoppingList(name)
     navigation.navigate('MarketplaceListScreen')

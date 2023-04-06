@@ -21,6 +21,20 @@ type RequestAccessTokenData = [
 
 export const useRequestAccessToken = (options: UsePostRequestOptionsType<unknown, unknown, RequestAccessTokenVariable>): RequestAccessTokenData => {
 
+  /**
+   * router: /access-token
+   * body:
+   *  cpf
+   * 
+   * sucesso: 
+   *  status: ok
+   * 
+   * error:
+   *  status: _
+   *    token invalido
+   * 
+   */
+
   const { mutate, isLoading } = usePostRequest('/access-token', options)
 
   const requestAccessToken = (cpf: string) => {
