@@ -44,7 +44,7 @@ export const ForgottenPasswordCpfScreen = () => {
   const onSubmit = ({ cpf }: UserCpf) => {
     // setForgottenPasswordData({ cpf })
     // requestAccessToken(cpf)
-    //     navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
+    navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
 
   }
 
