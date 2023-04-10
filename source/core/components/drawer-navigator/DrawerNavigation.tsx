@@ -12,7 +12,7 @@ const { width: WIDTH } = Dimensions.get('screen')
 const BORDER_RADIUS = 20
 
 const SEVEN_HUNDRED_MILLISECONDS = 700
-const SIDE_MENU_WIDTH = WIDTH * 0.6
+const SIDE_MENU_WIDTH = WIDTH * 0.65
 const translateX = new Animated.Value(-SIDE_MENU_WIDTH)
 const transform = [{ translateX }]
 
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   card: {
     width: SIDE_MENU_WIDTH,
     height: '100%',
-    backgroundColor: '#FFF',
+    backgroundColor: '#E2FBED',
     borderBottomRightRadius: BORDER_RADIUS,
     borderTopRightRadius: BORDER_RADIUS,
     paddingVertical: 40,
