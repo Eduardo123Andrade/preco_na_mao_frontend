@@ -13,7 +13,7 @@ export const DrawerNavigatorItem: React.FC<DrawerNavigatorItemProps> = ({ onPres
     <Touchable onPress={onPress}>
       <View style={styles.container}>
         <Icon
-          color='#AAA'
+          color='#008000'
           name='supervised-user-circle'
         />
         <Text>
