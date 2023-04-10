@@ -9,7 +9,7 @@ interface TabBarIconProps {
 }
 
 export const TabBarIcon: React.FC<TabBarIconProps> = ({ iconName, focused }) => {
-  const color = focused ? "#000" : "#AAA"
+  const color = focused ? "#008000" : "#8FBC8F"
 
   return <Icon name={iconName} size={20} color={color} />
 }
