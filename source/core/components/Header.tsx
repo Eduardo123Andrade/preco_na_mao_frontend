@@ -29,5 +29,6 @@ export const Header: React.FC<HeaderProps> = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 5,
+    backgroundColor: "#E2FBED"
   }
 })

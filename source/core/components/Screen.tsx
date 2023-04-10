@@ -20,7 +20,7 @@ export const Screen: React.FC<ScreenProps> = ({ contentContainerStyles, style, c
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f2f2f2"
+    backgroundColor: "#E2FBED"
   },
   contentContainer: {
     paddingHorizontal: 20,
