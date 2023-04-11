@@ -35,6 +35,6 @@ const bottomNavigationStyles: BottomTabNavigationOptions = {
   tabBarInactiveTintColor: "#8FBC8F",
   tabBarShowLabel: false,
   tabBarStyle: {
-    backgroundColor: "#9BD9D4",
+    backgroundColor: "#C1DFC0",
   }
 }
