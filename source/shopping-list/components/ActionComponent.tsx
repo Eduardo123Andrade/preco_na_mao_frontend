@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   quantityContainer: {
     paddingHorizontal: 10,
-    backgroundColor: '#FFF',
+    backgroundColor: '#d6e9e699',
     justifyContent: 'center'
   }
 
