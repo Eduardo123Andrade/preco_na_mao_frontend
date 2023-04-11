@@ -86,7 +86,6 @@ export const MarketplaceProductListScreen = () => {
 
 
 const navigationOptions: StackNavigationOptions = {
-  headerBackground: () => <View style={{ backgroundColor: '#f2f2f2' }} />,
   title: 'Produtos'
 }
 
