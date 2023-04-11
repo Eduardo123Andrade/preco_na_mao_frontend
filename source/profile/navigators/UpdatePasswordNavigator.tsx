@@ -1,4 +1,5 @@
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
+import { defaultScreenOptions } from 'core/utils'
 import { UpdatePasswordScreen, ValidatePasswordScreen } from 'profile/screens'
 import React from 'react'
 
@@ -7,7 +8,7 @@ const { Navigator, Screen } = createStackNavigator()
 
 export const UpdatePasswordNavigator = () => {
   return (
-    <Navigator>
+    <Navigator screenOptions={defaultScreenOptions}>
       <Screen
         name='ValidatePasswordScreen'
         component={ValidatePasswordScreen}
