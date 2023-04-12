@@ -1,5 +1,5 @@
 import { AuthenticationScreen } from 'authentication/components'
-import { InputText, Text } from 'core/components'
+import { InputText } from 'core/components'
 import { useForm } from 'core/hooks'
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
@@ -54,12 +54,6 @@ export const SingUpCpfScreen = () => {
       disabled={!isValid}
       onPress={onPress}
     >
-      <View style={styles.titleContainer}>
-        <Text>
-          Preço na Mão
-        </Text>
-      </View>
-
       <View style={styles.inputTextContainer}>
         <InputText
           mask='cpf'
@@ -84,9 +78,6 @@ SingUpCpfScreen.NavigationOptions = navigationOptions
 
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    alignItems: 'center',
-  },
   inputTextContainer: {
     paddingVertical: 10
   },
