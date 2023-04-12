@@ -21,24 +21,27 @@ export const AuthenticationScreen: React.FC<SingUpScreenProps> = ({
 }) => {
   return (
     <Screen contentContainerStyles={styles.container}>
-      <View style={styles.logoContainer}>
-        <Logo />
-      </View>
+      <View style={[
+        styles.contentContainerStyle,
+        contentContainerStyle,
+      ]}>
+        <View>
+          <View style={styles.logoContainer}>
+            <Logo />
+          </View>
+          {children}
+        </View>
 
-      <View style={[styles.contentContainerStyle, contentContainerStyle]}>
-        {children}
+        <View>
+          <Button
+            disabled={disabled}
+            isLoading={isLoading}
+            onPress={(onPress)}>
+            {buttonTitle}
+          </Button>
+        </View>
       </View>
-
-      <View>
-        <Button
-          disabled={disabled}
-          isLoading={isLoading}
-          onPress={(onPress)}>
-          {buttonTitle}
-        </Button>
-      </View>
-
-    </Screen>
+    </Screen >
   )
 }
 
@@ -49,10 +52,11 @@ const styles = StyleSheet.create({
   },
   contentContainerStyle: {
     flex: 1,
+    justifyContent: 'space-between'
   },
   logoContainer: {
     paddingBottom: 20,
-    marginTop: 60,
+    marginTop: 40,
     alignItems: 'center',
   },
 })
