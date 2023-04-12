@@ -1,5 +1,5 @@
 import { AuthenticationScreen } from 'authentication/components'
-import { InputText, Text } from 'core/components'
+import { InputText } from 'core/components'
 import { useCodeValidationForm, useErrorModal } from 'core/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -22,13 +22,14 @@ export const ForgottenPasswordAccessTokenValidationScreen = () => {
 
     },
     onError: ({ message }) => {
-      startModalError(message)
+      // startModalError(message)
     }
   })
 
   const onSubmit = ({ accessToken }: CodeValidationForm) => {
     const { cpf } = forgottenPassword
-    requestValidateAccessToken(cpf, accessToken)
+    navigation.navigate('ForgottenPasswordUpdatePasswordScreen')
+    // requestValidateAccessToken(cpf, accessToken)
   }
 
   const [{ fieldProps, isValid }, { handleSubmit }] = useCodeValidationForm({ onSubmit })
@@ -38,14 +39,8 @@ export const ForgottenPasswordAccessTokenValidationScreen = () => {
     <AuthenticationScreen
       disabled={!isValid}
       onPress={handleSubmit}
-      isLoading={isLoading}
+    // isLoading={isLoading}
     >
-      <View style={styles.titleContainer}>
-        <Text>
-          Preço na Mão
-        </Text>
-      </View>
-
       <View style={styles.inputTextContainer}>
         <InputText
           keyboardType='numeric'
@@ -60,7 +55,6 @@ export const ForgottenPasswordAccessTokenValidationScreen = () => {
         visible={show}
         onRequestClose={resetState}
       />
-
     </AuthenticationScreen>
   )
 }
@@ -74,9 +68,6 @@ ForgottenPasswordAccessTokenValidationScreen.NavigationOptions = navigationOptio
 
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    alignItems: 'center',
-  },
   inputTextContainer: {
     paddingVertical: 10
   },

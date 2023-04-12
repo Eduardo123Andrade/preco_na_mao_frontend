@@ -1,5 +1,5 @@
 import { AuthenticationScreen } from 'authentication/components'
-import { InputText, Text } from 'core/components'
+import { InputText } from 'core/components'
 import { useErrorModal, useForm, useUpdatePassword } from 'core/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -50,12 +50,6 @@ export const ForgottenPasswordUpdatePasswordScreen = () => {
       onPress={handleSubmit}
     // isLoading={isLoading}
     >
-      <View style={styles.titleContainer}>
-        <Text>
-          Preço na Mão
-        </Text>
-      </View>
-
       <View style={styles.inputTextContainer}>
         <InputText
           placeholder='Senha'
@@ -91,9 +85,6 @@ ForgottenPasswordUpdatePasswordScreen.NavigationOptions = navigationOptions
 
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    alignItems: 'center',
-  },
   inputTextContainer: {
     paddingVertical: 10
   },

@@ -1,4 +1,4 @@
-import { Button, Screen } from 'core/components'
+import { Button, Logo, Screen } from 'core/components'
 import React from 'react'
 import { StyleSheet, View, ViewStyle } from 'react-native'
 
@@ -21,11 +21,15 @@ export const AuthenticationScreen: React.FC<SingUpScreenProps> = ({
 }) => {
   return (
     <Screen contentContainerStyles={styles.container}>
-      <View style={contentContainerStyle}>
+      <View style={styles.logoContainer}>
+        <Logo />
+      </View>
+
+      <View style={[styles.contentContainerStyle, contentContainerStyle]}>
         {children}
       </View>
 
-      <View style={styles.buttonContainer}>
+      <View>
         <Button
           disabled={disabled}
           isLoading={isLoading}
@@ -41,8 +45,14 @@ export const AuthenticationScreen: React.FC<SingUpScreenProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-around',
+    paddingBottom: 20,
   },
-  buttonContainer: {
+  contentContainerStyle: {
+    flex: 1,
+  },
+  logoContainer: {
+    paddingBottom: 20,
+    marginTop: 60,
+    alignItems: 'center',
   },
 })
