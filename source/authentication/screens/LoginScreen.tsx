@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { useLogin } from 'authentication/hooks'
 import { loginValidationSchema } from 'authentication/utils'
-import { Button, InputText, Screen } from 'core/components'
+import { Button, InputText, Logo, Screen } from 'core/components'
 import { Text } from 'core/components'
 import { useForm } from 'core/hooks'
 import { SimpleModal } from 'core/modals'
@@ -70,9 +70,7 @@ export const LoginScreen = () => {
   return (
     <Screen contentContainerStyles={styles.container}>
       <View style={styles.titleContainer}>
-        <Text>
-          Preço na Mão
-        </Text>
+        <Logo />
       </View>
 
       <View>
