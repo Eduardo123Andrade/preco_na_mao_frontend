@@ -89,10 +89,8 @@ export const LoginScreen = () => {
             placeholder='Senha'
             secureTextEntry
             {...getFieldProps("password")}
-
           />
         </View>
-
 
         <View style={styles.buttonContainer}>
           <Button style={styles.button} onPress={onPressSignUp}>
@@ -145,12 +143,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingTop: 10,
   },
   button: {
     width: WIDTH * 0.43
   },
   inputTextContainer: {
-    paddingVertical: 10
+    paddingVertical: 5
   },
   textStyle: {
     textDecorationLine: 'underline'
@@ -160,4 +159,3 @@ const styles = StyleSheet.create({
     paddingTop: 24
   }
 })
-
