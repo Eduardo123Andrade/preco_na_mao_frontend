@@ -15,6 +15,7 @@ interface ShoppingListProviderState {
 interface ShoppingListProviderActions {
   addShoppingList: (shoppingListData: ShoppingList) => void
   decrementProduct: (productId: string) => void
+  deleteList: () => void
   incrementProduct: (productId: string) => void
   removeProduct: (productId: string) => void
   removeShoppingList: (id: string) => void
@@ -135,6 +136,11 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
     setCurrentShoppingList(updatedCurrentShoppingList)
   }
 
+  const deleteList = () => {
+    const filteredList = shoppingLists.filter(shoppingList => shoppingList.id !== currentShoppingList.id)
+    setShoppingLists(filteredList)
+  }
+
   return <ShoppingListContext.Provider
     children={children}
     value={[
@@ -146,6 +152,7 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
       },
       {
         addShoppingList,
+        deleteList,
         decrementProduct,
         incrementProduct,
         removeShoppingList,
