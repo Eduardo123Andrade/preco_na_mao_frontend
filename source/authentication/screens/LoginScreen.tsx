@@ -8,10 +8,7 @@ import { useForm } from 'core/hooks'
 import { SimpleModal } from 'core/modals'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import React, { useEffect, useState } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
-
-
-const { width: WIDTH } = Dimensions.get('window')
+import { StyleSheet, View } from 'react-native'
 
 interface Login {
   cpf: string
@@ -118,7 +115,8 @@ export const LoginScreen = () => {
 }
 
 const navigationOptions: StackNavigationOptions = {
-  headerShown: false,
+  title: '',
+  headerTransparent: true,
 }
 
 LoginScreen.NavigationOptions = navigationOptions

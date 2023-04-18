@@ -77,10 +77,10 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
               <TextInput
                 ref={ref}
                 style={[styles.inputText, { color: color }, style]}
-                secureTextEntry={secureTextEntry}
                 editable={!disabled}
                 placeholderTextColor={PLACE_HOLDER_TEXT_COLOR}
                 {...rest}
+                secureTextEntry={secureTextEntry}
               />
               {defaultSideElement()}
             </View>

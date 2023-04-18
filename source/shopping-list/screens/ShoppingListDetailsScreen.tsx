@@ -24,7 +24,7 @@ const renderItem = ({ item }: RenderItemProps) => {
 }
 
 export const ShoppingListDetailsScreen = () => {
-  const [{ currentShoppingList }, { saveShoppingList }] = useShoppingList()
+  const [{ currentShoppingList }, { saveShoppingList, deleteList }] = useShoppingList()
   const [, { storeData }] = useLocalStorage<ShoppingList>()
 
   const { products } = currentShoppingList
@@ -33,6 +33,11 @@ export const ShoppingListDetailsScreen = () => {
   const totalPrice = products.reduce(calculateTotalPrice, 0)
 
   const onPressAddNewProducts = () => navigation.navigate('MarketplaceListScreen')
+
+  const onPressDeleteList = () => {
+    deleteList()
+    navigation.goBack()
+  }
 
   const onPressAddStartShopping = () => {
     storeData(SHOPPING_LIST_KEY, currentShoppingList)
@@ -71,6 +76,10 @@ export const ShoppingListDetailsScreen = () => {
             {currentShoppingList.name}
           </Text>
           <View style={styles.iconContainer}>
+            <Icon
+              name='delete'
+              onPress={onPressDeleteList}
+            />
             <Icon
               name='play-arrow'
               onPress={onPressAddStartShopping}
@@ -127,13 +136,12 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     paddingBottom: 20,
   },
   iconContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    flex: 0.2
   },
   listContainer: {
     marginHorizontal: -15,

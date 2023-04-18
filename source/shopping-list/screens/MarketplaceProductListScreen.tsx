@@ -52,7 +52,7 @@ export const MarketplaceProductListScreen = () => {
 
   const onPress = () => {
     saveShoppingList()
-    navigation.navigate('ShoppingListHomeScreen')
+    navigation.navigate('ShoppingListDetailsScreen')
   }
 
   return (

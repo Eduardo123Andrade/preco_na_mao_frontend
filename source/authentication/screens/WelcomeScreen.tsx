@@ -44,7 +44,7 @@ export const WelcomeScreen = () => {
 
       <View style={styles.footerContainer}>
         <Button onPress={goToLogin}>
-          Ja tenho cadastro
+          Já tenho cadastro
         </Button>
 
         <Text bold style={styles.text}>
