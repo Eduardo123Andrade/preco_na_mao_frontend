@@ -79,7 +79,6 @@ export const CreateShoppingListScreen = () => {
 }
 
 const navigationOptions: StackNavigationOptions = {
-  headerBackground: () => <View style={{ backgroundColor: '#f2f2f2' }} />,
   title: 'Criar lista de compras'
 }
 

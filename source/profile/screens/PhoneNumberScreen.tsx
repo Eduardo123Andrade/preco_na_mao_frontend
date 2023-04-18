@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Button, InputText, Screen, Text } from 'core/components'
+import { Button, InputText, Logo, Screen } from 'core/components'
 import { usePhoneNumberForm } from 'core/hooks'
 import { UserPhoneForm } from 'core/interfaces'
 import { useUpdatePhoneNumber } from 'profile/hooks'
@@ -23,10 +23,8 @@ export const PhoneNumberScreen = () => {
   return (
     <Screen contentContainerStyles={styles.container}>
       <View>
-        <View style={styles.titleContainer}>
-          <Text>
-            Preço na Mão
-          </Text>
+        <View style={styles.logoContainer}>
+          <Logo />
         </View>
 
         <View style={styles.inputTextContainer}>
@@ -62,7 +60,8 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     justifyContent: 'space-between'
   },
-  titleContainer: {
+  logoContainer: {
+    paddingVertical: 20,
     alignItems: 'center',
   },
   inputTextContainer: {

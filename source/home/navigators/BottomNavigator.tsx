@@ -1,4 +1,4 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import React from 'react'
 import { ShoppingListNavigator } from 'shopping-list'
@@ -8,7 +8,7 @@ const { Navigator, Screen } = createBottomTabNavigator()
 
 export const HomeBottomNavigator = () => {
   return (
-    <Navigator>
+    <Navigator screenOptions={bottomNavigationStyles}>
       <Screen
         name='Home'
         component={HomeNavigatorNavigator}
@@ -29,3 +29,12 @@ const navigationOptions: StackNavigationOptions = {
 }
 
 HomeBottomNavigator.NavigationOptions = navigationOptions
+
+const bottomNavigationStyles: BottomTabNavigationOptions = {
+  tabBarActiveTintColor: '#008000',
+  tabBarInactiveTintColor: "#8FBC8F",
+  tabBarShowLabel: false,
+  tabBarStyle: {
+    backgroundColor: "#C1DFC0",
+  }
+}

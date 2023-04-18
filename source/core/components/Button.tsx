@@ -15,7 +15,7 @@ export const Button: React.FC<ButtonProps> = ({ children, style, isLoading, disa
   return (
     <Touchable disabled={disabled || isLoading} {...rest}>
       <View
-        style={[styles.container, style, { backgroundColor: disabled ? "#c3c3c3" : "#3c3" }]}
+        style={[styles.container, style, { backgroundColor: disabled ? "#B3B9A3" : "#3c3" }]}
       >
         {isLoading ?
           (<ActivityIndicator size='small' color={'#F11'} />) :

@@ -1,5 +1,5 @@
 import { AuthenticationScreen } from 'authentication/components'
-import { InputText, Text } from 'core/components'
+import { InputText, Logo } from 'core/components'
 import { useErrorModal, useForm } from 'core/hooks'
 import React, { useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
@@ -44,7 +44,7 @@ export const ForgottenPasswordCpfScreen = () => {
   const onSubmit = ({ cpf }: UserCpf) => {
     // setForgottenPasswordData({ cpf })
     // requestAccessToken(cpf)
-    //     navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
+    navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
 
   }
 
@@ -74,11 +74,9 @@ export const ForgottenPasswordCpfScreen = () => {
       onPress={handleSubmit}
     // isLoading={isLoading}
     >
-      <View style={styles.titleContainer}>
-        <Text>
-          Preço na Mão
-        </Text>
-      </View>
+      {/* <View style={styles.titleContainer}>
+        <Logo />
+      </View> */}
 
       <View style={styles.inputTextContainer}>
         <InputText
@@ -108,9 +106,9 @@ ForgottenPasswordCpfScreen.NavigationOptions = navigationOptions
 
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    alignItems: 'center',
-  },
+  // titleContainer: {
+  //   alignItems: 'center',
+  // },
   inputTextContainer: {
     paddingVertical: 10
   },

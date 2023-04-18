@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { useLogin } from 'authentication/hooks'
 import { loginValidationSchema } from 'authentication/utils'
-import { Button, InputText, Screen } from 'core/components'
+import { Button, InputText, Logo, Screen } from 'core/components'
 import { Text } from 'core/components'
 import { useForm } from 'core/hooks'
 import { SimpleModal } from 'core/modals'
@@ -52,10 +52,6 @@ export const LoginScreen = () => {
     handleSubmit()
   }
 
-  const onPressSignUp = () => {
-    navigation.navigate("SingUp")
-  }
-
   const onPressForgottenPassword = () => {
     const cpf = cpfFieldValue.replace(REGEXP_ONLY_NUMBERS, "")
     navigation.navigate("ForgottenPassword", {
@@ -70,9 +66,7 @@ export const LoginScreen = () => {
   return (
     <Screen contentContainerStyles={styles.container}>
       <View style={styles.titleContainer}>
-        <Text>
-          Preço na Mão
-        </Text>
+        <Logo />
       </View>
 
       <View>
@@ -91,20 +85,13 @@ export const LoginScreen = () => {
             placeholder='Senha'
             secureTextEntry
             {...getFieldProps("password")}
-
           />
         </View>
 
-
         <View style={styles.buttonContainer}>
-          <Button style={styles.button} onPress={onPressSignUp}>
-            Registrar
-          </Button>
-
           <Button
             disabled={!isValid}
             isLoading={isLoading}
-            style={styles.button}
             onPress={onPressLogin}
           >
             Login
@@ -145,14 +132,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  button: {
-    width: WIDTH * 0.43
+    paddingTop: 10,
   },
   inputTextContainer: {
-    paddingVertical: 10
+    paddingVertical: 5
   },
   textStyle: {
     textDecorationLine: 'underline'
@@ -162,4 +145,3 @@ const styles = StyleSheet.create({
     paddingTop: 24
   }
 })
-

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Button, InputText, Screen, Text } from 'core/components'
+import { Button, InputText, Logo, Screen } from 'core/components'
 import { useErrorModal, useForm, useUpdatePassword, useUser } from 'core/hooks'
 import { UserPasswordForm } from 'core/interfaces'
 import { PASSWORD_VALIDATION_SCHEMA } from 'core/validations/schemas'
@@ -42,37 +42,37 @@ export const UpdatePasswordScreen = () => {
 
   return (
     <Screen contentContainerStyles={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text>
-          Preço na Mão
-        </Text>
+      <View style={styles.logoContainer}>
+        <Logo />
       </View>
 
-      <View>
-        <View style={styles.inputTextContainer}>
-          <InputText
-            placeholder='Senha'
-            secureTextEntry
-            {...getFieldProps('password')}
-          />
+      <View style={styles.bodyContainer}>
+        <View>
+          <View style={styles.inputTextContainer}>
+            <InputText
+              placeholder='Senha'
+              secureTextEntry
+              {...getFieldProps('password')}
+            />
+          </View>
+
+          <View style={styles.inputTextContainer}>
+            <InputText
+              placeholder='Confirmar senha'
+              secureTextEntry
+              {...getFieldProps('confirmPassword')}
+            />
+          </View>
         </View>
 
-        <View style={styles.inputTextContainer}>
-          <InputText
-            placeholder='Confirmar senha'
-            secureTextEntry
-            {...getFieldProps('confirmPassword')}
-          />
-        </View>
+        <Button
+          disabled={!isValid}
+          onPress={handleSubmit}
+        // isLoading={isLoading}
+        >
+          Salvar
+        </Button>
       </View>
-
-      <Button
-        disabled={!isValid}
-        onPress={handleSubmit}
-      // isLoading={isLoading}
-      >
-        Salvar
-      </Button>
     </Screen>
   )
 }
@@ -89,8 +89,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 24
   },
-  titleContainer: {
+  logoContainer: {
+    paddingVertical: 20,
     alignItems: 'center',
+  },
+  bodyContainer: {
+    flex: 1,
+    justifyContent: 'space-between'
   },
   inputTextContainer: {
     paddingVertical: 10

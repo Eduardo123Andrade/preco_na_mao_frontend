@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = () => {
 
   return (
     <View style={styles.container}>
-      <Icon onPress={onPress} name='menu' size={24} />
+      <Icon color='#008000' onPress={onPress} name='menu' size={24} />
       <DrawerNavigation visible={visible} onRequestClose={onRequestClose} />
     </View>
   )
@@ -29,5 +29,6 @@ export const Header: React.FC<HeaderProps> = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 5,
+    backgroundColor: "#E2FBED"
   }
 })

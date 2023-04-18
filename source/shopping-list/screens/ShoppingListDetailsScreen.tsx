@@ -111,7 +111,6 @@ export const ShoppingListDetailsScreen = () => {
 
 
 const navigationOptions: StackNavigationOptions = {
-  headerBackground: () => <View style={{ backgroundColor: '#f2f2f2' }} />,
   title: 'Detalhe da lista'
 }
 

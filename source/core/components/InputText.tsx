@@ -10,9 +10,10 @@ const PLACE_HOLDER_TEXT_COLOR = '#AAA'
 
 const statusColor = {
   'ERROR': '#FF0011',
-  'SUCCESS': "#000",
-  'IDLE': "#000",
+  'SUCCESS': "#5B6E4F",
+  'IDLE': "#5B6E4F",
 }
+
 
 interface InputTextProps extends TextInputProps {
   disabled?: boolean
@@ -29,7 +30,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
   mask,
   onPressOnDisabled,
   style,
-  status,
+  status = 'IDLE',
   subtitle,
   ...rest }, ref) => {
   const { secureTextEntry: initialSecureTextEntry = false } = rest
@@ -49,7 +50,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
           name={name}
           onPress={toggleSecureTextEntry}
           size={20}
-          color='#AAA'
+          color='#B3B9A3'
         />
       )
     }
@@ -60,8 +61,7 @@ const Input: React.ForwardRefRenderFunction<TextInput, InputTextProps> = ({
       onPressOnDisabled()
   }
 
-  const color = disabled ? '#AAA' : '#000'
-
+  const color = disabled ? '#B3B9A3' : '#4F6047'
 
   return (
     <Touchable onPress={_onPressOnDisabled}>
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
     borderRadius: 10,
+    // borderColor: '#4F6047'
   },
   textInputContainer: {
     paddingHorizontal: 16,
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   maskInputTextColor: {
-    color: '#000'
+    color: '#4F6047'
   },
   subtitleContainer: {
     paddingTop: 5,

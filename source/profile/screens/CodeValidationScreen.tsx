@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Button, InputText, Screen } from 'core/components'
+import { Button, InputText, Logo, Screen } from 'core/components'
 import { useCodeValidationForm } from 'core/hooks'
 import { CodeValidationForm } from 'core/interfaces'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 
 
@@ -27,11 +27,8 @@ export const CodeValidationScreen = () => {
   return (
     <Screen contentContainerStyles={styles.container}>
       <View>
-
-        <View style={styles.titleContainer}>
-          <Text>
-            Preço na Mão
-          </Text>
+        <View style={styles.logoContainer}>
+          <Logo />
         </View>
 
         <View style={styles.inputTextContainer}>
@@ -69,7 +66,8 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     justifyContent: 'space-between'
   },
-  titleContainer: {
+  logoContainer: {
+    paddingVertical: 20,
     alignItems: 'center',
   },
   inputTextContainer: {

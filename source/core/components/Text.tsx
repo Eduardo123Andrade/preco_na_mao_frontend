@@ -13,7 +13,7 @@ interface TextProps extends NativeTextProps {
 
 export const Text: React.FC<TextProps> = ({
   bold,
-  color = '#000',
+  color = '#4F6047',
   fontSize = 14,
   style,
   ...rest

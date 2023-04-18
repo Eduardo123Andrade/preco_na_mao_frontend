@@ -1,5 +1,5 @@
 import { AuthenticationScreen } from 'authentication/components'
-import { InputText, Text } from 'core/components'
+import { InputText } from 'core/components'
 import { useErrorModal, useForm } from 'core/hooks'
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
@@ -69,12 +69,6 @@ export const SingUpPasswordScreen = () => {
       onPress={handleSubmit}
     // isLoading={isLoading}
     >
-      <View style={styles.titleContainer}>
-        <Text>
-          Preço na Mão
-        </Text>
-      </View>
-
       <View style={styles.inputTextContainer}>
         <InputText
           placeholder='Senha'
@@ -108,9 +102,6 @@ SingUpPasswordScreen.NavigationOptions = navigationOptions
 
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    alignItems: 'center',
-  },
   inputTextContainer: {
     paddingVertical: 10
   },

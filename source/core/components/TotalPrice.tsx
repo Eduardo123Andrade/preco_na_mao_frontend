@@ -25,7 +25,7 @@ export const TotalPrice: React.FC<TotalPriceProps> = ({ totalPrice }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#AAA',
+    backgroundColor: '#d6e9e680',
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 30,
