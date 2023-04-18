@@ -1,7 +1,7 @@
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
 import React from 'react'
 import { ForgottenPasswordNavigator, SignUpNavigator } from './navigators'
-import { LoginScreen } from './screens'
+import { LoginScreen, WelcomeScreen } from './screens'
 
 
 const { Navigator, Screen } = createStackNavigator()
@@ -10,6 +10,11 @@ const { Navigator, Screen } = createStackNavigator()
 export const AuthenticationNavigator = () => {
   return (
     <Navigator defaultScreenOptions={{ headerShown: false }}>
+      <Screen
+        name='Welcome'
+        component={WelcomeScreen}
+        options={WelcomeScreen.NavigationOptions}
+      />
       <Screen
         name='Login'
         component={LoginScreen}
