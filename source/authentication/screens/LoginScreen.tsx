@@ -52,10 +52,6 @@ export const LoginScreen = () => {
     handleSubmit()
   }
 
-  const onPressSignUp = () => {
-    navigation.navigate("SingUp")
-  }
-
   const onPressForgottenPassword = () => {
     const cpf = cpfFieldValue.replace(REGEXP_ONLY_NUMBERS, "")
     navigation.navigate("ForgottenPassword", {
@@ -93,14 +89,9 @@ export const LoginScreen = () => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <Button style={styles.button} onPress={onPressSignUp}>
-            Registrar
-          </Button>
-
           <Button
             disabled={!isValid}
             isLoading={isLoading}
-            style={styles.button}
             onPress={onPressLogin}
           >
             Login
@@ -141,12 +132,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     paddingTop: 10,
-  },
-  button: {
-    width: WIDTH * 0.43
   },
   inputTextContainer: {
     paddingVertical: 5
