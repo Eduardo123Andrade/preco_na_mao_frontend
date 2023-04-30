@@ -1,24 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, InputText, Screen } from 'core/components'
-import { useForm, useUser } from 'core/hooks'
-import { FieldValidation, validateName } from 'core/validations'
+import { useUser } from 'core/hooks'
+import { useNameValidationForm } from 'core/hooks/forms/useNameValidationForm'
+import { UserNameForm } from 'core/interfaces'
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-const { string } = FieldValidation
-
-interface UserName {
-  name: string
-}
-
-const NAME_VALIDATION_SCHEMA = FieldValidation.object({
-  name: string().label('name').required().test('name', 'Nome inválido', validateName),
-})
-
-const INITIAL_VALUE: UserName = {
-  name: ''
-}
 
 export const ProfileScreen = () => {
   const [{ user }, { setUserName }] = useUser()
@@ -26,17 +14,12 @@ export const ProfileScreen = () => {
 
   const navigation = useNavigation()
 
-  const onSubmit = ({ name }: UserName) => {
+  const onSubmit = ({ name }: UserNameForm) => {
     setUserName(name)
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserName>({
-    onSubmit,
-    initialValues: INITIAL_VALUE,
-    validationSchema: NAME_VALIDATION_SCHEMA
-  })
-
-  const { onChangeText, ...restNameFieldProps } = getFieldProps("name")
+  const [{ fieldProps, isValid }, { handleSubmit }] = useNameValidationForm({ onSubmit })
+  const { onChangeText } = fieldProps
 
   const _onChangeText = (text: string) => {
     onChangeText(text)
@@ -82,7 +65,7 @@ export const ProfileScreen = () => {
     <Screen contentContainerStyles={styles.container}>
       <View style={styles.inputContainer}>
         <InputText
-          {...restNameFieldProps}
+          {...fieldProps}
           value={name}
           onChangeText={_onChangeText}
         />

@@ -1,17 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, InputText, Logo, Screen } from 'core/components'
-import { useErrorModal, useForm, useUpdatePassword, useUser } from 'core/hooks'
+import { usePasswordValidationForm, useUpdatePassword, useUser } from 'core/hooks'
 import { UserPasswordForm } from 'core/interfaces'
-import { PASSWORD_VALIDATION_SCHEMA } from 'core/validations/schemas'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
-
-const INITIAL_VALUES: UserPasswordForm = {
-  password: '',
-  confirmPassword: '',
-}
 
 export const UpdatePasswordScreen = () => {
   const navigation = useNavigation()
@@ -34,11 +28,8 @@ export const UpdatePasswordScreen = () => {
     // requestUpdatePassword({ ...props, cpf })
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserPasswordForm>({
-    onSubmit,
-    validationSchema: PASSWORD_VALIDATION_SCHEMA,
-    initialValues: INITIAL_VALUES,
-  })
+  const [{ handleSubmit, isValid, fieldPropsPassword, fieldPropsConfirmPassword }] = usePasswordValidationForm({ onSubmit })
+
 
   return (
     <Screen contentContainerStyles={styles.container}>
@@ -52,7 +43,7 @@ export const UpdatePasswordScreen = () => {
             <InputText
               placeholder='Senha'
               secureTextEntry
-              {...getFieldProps('password')}
+              {...fieldPropsPassword}
             />
           </View>
 
@@ -60,7 +51,7 @@ export const UpdatePasswordScreen = () => {
             <InputText
               placeholder='Confirmar senha'
               secureTextEntry
-              {...getFieldProps('confirmPassword')}
+              {...fieldPropsConfirmPassword}
             />
           </View>
         </View>

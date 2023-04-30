@@ -1,26 +1,17 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
-import { useErrorModal, useForm, useUpdatePassword } from 'core/hooks'
+import { useErrorModal, usePasswordValidationForm, useUpdatePassword } from 'core/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { useForgottenPassword } from 'authentication/hooks'
+// import { useForgottenPassword } from 'authentication/hooks'
 import { SimpleModal } from 'core/modals'
-import { PASSWORD_VALIDATION_SCHEMA } from 'core/validations/schemas'
 import { UserPasswordForm } from 'core/interfaces'
-
-
-
-const INITIAL_VALUES: UserPasswordForm = {
-  password: '',
-  confirmPassword: '',
-}
 
 export const ForgottenPasswordUpdatePasswordScreen = () => {
   const navigation = useNavigation()
-  const [{ forgottenPassword }] = useForgottenPassword()
+  // const [{ forgottenPassword }] = useForgottenPassword()
   const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
   // const [{ isLoading }, { requestUpdatePassword }] = useUpdatePassword({
@@ -38,11 +29,8 @@ export const ForgottenPasswordUpdatePasswordScreen = () => {
     // requestUpdatePassword({ ...props, cpf })
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserPasswordForm>({
-    onSubmit,
-    validationSchema: PASSWORD_VALIDATION_SCHEMA,
-    initialValues: INITIAL_VALUES,
-  })
+  const [{ handleSubmit, isValid, fieldPropsPassword, fieldPropsConfirmPassword }] = usePasswordValidationForm({ onSubmit })
+
 
   return (
     <AuthenticationScreen
@@ -54,7 +42,7 @@ export const ForgottenPasswordUpdatePasswordScreen = () => {
         <InputText
           placeholder='Senha'
           secureTextEntry
-          {...getFieldProps('password')}
+          {...fieldPropsPassword}
         />
       </View>
 
@@ -62,7 +50,7 @@ export const ForgottenPasswordUpdatePasswordScreen = () => {
         <InputText
           placeholder='Confirmar senha'
           secureTextEntry
-          {...getFieldProps('confirmPassword')}
+          {...fieldPropsConfirmPassword}
         />
       </View>
 

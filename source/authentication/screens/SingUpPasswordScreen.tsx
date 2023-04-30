@@ -1,46 +1,20 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
-import { useErrorModal, useForm } from 'core/hooks'
+import { useErrorModal, useForm, usePasswordValidationForm } from 'core/hooks'
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
-import { FieldValidation } from 'core/validations'
 import { useLogin, useRequestSingUp, useSingUp } from 'authentication/hooks'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { SimpleModal } from 'core/modals'
-import { User } from 'core/interfaces'
+import { UserPasswordForm } from 'core/interfaces'
 
 
-const { string, ref } = FieldValidation
-
-interface UserPassword {
-  password: string
-  confirmPassword: string
-}
-
-
-const PASSWORD_VALIDATION_SCHEMA = FieldValidation.object({
-  password: string().min(6).required("É preciso atender a todos os requisitos").label('Senha'),
-  confirmPassword: string()
-    .oneOf(
-      [ref('password')],
-      'A nova senha deve ser igual a confirmação da senha.',
-    )
-    .required()
-    .label('Confirmação de Senha'),
-
-})
-
-const INITIAL_VALUES = {
-  password: '',
-  confirmPassword: '',
-}
 
 export const SingUpPasswordScreen = () => {
   const [{ user }] = useSingUp()
   const [, { requestLogin }] = useLogin()
   const [{ show, message }, { startModalError, resetState }] = useErrorModal()
-
 
   // const { mutate, isLoading } = useRequestSingUp({
   //   onSuccess: () => {
@@ -51,17 +25,14 @@ export const SingUpPasswordScreen = () => {
   //   }
   // })
 
-  const onSubmit = ({ password, confirmPassword }: UserPassword) => {
+  const onSubmit = ({ password, confirmPassword }: UserPasswordForm) => {
     const userData: any = { ...user, isLogged: true }
     requestLogin(user.cpf, password, userData)
     // mutate({ ...user, password, confirmPassword })
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserPassword>({
-    onSubmit,
-    validationSchema: PASSWORD_VALIDATION_SCHEMA,
-    initialValues: INITIAL_VALUES,
-  })
+  const [{ handleSubmit, isValid, fieldPropsPassword, fieldPropsConfirmPassword }] = usePasswordValidationForm({ onSubmit })
+
 
   return (
     <AuthenticationScreen
@@ -73,7 +44,7 @@ export const SingUpPasswordScreen = () => {
         <InputText
           placeholder='Senha'
           secureTextEntry
-          {...getFieldProps('password')}
+          {...fieldPropsPassword}
         />
       </View>
 
@@ -81,7 +52,8 @@ export const SingUpPasswordScreen = () => {
         <InputText
           placeholder='Confirmar senha'
           secureTextEntry
-          {...getFieldProps('confirmPassword')}
+          {...fieldPropsConfirmPassword}
+
         />
       </View>
       <SimpleModal

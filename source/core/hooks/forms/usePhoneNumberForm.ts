@@ -1,5 +1,5 @@
 import { FieldValidation } from "core/validations"
-import { useForm } from "./useForm"
+import { useForm } from "core/hooks"
 import { REGEXP_ONLY_NUMBERS } from "core/utils"
 import { FieldProps, UserPhoneForm } from "core/interfaces"
 
