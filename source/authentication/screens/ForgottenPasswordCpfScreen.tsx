@@ -1,31 +1,16 @@
 import { AuthenticationScreen } from 'authentication/components'
-import { InputText, Logo } from 'core/components'
-import { useErrorModal, useForm } from 'core/hooks'
+import { InputText } from 'core/components'
+import { useErrorModal } from 'core/hooks'
 import React, { useEffect } from 'react'
 import { View, StyleSheet } from 'react-native'
 
-import { FieldValidation, validateCPF } from 'core/validations'
-import { REGEXP_ONLY_NUMBERS } from 'core/utils'
 import { useNavigation } from '@react-navigation/native'
 import { useForgottenPassword, useRequestAccessToken } from 'authentication/hooks'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { SimpleModal } from 'core/modals'
+import { UserCpfForm } from 'core/interfaces'
+import { useCpfValidationForm } from 'core/hooks/forms/useCpfValidationForm'
 
-
-const { string } = FieldValidation
-
-interface UserCpf {
-  cpf: string
-}
-
-const CPF_VALIDATION_SCHEMA = FieldValidation.object({
-  cpf: string().label('CPF').required().test('cpf', 'CPF inválido', validateCPF),
-})
-
-
-const INITIAL_VALUES = {
-  cpf: '',
-}
 
 export const ForgottenPasswordCpfScreen = () => {
   const navigation = useNavigation()
@@ -41,32 +26,22 @@ export const ForgottenPasswordCpfScreen = () => {
   //   }
   // })
 
-  const onSubmit = ({ cpf }: UserCpf) => {
+  const onSubmit = ({ cpf }: UserCpfForm) => {
     // setForgottenPasswordData({ cpf })
     // requestAccessToken(cpf)
     navigation.navigate('ForgottenPasswordAccessTokenValidationScreen')
 
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserCpf>({
-    onSubmit,
-    validationSchema: CPF_VALIDATION_SCHEMA,
-    initialValues: INITIAL_VALUES,
-  })
-
-  const { onChangeText: onChangeTextCpf, value: cpfFieldValue, ...restCpfFieldProps } = getFieldProps('cpf')
-
-  const _onChangeTextCpf = (text: string) => {
-    const pureText = text.replace(REGEXP_ONLY_NUMBERS, "")
-    onChangeTextCpf(pureText)
-  }
-
+  const [{ fieldProps, isValid }, { handleSubmit }] = useCpfValidationForm({ onSubmit })
+  const { onChangeText, ...restProps } = fieldProps
 
   useEffect(() => {
+    console.log({ forgottenPassword })
     if (forgottenPassword?.cpf)
-      onChangeTextCpf(forgottenPassword.cpf)
+      onChangeText(forgottenPassword.cpf)
 
-  }, [forgottenPassword, onChangeTextCpf])
+  }, [forgottenPassword])
 
   return (
     <AuthenticationScreen
@@ -74,18 +49,13 @@ export const ForgottenPasswordCpfScreen = () => {
       onPress={handleSubmit}
     // isLoading={isLoading}
     >
-      {/* <View style={styles.titleContainer}>
-        <Logo />
-      </View> */}
-
       <View style={styles.inputTextContainer}>
         <InputText
           mask='cpf'
           keyboardType='numeric'
           placeholder='CPF'
-          onChangeText={_onChangeTextCpf}
-          value={cpfFieldValue}
-          {...restCpfFieldProps}
+          onChangeText={onChangeText}
+          {...restProps}
         />
       </View>
       <SimpleModal
@@ -104,11 +74,7 @@ const navigationOptions: StackNavigationOptions = {
 
 ForgottenPasswordCpfScreen.NavigationOptions = navigationOptions
 
-
 const styles = StyleSheet.create({
-  // titleContainer: {
-  //   alignItems: 'center',
-  // },
   inputTextContainer: {
     paddingVertical: 10
   },
