@@ -1,44 +1,25 @@
 import { AuthenticationScreen } from 'authentication/components'
 import { InputText } from 'core/components'
-import { useForm } from 'core/hooks'
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-
-import { FieldValidation, validateName } from 'core/validations'
 import { useSingUp } from 'authentication/hooks'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-const { string } = FieldValidation
+import { UserNameForm } from 'core/interfaces'
+import { useNameValidationForm } from 'core/hooks/forms/useNameValidationForm'
 
-
-interface UserName {
-  name: string
-}
-const NAME_VALIDATION_SCHEMA = FieldValidation.object({
-  name: string().label('name').required().test('name', 'Nome inválido', validateName),
-})
-
-
-const INITIAL_VALUES = {
-  name: '',
-}
 
 export const SingUpNameScreen = () => {
   const navigation = useNavigation()
   const [, { setRegisterUserData }] = useSingUp()
 
-  const onSubmit = ({ name }: UserName) => {
+  const onSubmit = ({ name }: UserNameForm) => {
     setRegisterUserData({ name })
     navigation.navigate('SingUpCpfScreen')
   }
 
-  const { handleSubmit, isValid, getFieldProps } = useForm<UserName>({
-    onSubmit,
-    validationSchema: NAME_VALIDATION_SCHEMA,
-    initialValues: INITIAL_VALUES,
-  })
+  const [{ fieldProps, isValid }, { handleSubmit }] = useNameValidationForm({ onSubmit })
 
-  // Ajustar em dev
   const onPress = () => handleSubmit()
 
   return (
@@ -50,7 +31,7 @@ export const SingUpNameScreen = () => {
         <InputText
           autoCapitalize='words'
           placeholder='Nome'
-          {...getFieldProps('name')}
+          {...fieldProps}
         />
       </View>
 
