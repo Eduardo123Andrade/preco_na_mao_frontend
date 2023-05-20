@@ -52,7 +52,7 @@ export const WelcomeScreen = () => {
         </Text>
 
         <Button onPress={goToSingUp}>
-          Ainda nao sou cadastrado
+          Ainda não sou cadastrado
         </Button>
       </View>
     </Screen>

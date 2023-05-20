@@ -24,10 +24,10 @@ const EmptyList = () => {
   return (
     <View style={styles.emptyListComponent}>
       <Text>
-        Você ainda nao tem lista de compras.
+        Você ainda não tem lista de compras.
       </Text>
       <Text>
-        Clique no botao a baixo e crie suas listas.
+        Clique no botão a baixo e crie suas listas.
       </Text>
     </View>
   )
