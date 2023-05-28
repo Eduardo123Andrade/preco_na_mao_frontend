@@ -11,9 +11,9 @@ const { Navigator, Screen } = createStackNavigator()
 export const AppNavigator = () => {
   return (
     <SafeAreaProvider>
-      <HttpQueryProvider>
+      <UserProvider>
         <ApiProvider>
-          <UserProvider>
+          <HttpQueryProvider>
             <NavigationContainer>
               <Navigator>
                 <Screen
@@ -23,9 +23,9 @@ export const AppNavigator = () => {
                 />
               </Navigator>
             </NavigationContainer>
-          </UserProvider>
+          </HttpQueryProvider>
         </ApiProvider>
-      </HttpQueryProvider>
+      </UserProvider>
     </SafeAreaProvider>
   );
 };

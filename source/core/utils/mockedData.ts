@@ -1,10 +1,10 @@
 import { User } from "core/interfaces";
 
 export const MOCKED_USER_DATA: User = {
-  name: 'Test',
-  cpf: '09907658499',
+  name: '',
+  cpf: '',
   id: '1',
   isLogged: true,
-  phone: '99999999999',
+  phoneNumber: '99999999999',
   token: ''
 }
