@@ -9,30 +9,30 @@ import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import { useAPI } from './useApi'
 
 
-export type UseGetRequestStatus = MutationStatus
+export type UseDeleteRequestStatus = MutationStatus
 
-export type UseGetRequest<TData = any, TError = any> = UseQueryResult<
+export type UseDeleteRequest<TData = any, TError = any> = UseQueryResult<
   AxiosResponse<TData>,
   AxiosError<TError>
 >
 
-export type UseGetRequestConfigs = AxiosRequestConfig
-export type UseGetRequestOptions<TData = any, TError = any> = UseQueryOptions<
+export type UseDeleteRequestConfigs = AxiosRequestConfig
+export type UseDeleteRequestOptions<TData = any, TError = any> = UseQueryOptions<
   AxiosResponse<TData>,
   AxiosError<TError>
 >
 
-export const useGetRequest = <TData = any, TError = any>(
+export const useDeleteRequest = <TData = any, TError = any>(
   url: string,
   options?: QueryObserverOptions<AxiosResponse<TData, TError>, TError, AxiosResponse<TData, TError>>,
-  configs?: UseGetRequestConfigs,
-): UseGetRequest<TData, TError> => {
+  configs?: UseDeleteRequestConfigs,
+): UseDeleteRequest<TData, TError> => {
   const { API } = useAPI()
 
   const queryArgs = useQuery<AxiosResponse<TData, TError>, any>({
     ...options,
     queryKey: [url, configs],
-    queryFn: () => API.get(url, configs),
+    queryFn: () => API.delete(url, configs),
   })
 
   return queryArgs

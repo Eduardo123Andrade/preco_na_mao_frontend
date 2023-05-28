@@ -23,11 +23,11 @@ export const UpdatePhoneNumberNavigator = () => {
           component={PhoneNumberScreen}
           options={PhoneNumberScreen.NavigationOptions}
         />
-        <Screen
+        {/* <Screen
           name='CodeValidationScreen'
           component={CodeValidationScreen}
           options={CodeValidationScreen.NavigationOptions}
-        />
+        /> */}
         <Screen
           name='ConfirmPhoneNumberScreen'
           component={ConfirmPhoneNumberScreen}

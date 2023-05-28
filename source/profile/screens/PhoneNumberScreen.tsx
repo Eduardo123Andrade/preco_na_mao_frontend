@@ -13,7 +13,7 @@ export const PhoneNumberScreen = () => {
 
   const onSubmit = ({ phone }: UserPhoneForm) => {
     setPhoneNumber(phone)
-    navigation.navigate('CodeValidationScreen')
+    navigation.navigate('ConfirmPhoneNumberScreen')
   }
 
   const [{ isValid, fieldProps }, { handleSubmit }] = usePhoneNumberForm({ onSubmit })

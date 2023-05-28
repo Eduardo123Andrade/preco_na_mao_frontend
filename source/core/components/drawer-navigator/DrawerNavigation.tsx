@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Animated, Dimensions, Modal, StyleSheet, View } from 'react-native'
 import { Text } from '../Text'
 import { Touchable } from '../Touchable'
 import { DrawerNavigatorItem } from './DrawerNavigatorItem'
-import { useLogin } from 'authentication/hooks'
+import { useLogin, useLogoutRequest } from 'authentication/hooks'
 
 
 const { width: WIDTH } = Dimensions.get('screen')
@@ -36,6 +36,16 @@ interface DrawerNavigationProps {
 
 export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onRequestClose }) => {
   const [, { requestLogout }] = useLogin()
+  const { mutate, isLoading } = useLogoutRequest({
+    onSuccess: () => {
+      requestLogout()
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      console.log({ message })
+    }
+  })
+
   const navigation = useNavigation()
 
   useEffect(() => {
@@ -54,7 +64,7 @@ export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({ visible, onR
   }
 
   const logout = () => {
-    onCloseDrawerAnimation(() => requestLogout())
+    onCloseDrawerAnimation(() => mutate())
   }
 
   function onCloseDrawer() {

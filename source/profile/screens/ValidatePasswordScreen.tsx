@@ -1,10 +1,12 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, InputText, Logo, Screen } from 'core/components'
-import { useForm } from 'core/hooks'
+import { useErrorModal, useForm } from 'core/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FieldValidation } from 'core/validations'
+import { useCheckPasswordRequest } from 'profile/hooks'
+import { SimpleModal } from 'core/modals'
 
 
 
@@ -20,7 +22,6 @@ type ValidatePasswordScreenRouteProp = RouteProp<
   RootStackParamList,
   'ValidatePasswordScreen'
 >
-
 
 interface Password {
   password: string
@@ -42,9 +43,20 @@ export const ValidatePasswordScreen = () => {
 
   const route = useRoute<ValidatePasswordScreenRouteProp>()
   const { nextRouterName } = route.params
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
+
+  const { mutate, isLoading } = useCheckPasswordRequest({
+    onSuccess: (_, { password }) => {
+      navigation.navigate(nextRouterName, { password })
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
 
   const onSubmit = ({ password }: Password) => {
-    navigation.navigate(nextRouterName)
+    mutate({ password })
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<Password>({
@@ -70,11 +82,18 @@ export const ValidatePasswordScreen = () => {
       </View>
 
       <Button
+        isLoading={isLoading}
         disabled={!isValid}
         onPress={onPress}
       >
         Avançar
       </Button>
+
+      <SimpleModal
+        visible={show}
+        onRequestClose={resetState}
+        message={message}
+      />
 
     </Screen>
   )

@@ -1,15 +1,17 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Icon, Screen, Text, TotalPrice } from 'core/components'
+import { Icon, Loading, Screen, Text, TotalPrice } from 'core/components'
 import { SHOPPING_LIST_KEY } from 'core/constants'
-import { useLocalStorage } from 'core/hooks'
+import { useErrorModal, useLocalStorage } from 'core/hooks'
 import { calculateTotalPrice } from 'core/utils'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { Product } from 'shopping-list/components'
 import { useShoppingList } from 'shopping-list/hooks/useShoppingList'
 import { Product as ProductInterface, ShoppingList } from 'core/interfaces'
+import { useRequestAddItemsOnShoppingList, useRequestDeleteShoppingList, useRequestShoppingListDetail } from 'shopping-list/hooks'
+import { Modal, SimpleModal } from 'core/modals'
 
 interface RenderItemProps {
   item: ProductInterface
@@ -23,20 +25,59 @@ const renderItem = ({ item }: RenderItemProps) => {
   )
 }
 
-export const ShoppingListDetailsScreen = () => {
-  const [{ currentShoppingList }, { saveShoppingList, deleteList }] = useShoppingList()
-  const [, { storeData }] = useLocalStorage<ShoppingList>()
+const renderLoading = () => {
+  return (
+    <Screen contentContainerStyles={styles.container}>
+      <Loading />
+    </Screen>
+  )
+}
 
-  const { products } = currentShoppingList
+export const ShoppingListDetailsScreen = () => {
+  const [{ currentShoppingList }, { selectShoppingList }] = useShoppingList()
+  const [, { storeData }] = useLocalStorage<ShoppingList>()
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
+  const [enableToDelete, setEnableToDelete] = useState(false)
   const navigation = useNavigation()
+
+
+  const { isLoading, refetch } = useRequestShoppingListDetail({
+    onSuccess: ({ data }) => {
+      selectShoppingList(data)
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
+
+  const { isLoading: isLoadingUpdate, mutate } = useRequestAddItemsOnShoppingList({
+    onSuccess: () => {
+      refetch()
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
+
+  const { isLoading: isLoadingDelete } = useRequestDeleteShoppingList({
+    enabled: enableToDelete,
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
+
+  const { products = [] } = currentShoppingList ?? {}
 
   const totalPrice = products.reduce(calculateTotalPrice, 0)
 
   const onPressAddNewProducts = () => navigation.navigate('MarketplaceListScreen')
 
   const onPressDeleteList = () => {
-    deleteList()
-    navigation.goBack()
+    setEnableToDelete(true)
+    navigation.navigate("ShoppingListHomeScreen")
   }
 
   const onPressAddStartShopping = () => {
@@ -45,28 +86,30 @@ export const ShoppingListDetailsScreen = () => {
   }
 
 
-  /**
-   * router: shopping-list/save-products
-   * body
-   *  listId,
-   *  [
-   *    productId,
-   *    quantity
-   * ]
-   * 
-   * success:
-   *  status: ok
-   * 
-   * error:
-   *  status: _
-   * 
-   */
-
   const onPressAddSave = () => {
-    saveShoppingList()
+    const productsToUpDate = products
+      .filter(item => item.edited)
+      .map(item => ({ id: item.id, quantity: item.quantity }))
+
+    mutate({
+      listId: currentShoppingList.id,
+      products: productsToUpDate
+    })
   }
 
   const hasEditedItem = products.find(item => item.edited)
+
+  const onRequestClose = () => {
+    resetState()
+    navigation.goBack()
+  }
+
+  useEffect(() => navigation.addListener("focus", () => {
+    refetch()
+  }), [navigation])
+
+  if (isLoading)
+    return renderLoading()
 
   return (
     <Screen contentContainerStyles={styles.container}>
@@ -114,6 +157,19 @@ export const ShoppingListDetailsScreen = () => {
       <View style={styles.footerContainer}>
         <TotalPrice totalPrice={totalPrice} />
       </View>
+      <SimpleModal
+        visible={show}
+        message={message}
+        onRequestClose={onRequestClose}
+      />
+      <Modal
+        visible={isLoadingUpdate || isLoadingDelete}
+        // visible={isLoadingUpdate }
+        onRequestClose={() => { }}
+      >
+        <Loading />
+      </Modal>
+
     </Screen>
   )
 }

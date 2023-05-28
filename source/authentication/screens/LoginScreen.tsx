@@ -27,7 +27,7 @@ export const LoginScreen = () => {
   const [showErrorModal, setShowErrorModal] = useState(false)
 
   useEffect(() => {
-    setShowErrorModal(status === 'ERROR')
+    setShowErrorModal(status === 'error')
   }, [status])
 
 
@@ -107,7 +107,7 @@ export const LoginScreen = () => {
       </View>
       <SimpleModal
         visible={showErrorModal}
-        message='Login ou senha invalido'
+        message={error}
         onRequestClose={onRequestClose}
       />
     </Screen>

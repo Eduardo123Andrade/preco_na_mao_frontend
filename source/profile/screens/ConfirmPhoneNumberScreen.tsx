@@ -1,39 +1,55 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, Screen, Text } from 'core/components'
-import { useUser } from 'core/hooks'
+import { USER_KEY } from 'core/constants'
+import { useErrorModal, useLocalStorage, useUser } from 'core/hooks'
+import { SimpleModal } from 'core/modals'
 import { formatPhoneNumber } from 'core/utils/formatPhoneNumber'
-import { useUpdatePhoneNumber } from 'profile/hooks'
+import { useUpdatePhoneNumber, useUpdateUserRequest } from 'profile/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 
 export const ConfirmPhoneNumberScreen = () => {
   const [{ phoneNumber }] = useUpdatePhoneNumber()
-  const [{ user: { phone } }] = useUser()
+  const [{ user }, { setPhoneNumber }] = useUser()
+  const [, { storeData }] = useLocalStorage()
+
   const navigation = useNavigation()
+
+  const { phoneNumber: phone } = user
 
   const formattedNumber = formatPhoneNumber(phoneNumber)
   const formattedOldNumber = formatPhoneNumber(phone)
 
 
-  /**
-   * router: user/update-phone-number
-   * 
-   * body: 
-   *  cpf,
-   *  phoneNumber
-   * 
-   * success: 
-   *  status: ok
-   * 
-   * error:
-   *  status: _
-   * 
-   */
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
+
+  const { mutate, isLoading } = useUpdateUserRequest({
+    onSuccess: ({ data }) => {
+      const { phoneNumber } = data
+      const userData = {
+        ...data,
+        isLogged: true,
+        token: user.token
+      }
+
+      setPhoneNumber(phoneNumber)
+      storeData(USER_KEY, userData)
+
+      navigation.navigate("ProfileScreen")
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
 
   const onPress = () => {
-    navigation.navigate("ProfileScreen")
+    mutate({
+      phoneNumber,
+      name: user.name,
+    })
   }
 
 
@@ -48,9 +64,17 @@ export const ConfirmPhoneNumberScreen = () => {
         </Text>
       </View>
 
-      <Button onPress={onPress}>
+      <Button
+        isLoading={isLoading}
+        onPress={onPress}>
         Avançar
       </Button>
+
+      <SimpleModal
+        visible={show}
+        onRequestClose={resetState}
+        message={message}
+      />
 
     </Screen>
   )

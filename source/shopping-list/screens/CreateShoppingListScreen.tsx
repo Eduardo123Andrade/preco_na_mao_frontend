@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, InputText, Screen } from 'core/components'
-import { useForm } from 'core/hooks'
+import { useErrorModal, useForm } from 'core/hooks'
+import { SimpleModal } from 'core/modals'
 import { FieldValidation, validateShoppingListName } from 'core/validations'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { useCreateShoppingList } from 'shopping-list/hooks'
+import { useRequestCreateShoppingList, useShoppingList } from 'shopping-list/hooks'
 
 const { string } = FieldValidation
 
@@ -24,32 +25,23 @@ const INITIAL_VALUES = {
 
 export const CreateShoppingListScreen = () => {
   const navigation = useNavigation()
-  const { createShoppingList } = useCreateShoppingList()
+  const [, { selectShoppingList }] = useShoppingList()
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
 
-  /**
-   *  router: shopping-list/create
-   *  
-   * body:
-   *  cpf,
-   *  name,
-   * 
-   * success: 
-   *  status: ok
-   *  response:
-   *    id,
-   *    name
-   *    date
-   * 
-   * error:
-   *  status: _
-   *
-   */
-
+  const { mutate } = useRequestCreateShoppingList({
+    onSuccess: ({ data }) => {
+      selectShoppingList({ ...data, products: [] })
+      navigation.navigate('MarketplaceListScreen')
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
 
   const onSubmit = ({ name }: MarketplaceName) => {
-    createShoppingList(name)
-    navigation.navigate('MarketplaceListScreen')
+    mutate({ name })
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<MarketplaceName>({
@@ -74,6 +66,12 @@ export const CreateShoppingListScreen = () => {
           Avançar
         </Button>
       </View>
+
+      <SimpleModal
+        visible={show}
+        onRequestClose={resetState}
+        message={message}
+      />
     </Screen>
   )
 }
