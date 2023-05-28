@@ -31,7 +31,6 @@ const renderLoading = () => {
       <Loading />
     </Screen>
   )
-
 }
 
 export const ShoppingListDetailsScreen = () => {

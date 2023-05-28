@@ -22,6 +22,7 @@ interface ShoppingListProviderActions {
   saveShoppingList: () => void
   selectMarketplace: (marketplace: Marketplace) => void
   selectShoppingList: (shoppingListData: ShoppingList) => void
+  setMarketplaceList: (list: Marketplace[]) => void
 }
 
 type ShoppingListProviderData = [
@@ -50,12 +51,12 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
   const [marketplaceList, updateMarketplaceList] = useState<Marketplace[]>([])
   // const [{ marketplaceList }] = useRequestMarketplaceList()
 
-  const setShoppingListData = (shoppingListData: ShoppingList[]) => {
-
-  }
-
   const addShoppingList = (shoppingListData: ShoppingList[]) => {
     setShoppingLists(shoppingListData)
+  }
+
+  const setMarketplaceList = (list: Marketplace[]) => {
+    updateMarketplaceList(list)
   }
 
   const removeShoppingList = (id: string) => {
@@ -165,6 +166,7 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
         saveShoppingList,
         selectMarketplace,
         selectShoppingList,
+        setMarketplaceList
       }
     ]}
   />

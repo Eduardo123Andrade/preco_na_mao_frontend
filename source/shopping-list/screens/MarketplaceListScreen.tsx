@@ -1,11 +1,13 @@
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Screen, Touchable } from 'core/components'
+import { Loading, Screen, Touchable } from 'core/components'
 import React from 'react'
-import { FlatList, StyleSheet, View, } from 'react-native'
+import { FlatList, StyleSheet, } from 'react-native'
 import { Marketplace } from 'shopping-list/components'
 import { Marketplace as MarketplaceInterface } from 'shopping-list/interfaces'
-import { useShoppingList } from 'shopping-list/hooks'
+import { useRequestMarketplace, useShoppingList } from 'shopping-list/hooks'
 import { useNavigation } from '@react-navigation/native'
+import { useErrorModal } from 'core/hooks'
+import { SimpleModal } from 'core/modals'
 
 
 interface RenderItemProps {
@@ -13,20 +15,21 @@ interface RenderItemProps {
 }
 
 export const MarketplaceListScreen = () => {
-  const [{ marketplaceList }, { selectMarketplace }] = useShoppingList()
+  const [{ marketplaceList }, { selectMarketplace, setMarketplaceList }] = useShoppingList()
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
   const navigation = useNavigation()
 
-  /**
-   * 
-   * router market-places
-   * 
-   * success: ok,
-   *  response
-   *    markets: []
-   * 
-   * error:
-   *  status:_
-   */
+  const { isLoading } = useRequestMarketplace({
+    onSuccess: ({ data }) => {
+      setMarketplaceList(data)
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
+
+
 
   const renderItem = ({ item }: RenderItemProps) => {
     const onPress = () => {
@@ -43,9 +46,19 @@ export const MarketplaceListScreen = () => {
 
   return (
     <Screen contentContainerStyles={styles.container}>
-      <FlatList
-        data={marketplaceList}
-        renderItem={renderItem}
+
+      {isLoading ?
+        <Loading /> :
+        <FlatList
+          data={marketplaceList}
+          renderItem={renderItem}
+        />
+      }
+
+      <SimpleModal
+        visible={show}
+        onRequestClose={resetState}
+        message={message}
       />
     </Screen>
   )
@@ -64,7 +77,6 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     borderBottomWidth: 0.5,
-    // marginHorizontal: -20,
     paddingHorizontal: 20,
   }
 })

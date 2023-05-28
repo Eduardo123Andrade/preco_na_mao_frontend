@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, InputText, Screen } from 'core/components'
-import { useForm } from 'core/hooks'
+import { useErrorModal, useForm } from 'core/hooks'
+import { SimpleModal } from 'core/modals'
 import { FieldValidation, validateShoppingListName } from 'core/validations'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -25,12 +26,17 @@ const INITIAL_VALUES = {
 export const CreateShoppingListScreen = () => {
   const navigation = useNavigation()
   const [, { selectShoppingList }] = useShoppingList()
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
 
   const { mutate } = useRequestCreateShoppingList({
     onSuccess: ({ data }) => {
       selectShoppingList(data)
       navigation.navigate('MarketplaceListScreen')
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
     }
   })
 
@@ -60,6 +66,12 @@ export const CreateShoppingListScreen = () => {
           Avançar
         </Button>
       </View>
+
+      <SimpleModal
+        visible={show}
+        onRequestClose={resetState}
+        message={message}
+      />
     </Screen>
   )
 }
