@@ -2,49 +2,21 @@ import { UsePutRequestOptionsType } from "core/hooks/usePutRequest"
 import { usePutRequest } from 'core/hooks'
 
 
-
 interface UseUpdatePasswordVariables {
-  cpf: string
+  oldPassword: string
   password: string
   confirmPassword: string
 }
 
-interface UseUpdatePasswordState {
-  isLoading: boolean
+
+interface TError {
+  message: string
 }
 
-interface UseUpdatePasswordActions {
-  requestUpdatePassword: (props: UseUpdatePasswordVariables) => void
-}
+export const useUpdatePassword = (options: UsePutRequestOptionsType<unknown, TError, UseUpdatePasswordVariables>) => {
 
-type UseUpdatePasswordData = [
-  state: UseUpdatePasswordState,
-  actions: UseUpdatePasswordActions
-]
-
-export const useUpdatePassword = (options: UsePutRequestOptionsType<unknown, unknown, UseUpdatePasswordVariables>): UseUpdatePasswordData => {
+  const mutation = usePutRequest('/user/update-password', options)
 
 
-  /**
-   * router: user/update-password
-   *  body: 
-   *    cpf,
-   *    password,
-   *    confirmPassword
-   * 
-   * sucesso:
-   *   status: ok
-   * 
-   * error:
-   *  status: _
-   *    senha invalida
-   */
-
-  const { mutate, isLoading } = usePutRequest('/update-password', options)
-
-  const requestUpdatePassword = (props: UseUpdatePasswordVariables) => {
-    mutate(props)
-  }
-
-  return [{ isLoading }, { requestUpdatePassword }]
+  return mutation
 }

@@ -46,8 +46,8 @@ export const ValidatePasswordScreen = () => {
   const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
   const { mutate, isLoading } = useCheckPasswordRequest({
-    onSuccess: () => {
-      navigation.navigate(nextRouterName)
+    onSuccess: (_, { password }) => {
+      navigation.navigate(nextRouterName, { password })
     },
     onError: ({ response }) => {
       const { data: { message } } = response

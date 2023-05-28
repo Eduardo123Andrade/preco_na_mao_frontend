@@ -1,34 +1,49 @@
-import { useNavigation } from '@react-navigation/native'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, InputText, Logo, Screen } from 'core/components'
-import { usePasswordValidationForm, useUpdatePassword, useUser } from 'core/hooks'
+import { useErrorModal, usePasswordValidationForm, useUpdatePassword } from 'core/hooks'
 import { UserPasswordForm } from 'core/interfaces'
+import { SimpleModal } from 'core/modals'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 
+
+interface RouterParameter {
+  password: string
+}
+
+type RootStackParamList = {
+  UpdatePasswordScreen: RouterParameter
+}
+
+type UpdatePasswordRouteProp = RouteProp<RootStackParamList, 'UpdatePasswordScreen'>
+
+
 export const UpdatePasswordScreen = () => {
   const navigation = useNavigation()
-  const [{ user }] = useUser()
-  // const [{ show, message }, { startModalError, resetState }] = useErrorModal()
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
-  // const [{ isLoading }, { requestUpdatePassword }] = useUpdatePassword({
-  //   onSuccess: () => {
-  //     navigation.navigate("Home")
-  //   },
-  //   onError: ({ message }) => {
-  //     // startModalError(message)
-  //   }
-  // })
+  const route = useRoute<UpdatePasswordRouteProp>()
+
+  const { password } = route.params
+
+  const { mutate, isLoading } = useUpdatePassword({
+    onSuccess: () => {
+      navigation.navigate("Home")
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
 
 
   const onSubmit = (props: UserPasswordForm) => {
-    const { cpf } = user
-    navigation.navigate('ProfileScreen')
-    // requestUpdatePassword({ ...props, cpf })
+    mutate({ ...props, oldPassword: password })
   }
 
-  const [{ handleSubmit, isValid, fieldPropsPassword, fieldPropsConfirmPassword }] = usePasswordValidationForm({ onSubmit })
+  const [{ isValid, fieldPropsPassword, fieldPropsConfirmPassword }, { handleSubmit }] = usePasswordValidationForm({ onSubmit })
 
 
   return (
@@ -59,11 +74,16 @@ export const UpdatePasswordScreen = () => {
         <Button
           disabled={!isValid}
           onPress={handleSubmit}
-        // isLoading={isLoading}
+          isLoading={isLoading}
         >
           Salvar
         </Button>
       </View>
+      <SimpleModal
+        visible={show}
+        onRequestClose={resetState}
+        message={message}
+      />
     </Screen>
   )
 }
