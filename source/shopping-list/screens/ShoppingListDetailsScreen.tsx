@@ -4,7 +4,7 @@ import { Icon, Loading, Screen, Text, TotalPrice } from 'core/components'
 import { SHOPPING_LIST_KEY } from 'core/constants'
 import { useErrorModal, useLocalStorage } from 'core/hooks'
 import { calculateTotalPrice } from 'core/utils'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { Product } from 'shopping-list/components'
@@ -39,7 +39,7 @@ export const ShoppingListDetailsScreen = () => {
   const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
 
-  const { isLoading } = useRequestShoppingListDetail({
+  const { isLoading, refetch } = useRequestShoppingListDetail({
     onSuccess: ({ data }) => {
       selectShoppingList(data)
     },
@@ -77,6 +77,10 @@ export const ShoppingListDetailsScreen = () => {
     resetState()
     navigation.goBack()
   }
+
+  useEffect(() => navigation.addListener("focus", () => {
+    refetch()
+  }), [navigation])
 
   if (isLoading)
     return renderLoading()

@@ -2,19 +2,18 @@ import { Text, Touchable } from 'core/components'
 import { BaseModal } from 'core/modals'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Product, ShoppingList } from 'core/interfaces'
+import { Product } from 'core/interfaces'
 import { ActionComponent } from 'shopping-list/components'
-import { useShoppingList } from 'shopping-list/hooks'
 
 interface IncrementProductModalProps {
+  onSave: (product: Product, quantity: number) => void
   onCloseRequest: () => void
   product: Product
   visible: boolean
-
+  selectedProducts: Product[]
 }
 
-const getInitialValue = (currentShoppingLit: ShoppingList, productId: string) => {
-  const { products } = currentShoppingLit
+const getInitialValue = (products: Product[], productId: string) => {
   const foundedProduct = products.find(item => item.id === productId)
   return foundedProduct?.quantity ?? 0
 }
@@ -22,12 +21,13 @@ const getInitialValue = (currentShoppingLit: ShoppingList, productId: string) =>
 export const IncrementProductModal: React.FC<IncrementProductModalProps> = ({
   onCloseRequest,
   product,
-  visible
+  visible,
+  onSave,
+  selectedProducts,
 }) => {
-  const [{ currentShoppingList }, { saveProduct }] = useShoppingList()
   const [currentQuantity, setCurrentQuantity] = useState(0)
 
-  const initialCurrentQuantityValue = getInitialValue(currentShoppingList, product?.id)
+  const initialCurrentQuantityValue = getInitialValue(selectedProducts, product?.id)
 
   useEffect(() => {
     if (initialCurrentQuantityValue)
@@ -49,7 +49,7 @@ export const IncrementProductModal: React.FC<IncrementProductModalProps> = ({
   }
 
   const onPressSave = () => {
-    saveProduct(product, currentQuantity)
+    onSave(product, currentQuantity)
     _onCloseRequest()
   }
 

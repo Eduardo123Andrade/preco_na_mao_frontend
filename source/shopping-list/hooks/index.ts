@@ -1,4 +1,4 @@
-
+export { useRequestAddItemsOnShoppingList } from './useRequestAddItemsOnShoppingList'
 export { useRequestCreateShoppingList } from './useRequestCreateShoppingList'
 export { useRequestMarketplace } from './useRequestMarketplace'
 export { useRequestProducts } from './useRequestProducts'
