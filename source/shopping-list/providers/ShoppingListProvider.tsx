@@ -1,6 +1,5 @@
 import { Product, ShoppingList } from "core/interfaces"
 import React, { createContext, useState } from "react"
-import { useRequestMarketplaceList } from "shopping-list/hooks"
 import { Marketplace } from "shopping-list/interfaces"
 import { MOCKED_CURRENT_MARKETPLACE, MOCKED_SHOPPING_LIST, MOCKED_CURRENT_SHOPPING_LIST } from "shopping-list/utils"
 import { incrementProduct as coreIncrementProduct } from 'core/utils'
@@ -13,7 +12,7 @@ interface ShoppingListProviderState {
 }
 
 interface ShoppingListProviderActions {
-  addShoppingList: (shoppingListData: ShoppingList) => void
+  addShoppingList: (shoppingListData: ShoppingList[]) => void
   decrementProduct: (productId: string) => void
   deleteList: () => void
   incrementProduct: (productId: string) => void
@@ -45,13 +44,18 @@ const setAllProductsEditedFalse = (shoppingList: ShoppingList) => {
 }
 
 export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ children }) => {
-  const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>(MOCKED_SHOPPING_LIST)
+  const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>([])
   const [currentShoppingList, setCurrentShoppingList] = useState<ShoppingList>(MOCKED_CURRENT_SHOPPING_LIST)
   const [currentMarketplace, setCurrentMarketplace] = useState<Marketplace>(MOCKED_CURRENT_MARKETPLACE)
-  const [{ marketplaceList }] = useRequestMarketplaceList()
+  const [marketplaceList, updateMarketplaceList] = useState<Marketplace[]>([])
+  // const [{ marketplaceList }] = useRequestMarketplaceList()
 
-  const addShoppingList = (shoppingListData: ShoppingList) => {
-    setShoppingLists(prevState => [...prevState, shoppingListData])
+  const setShoppingListData = (shoppingListData: ShoppingList[]) => {
+
+  }
+
+  const addShoppingList = (shoppingListData: ShoppingList[]) => {
+    setShoppingLists(shoppingListData)
   }
 
   const removeShoppingList = (id: string) => {

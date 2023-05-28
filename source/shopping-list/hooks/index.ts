@@ -1,3 +1,3 @@
 export { useCreateShoppingList } from './useCreateShoppingList'
-export { useRequestMarketplaceList } from './useRequestMarketplaceList'
+export { useRequestShoppingList } from './useRequestShoppingList'
 export { useShoppingList } from './useShoppingList'

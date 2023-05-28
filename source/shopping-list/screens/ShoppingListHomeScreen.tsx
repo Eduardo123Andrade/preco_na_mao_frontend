@@ -1,12 +1,14 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { FloatButton, Screen, Text } from 'core/components'
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { FloatButton, Loading, Screen, Text } from 'core/components'
+import React, { useEffect } from 'react'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
-import { Card } from 'shopping-list/components'
-import { useShoppingList } from 'shopping-list/hooks'
+import { ActionComponent, Card } from 'shopping-list/components'
+import { useRequestShoppingList, useShoppingList } from 'shopping-list/hooks'
 import { ShoppingList } from 'core/interfaces'
+import { useErrorModal } from 'core/hooks'
+import { SimpleModal } from 'core/modals'
 
 
 interface RenderShoppingListsItem {
@@ -44,38 +46,54 @@ const HeaderList = () => {
 }
 
 export const ShoppingListHomeScreen = () => {
-  /**
-   * router: shopping-list/:userId
-   * 
-   * success:
-   *  status: ok
-   *  response:
-   *    shoppingList: []
-   * 
-   * 
-   * error:
-   *  status: _
-   * 
-   */
+  const [{ shoppingLists }, { addShoppingList }] = useShoppingList()
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
-
-  const [{ shoppingLists }] = useShoppingList()
   const navigation = useNavigation()
+
+  const { status, isLoading } = useRequestShoppingList({
+    enabled: true,
+    onSuccess: ({ data }) => {
+      const mappedList = data.map(item => ({ ...item, products: [] }))
+
+      console.log({ mappedList })
+      addShoppingList(mappedList)
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
+
+  useEffect(() => {
+    console.log({ status })
+  }, [status])
 
 
   const onPress = () => navigation.navigate('CreateShoppingListScreen')
 
   return (
     <Screen contentContainerStyles={styles.container}>
-      <FlatList
-        data={shoppingLists}
-        renderItem={renderItem}
-        contentContainerStyle={styles.listContentContainer}
-        showsVerticalScrollIndicator={false}
-        ListEmptyComponent={EmptyList}
-        ListHeaderComponent={HeaderList}
+      {
+        isLoading ? <Loading /> : (
+          <>
+            <FlatList
+              data={shoppingLists}
+              renderItem={renderItem}
+              contentContainerStyle={styles.listContentContainer}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={EmptyList}
+              ListHeaderComponent={HeaderList}
+            />
+            <FloatButton onPress={onPress} />
+          </>
+        )}
+
+      <SimpleModal
+        visible={show}
+        onRequestClose={resetState}
+        message={message}
       />
-      <FloatButton onPress={onPress} />
     </Screen>
   )
 }

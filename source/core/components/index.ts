@@ -1,9 +1,11 @@
+
 export { Button } from './Button'
 export { CheckBox } from './CheckBox'
 export { Header } from './Header'
 export { Icon } from './Icon'
 export { FloatButton } from './FloatButton'
 export { InputText } from './InputText'
+export { Loading } from './Loading'
 export { Logo } from './Logo'
 export { Screen } from './Screen'
 export { Separator } from './Separator'

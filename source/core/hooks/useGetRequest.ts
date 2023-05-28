@@ -19,7 +19,7 @@ export type UseGetRequest<TData = any, TError = any> = UseQueryResult<
 export type UseGetRequestConfigs = AxiosRequestConfig
 export type UseGetRequestOptions<TData = any, TError = any> = UseQueryOptions<
   AxiosResponse<TData>,
-  TError
+  AxiosError<TError>
 >
 
 export const useGetRequest = <TData = any, TError = any>(
