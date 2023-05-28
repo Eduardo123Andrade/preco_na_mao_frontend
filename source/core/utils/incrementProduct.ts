@@ -5,7 +5,7 @@ export const incrementProduct = (products: Product[], productId: string, increme
   const foundProduct = temporaryProducts.find(product => product.id === productId)
   const index = temporaryProducts.indexOf(foundProduct)
 
-  const updatedProduct: Product = { ...foundProduct, edited: true, quantity: foundProduct.quantity + incrementor }
+  const updatedProduct: Product = { ...foundProduct, edited: true, quantity: incrementor }
 
   temporaryProducts[index] = updatedProduct
 

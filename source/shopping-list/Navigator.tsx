@@ -12,7 +12,9 @@ const { Navigator, Screen } = createStackNavigator()
 export const ShoppingListNavigator = () => {
   return (
     <ShoppingListProvider>
-      <Navigator screenOptions={defaultScreenOptions}>
+      <Navigator
+        // initialRouteName='MarketplaceListScreen'
+        screenOptions={defaultScreenOptions}>
         <Screen
           name='ShoppingListHomeScreen'
           component={ShoppingListHomeScreen}

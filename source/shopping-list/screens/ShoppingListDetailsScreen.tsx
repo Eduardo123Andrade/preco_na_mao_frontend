@@ -4,14 +4,14 @@ import { Icon, Loading, Screen, Text, TotalPrice } from 'core/components'
 import { SHOPPING_LIST_KEY } from 'core/constants'
 import { useErrorModal, useLocalStorage } from 'core/hooks'
 import { calculateTotalPrice } from 'core/utils'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { Product } from 'shopping-list/components'
 import { useShoppingList } from 'shopping-list/hooks/useShoppingList'
 import { Product as ProductInterface, ShoppingList } from 'core/interfaces'
-import { useRequestShoppingListDetail } from 'shopping-list/hooks'
-import { SimpleModal } from 'core/modals'
+import { useRequestAddItemsOnShoppingList, useRequestShoppingListDetail } from 'shopping-list/hooks'
+import { Modal, SimpleModal } from 'core/modals'
 
 interface RenderItemProps {
   item: ProductInterface
@@ -37,11 +37,22 @@ export const ShoppingListDetailsScreen = () => {
   const [{ currentShoppingList }, { saveShoppingList, deleteList, selectShoppingList }] = useShoppingList()
   const [, { storeData }] = useLocalStorage<ShoppingList>()
   const [{ show, message }, { startModalError, resetState }] = useErrorModal()
+  const [selectedProducts, setSelectedProducts] = useState<ProductInterface[]>([])
 
 
   const { isLoading, refetch } = useRequestShoppingListDetail({
     onSuccess: ({ data }) => {
       selectShoppingList(data)
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
+
+  const { isLoading: isLoadingUpdate, mutate } = useRequestAddItemsOnShoppingList({
+    onSuccess: () => {
+      refetch()
     },
     onError: ({ response }) => {
       const { data: { message } } = response
@@ -68,7 +79,14 @@ export const ShoppingListDetailsScreen = () => {
 
 
   const onPressAddSave = () => {
-    saveShoppingList()
+    const productsToUpDate = products
+      .filter(item => item.edited)
+      .map(item => ({ id: item.id, quantity: item.quantity }))
+
+    mutate({
+      listId: currentShoppingList.id,
+      products: productsToUpDate
+    })
   }
 
   const hasEditedItem = products.find(item => item.edited)
@@ -136,6 +154,13 @@ export const ShoppingListDetailsScreen = () => {
         message={message}
         onRequestClose={onRequestClose}
       />
+      <Modal
+        visible={isLoadingUpdate}
+        onRequestClose={() => { }}
+      >
+        <Loading />
+      </Modal>
+
     </Screen>
   )
 }

@@ -1,7 +1,7 @@
 import { Product, ShoppingList } from "core/interfaces"
 import React, { createContext, useState } from "react"
 import { Marketplace } from "shopping-list/interfaces"
-import { MOCKED_CURRENT_MARKETPLACE, MOCKED_SHOPPING_LIST, MOCKED_CURRENT_SHOPPING_LIST } from "shopping-list/utils"
+// import { MOCKED_CURRENT_MARKETPLACE, MOCKED_SHOPPING_LIST, MOCKED_CURRENT_SHOPPING_LIST } from "shopping-list/utils"
 import { incrementProduct as coreIncrementProduct } from 'core/utils'
 
 interface ShoppingListProviderState {
@@ -9,6 +9,7 @@ interface ShoppingListProviderState {
   currentShoppingList: ShoppingList
   marketplaceList: Marketplace[]
   shoppingLists: ShoppingList[]
+  selectedProducts: Product[]
 }
 
 interface ShoppingListProviderActions {
@@ -49,6 +50,7 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
   const [currentShoppingList, setCurrentShoppingList] = useState<ShoppingList>()
   const [currentMarketplace, setCurrentMarketplace] = useState<Marketplace>()
   const [marketplaceList, updateMarketplaceList] = useState<Marketplace[]>([])
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([])
 
   const addShoppingList = (shoppingListData: ShoppingList[]) => {
     setShoppingLists(shoppingListData)
@@ -81,14 +83,18 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
 
   const incrementProduct = (productId: string) => {
     const { products } = currentShoppingList
-    const mappedItems = coreIncrementProduct(products, productId, 1)
+    const foundedProduct = products.find(item => item.id === productId)
+
+    const mappedItems = coreIncrementProduct(products, productId, foundedProduct.quantity + 1)
 
     updateProductList(mappedItems)
   }
 
   const decrementProduct = (productId: string) => {
     const { products } = currentShoppingList
-    const mappedItems = coreIncrementProduct(products, productId, -1)
+    const foundedProduct = products.find(item => item.id === productId)
+
+    const mappedItems = coreIncrementProduct(products, productId, foundedProduct.quantity - 1)
 
     updateProductList(mappedItems)
   }
@@ -106,18 +112,28 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
   }
 
   const saveProduct = (product: Product, quantity: number) => {
-    const { products } = currentShoppingList
-
-    const foundedProduct = products.find((item) => item.id === product.id)
+    const foundedProduct = selectedProducts.find(item => item.id, product.id)
     const currentProduct = foundedProduct ?? product
 
-    if (!foundedProduct) {
-      products.push(product)
-    }
+    if (!foundedProduct)
+      selectedProducts.push(product)
 
-    const mappedProducts = coreIncrementProduct(products, currentProduct.id, quantity)
 
+    const mappedProducts = coreIncrementProduct(selectedProducts, currentProduct.id, quantity)
     updateProductList(mappedProducts)
+
+    // const { products } = currentShoppingList
+
+    // const foundedProduct = products.find((item) => item.id === product.id)
+    // const currentProduct = foundedProduct ?? product
+
+    // if (!foundedProduct) {
+    //   products.push(product)
+    // }
+
+    // const mappedProducts = coreIncrementProduct(products, currentProduct.id, quantity)
+
+    // updateProductList(mappedProducts)
   }
 
   const saveShoppingList = () => {
@@ -153,6 +169,7 @@ export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ chil
         currentShoppingList,
         marketplaceList,
         shoppingLists,
+        selectedProducts
       },
       {
         addShoppingList,
