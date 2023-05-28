@@ -17,16 +17,17 @@ export const ProfileNavigator = () => {
       />
 
       <Screen
+        name='UpdatePhoneNumber'
+        component={UpdatePhoneNumberNavigator}
+        options={UpdatePhoneNumberNavigator.NavigationOptions}
+      />
+
+      <Screen
         name='UpdatePassword'
         component={UpdatePasswordNavigator}
         options={UpdatePasswordNavigator.NavigationOptions}
       />
 
-      <Screen
-        name='UpdatePhoneNumber'
-        component={UpdatePhoneNumberNavigator}
-        options={UpdatePhoneNumberNavigator.NavigationOptions}
-      />
     </Navigator>
   )
 }
