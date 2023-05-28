@@ -14,9 +14,9 @@ import { StyleSheet, View } from 'react-native'
 export const ProfileScreen = () => {
   const [{ user }, { setUserName }] = useUser()
   const [name, setName] = useState<string>(user.name)
-  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
   const [, { storeData }] = useLocalStorage()
   const navigation = useNavigation()
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
 
   const { mutate, isLoading } = useUpdateUserRequest({
     onSuccess: ({ data }) => {
@@ -24,6 +24,7 @@ export const ProfileScreen = () => {
       setUserName(remoteUserName)
       const userData = {
         ...data,
+        isLogged: true,
         token: user.token
       }
       storeData(USER_KEY, userData)

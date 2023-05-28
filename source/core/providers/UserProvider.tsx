@@ -12,6 +12,7 @@ interface UserContextState {
 interface UserContextActions {
   setUser: (user: User) => void
   setUserName: (name: string) => void
+  setPhoneNumber: (phoneNumber: string) => void
 }
 
 type UserContextType = [
@@ -47,8 +48,12 @@ export const UserProvider: React.FC<UserProvider> = ({ children }) => {
     updateUser(prevState => ({ ...prevState, name }))
   }
 
+  const setPhoneNumber = (phoneNumber: string) => {
+    updateUser(prevState => ({ ...prevState, phoneNumber }))
+  }
+
   return <UserContext.Provider
     children={children}
-    value={[{ user, retrievingUserData }, { setUser, setUserName }]}
+    value={[{ user, retrievingUserData }, { setUser, setUserName, setPhoneNumber }]}
   />
 }
