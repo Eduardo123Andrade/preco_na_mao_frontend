@@ -2,7 +2,7 @@ export interface User {
   id: string
   name: string
   cpf: string
-  phone: string
+  phoneNumber: string
   token: string
   isLogged: boolean
 }
