@@ -51,12 +51,11 @@ export const ShoppingListHomeScreen = () => {
 
   const navigation = useNavigation()
 
-  const { status, isLoading } = useRequestShoppingList({
+  const { isLoading } = useRequestShoppingList({
     enabled: true,
     onSuccess: ({ data }) => {
       const mappedList = data.map(item => ({ ...item, products: [] }))
 
-      console.log({ mappedList })
       addShoppingList(mappedList)
     },
     onError: ({ response }) => {
@@ -64,11 +63,6 @@ export const ShoppingListHomeScreen = () => {
       startModalError(message)
     }
   })
-
-  useEffect(() => {
-    console.log({ status })
-  }, [status])
-
 
   const onPress = () => navigation.navigate('CreateShoppingListScreen')
 
