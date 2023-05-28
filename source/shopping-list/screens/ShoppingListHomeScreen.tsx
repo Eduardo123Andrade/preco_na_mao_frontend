@@ -51,7 +51,7 @@ export const ShoppingListHomeScreen = () => {
 
   const navigation = useNavigation()
 
-  const { isLoading } = useRequestShoppingList({
+  const { isLoading, refetch } = useRequestShoppingList({
     enabled: true,
     onSuccess: ({ data }) => {
       const mappedList = data.map(item => ({ ...item, products: [] }))
@@ -63,6 +63,10 @@ export const ShoppingListHomeScreen = () => {
       startModalError(message)
     }
   })
+
+  useEffect(() => navigation.addListener('focus', () => {
+    refetch()
+  }), [navigation])
 
   const onPress = () => navigation.navigate('CreateShoppingListScreen')
 

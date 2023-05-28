@@ -1,4 +1,5 @@
 export { useAPI } from './useApi'
+export { useDeleteRequest } from './useDeleteRequest'
 export { useDropDownAnimation } from './useDropDownAnimation'
 export { useErrorModal } from './useErrorModal'
 export { useForm } from './useForm'

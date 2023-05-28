@@ -10,7 +10,7 @@ import { FlatList } from 'react-native-gesture-handler'
 import { Product } from 'shopping-list/components'
 import { useShoppingList } from 'shopping-list/hooks/useShoppingList'
 import { Product as ProductInterface, ShoppingList } from 'core/interfaces'
-import { useRequestAddItemsOnShoppingList, useRequestShoppingListDetail } from 'shopping-list/hooks'
+import { useRequestAddItemsOnShoppingList, useRequestDeleteShoppingList, useRequestShoppingListDetail } from 'shopping-list/hooks'
 import { Modal, SimpleModal } from 'core/modals'
 
 interface RenderItemProps {
@@ -34,10 +34,11 @@ const renderLoading = () => {
 }
 
 export const ShoppingListDetailsScreen = () => {
-  const [{ currentShoppingList }, { saveShoppingList, deleteList, selectShoppingList }] = useShoppingList()
+  const [{ currentShoppingList }, { selectShoppingList }] = useShoppingList()
   const [, { storeData }] = useLocalStorage<ShoppingList>()
   const [{ show, message }, { startModalError, resetState }] = useErrorModal()
-  const [selectedProducts, setSelectedProducts] = useState<ProductInterface[]>([])
+  const [enableToDelete, setEnableToDelete] = useState(false)
+  const navigation = useNavigation()
 
 
   const { isLoading, refetch } = useRequestShoppingListDetail({
@@ -60,16 +61,23 @@ export const ShoppingListDetailsScreen = () => {
     }
   })
 
-  const { products } = currentShoppingList
-  const navigation = useNavigation()
+  const { isLoading: isLoadingDelete } = useRequestDeleteShoppingList({
+    enabled: enableToDelete,
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
+
+  const { products = [] } = currentShoppingList ?? {}
 
   const totalPrice = products.reduce(calculateTotalPrice, 0)
 
   const onPressAddNewProducts = () => navigation.navigate('MarketplaceListScreen')
 
   const onPressDeleteList = () => {
-    deleteList()
-    navigation.goBack()
+    setEnableToDelete(true)
+    navigation.navigate("ShoppingListHomeScreen")
   }
 
   const onPressAddStartShopping = () => {
@@ -155,7 +163,8 @@ export const ShoppingListDetailsScreen = () => {
         onRequestClose={onRequestClose}
       />
       <Modal
-        visible={isLoadingUpdate}
+        visible={isLoadingUpdate || isLoadingDelete}
+        // visible={isLoadingUpdate }
         onRequestClose={() => { }}
       >
         <Loading />
