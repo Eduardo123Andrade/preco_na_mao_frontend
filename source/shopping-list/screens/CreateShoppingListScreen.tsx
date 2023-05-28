@@ -31,7 +31,7 @@ export const CreateShoppingListScreen = () => {
 
   const { mutate } = useRequestCreateShoppingList({
     onSuccess: ({ data }) => {
-      selectShoppingList(data)
+      selectShoppingList({ ...data, products: [] })
       navigation.navigate('MarketplaceListScreen')
     },
     onError: ({ response }) => {

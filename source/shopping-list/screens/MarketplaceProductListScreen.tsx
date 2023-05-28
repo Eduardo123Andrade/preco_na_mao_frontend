@@ -1,24 +1,50 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
-import { Button, Screen, Text, Touchable } from 'core/components'
-import React, { useState } from 'react'
+import { Button, Loading, Screen, Text, Touchable } from 'core/components'
+import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { ProductMarketplace } from 'shopping-list/components'
-import { useShoppingList } from 'shopping-list/hooks'
+import { useRequestProducts, useShoppingList } from 'shopping-list/hooks'
 import { Product } from 'core/interfaces'
 import { IncrementProductModal } from 'shopping-list/modals'
+import { useErrorModal } from 'core/hooks'
+import { SimpleModal } from 'core/modals'
 
 interface RenderItemProps {
   item: Product
 }
 
+const renderLoading = () => {
+  return (
+    <Screen contentContainerStyles={styles.container}>
+      <Loading />
+    </Screen>
+  )
+}
+
+
 export const MarketplaceProductListScreen = () => {
-  const [{ currentMarketplace }, { saveShoppingList }] = useShoppingList()
+  const [{ currentMarketplace, currentShoppingList }, { saveShoppingList, selectMarketplace }] = useShoppingList()
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
+
   const [selectedProduct, setSelectedProduct] = useState<Product>()
   const navigation = useNavigation()
 
 
-  const { products } = currentMarketplace
+
+  const { isLoading } = useRequestProducts({
+    onSuccess: ({ data }) => {
+      const products = data.map(item => ({ ...item, price: Number(item.price) }))
+      selectMarketplace({ ...currentMarketplace, products })
+
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
+
+  const { products = [] } = currentMarketplace ?? {}
 
   const renderItem = ({ item }: RenderItemProps) => {
     const onPress = () => {
@@ -36,24 +62,13 @@ export const MarketplaceProductListScreen = () => {
     setSelectedProduct(undefined)
   }
 
-
-  /**
-   * router: market-places/:id/products
-   * 
-   * success: 
-   *  status: ok
-   *  response:
-   *    products[]
-   * 
-   * error:
-   *  status: _
-   */
-
-
   const onPress = () => {
     saveShoppingList()
     navigation.navigate('ShoppingListDetailsScreen')
   }
+
+  if (isLoading)
+    return renderLoading()
 
   return (
     <Screen contentContainerStyles={styles.container}>
@@ -69,16 +84,23 @@ export const MarketplaceProductListScreen = () => {
         contentContainerStyle={styles.listContentContainer}
       />
 
-      <IncrementProductModal
-        visible={!!selectedProduct}
-        onCloseRequest={onCloseRequest}
-        product={selectedProduct}
-      />
+      {currentShoppingList &&
+        <IncrementProductModal
+          visible={!!selectedProduct}
+          onCloseRequest={onCloseRequest}
+          product={selectedProduct}
+        />
+      }
       <View>
         <Button onPress={onPress}>
           Salvar
         </Button>
       </View>
+      <SimpleModal
+        visible={show}
+        onRequestClose={resetState}
+        message={message}
+      />
     </Screen>
   )
 }

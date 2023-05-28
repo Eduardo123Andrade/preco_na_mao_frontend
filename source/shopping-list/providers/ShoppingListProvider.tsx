@@ -46,10 +46,9 @@ const setAllProductsEditedFalse = (shoppingList: ShoppingList) => {
 
 export const ShoppingListProvider: React.FC<ShoppingListProviderProps> = ({ children }) => {
   const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>([])
-  const [currentShoppingList, setCurrentShoppingList] = useState<ShoppingList>(MOCKED_CURRENT_SHOPPING_LIST)
-  const [currentMarketplace, setCurrentMarketplace] = useState<Marketplace>(MOCKED_CURRENT_MARKETPLACE)
+  const [currentShoppingList, setCurrentShoppingList] = useState<ShoppingList>()
+  const [currentMarketplace, setCurrentMarketplace] = useState<Marketplace>()
   const [marketplaceList, updateMarketplaceList] = useState<Marketplace[]>([])
-  // const [{ marketplaceList }] = useRequestMarketplaceList()
 
   const addShoppingList = (shoppingListData: ShoppingList[]) => {
     setShoppingLists(shoppingListData)
