@@ -1,9 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationOptions } from '@react-navigation/stack'
 import { Button, InputText, Screen } from 'core/components'
-import { useUser } from 'core/hooks'
+import { USER_KEY } from 'core/constants'
+import { useErrorModal, useLocalStorage, useUser } from 'core/hooks'
 import { useNameValidationForm } from 'core/hooks/forms/useNameValidationForm'
 import { UserNameForm } from 'core/interfaces'
+import { SimpleModal } from 'core/modals'
+import { useUpdateUserRequest } from 'profile/hooks'
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
@@ -11,11 +14,32 @@ import { StyleSheet, View } from 'react-native'
 export const ProfileScreen = () => {
   const [{ user }, { setUserName }] = useUser()
   const [name, setName] = useState<string>(user.name)
-
+  const [{ show, message }, { startModalError, resetState }] = useErrorModal()
+  const [, { storeData }] = useLocalStorage()
   const navigation = useNavigation()
 
+  const { mutate, isLoading } = useUpdateUserRequest({
+    onSuccess: ({ data }) => {
+      const { name: remoteUserName } = data
+      setUserName(remoteUserName)
+      const userData = {
+        ...data,
+        token: user.token
+      }
+      storeData(USER_KEY, userData)
+    },
+    onError: ({ response }) => {
+      const { data: { message } } = response
+      startModalError(message)
+    }
+  })
+
+
   const onSubmit = ({ name }: UserNameForm) => {
-    setUserName(name)
+    mutate({
+      name,
+      phoneNumber: user.phoneNumber
+    })
   }
 
   const [{ fieldProps, isValid }, { handleSubmit }] = useNameValidationForm({ onSubmit })
@@ -25,21 +49,6 @@ export const ProfileScreen = () => {
     onChangeText(text)
     setName(text)
   }
-
-  /**
-   * router: user/update-name
-   * 
-   * body: 
-   *  cpf,
-   *  name
-   * 
-   * success:
-   *  status: ok
-   * 
-   * error:
-   *  status: _
-   * 
-   */
 
   const onPress = () => handleSubmit()
 
@@ -72,7 +81,7 @@ export const ProfileScreen = () => {
 
         <InputText
           disabled
-          value={user.phone}
+          value={user.phoneNumber}
           onPressOnDisabled={goToUpdatePhoneNumberScreen}
         />
 
@@ -85,10 +94,17 @@ export const ProfileScreen = () => {
       </View>
 
       <Button
+        isLoading={isLoading}
         disabled={!isValid}
         onPress={onPress}>
         Avançar
       </Button>
+
+      <SimpleModal
+        visible={show}
+        onRequestClose={resetState}
+        message={message}
+      />
     </Screen>
   )
 }
