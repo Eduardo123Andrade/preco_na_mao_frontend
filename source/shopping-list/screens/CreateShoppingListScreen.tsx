@@ -5,7 +5,7 @@ import { useForm } from 'core/hooks'
 import { FieldValidation, validateShoppingListName } from 'core/validations'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { useCreateShoppingList } from 'shopping-list/hooks'
+import { useRequestCreateShoppingList, useShoppingList } from 'shopping-list/hooks'
 
 const { string } = FieldValidation
 
@@ -24,32 +24,18 @@ const INITIAL_VALUES = {
 
 export const CreateShoppingListScreen = () => {
   const navigation = useNavigation()
-  const { createShoppingList } = useCreateShoppingList()
+  const [, { selectShoppingList }] = useShoppingList()
 
 
-  /**
-   *  router: shopping-list/create
-   *  
-   * body:
-   *  cpf,
-   *  name,
-   * 
-   * success: 
-   *  status: ok
-   *  response:
-   *    id,
-   *    name
-   *    date
-   * 
-   * error:
-   *  status: _
-   *
-   */
-
+  const { mutate } = useRequestCreateShoppingList({
+    onSuccess: ({ data }) => {
+      selectShoppingList(data)
+      navigation.navigate('MarketplaceListScreen')
+    }
+  })
 
   const onSubmit = ({ name }: MarketplaceName) => {
-    createShoppingList(name)
-    navigation.navigate('MarketplaceListScreen')
+    mutate({ name })
   }
 
   const { handleSubmit, isValid, getFieldProps } = useForm<MarketplaceName>({
