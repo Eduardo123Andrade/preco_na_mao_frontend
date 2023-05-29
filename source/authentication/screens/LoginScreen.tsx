@@ -66,23 +66,25 @@ export const LoginScreen = () => {
         <Logo />
       </View>
 
-      <View>
-        <View style={styles.inputTextContainer}>
-          <InputText
-            mask='cpf'
-            keyboardType='numeric'
-            placeholder='CPF'
-            value={value}
-            onChangeText={setValue}
-            {...getFieldProps("cpf")}
-          />
-        </View>
-        <View style={styles.inputTextContainer}>
-          <InputText
-            placeholder='Senha'
-            secureTextEntry
-            {...getFieldProps("password")}
-          />
+      <View style={styles.bodyContainer}>
+        <View>
+          <View style={styles.inputTextContainer}>
+            <InputText
+              mask='cpf'
+              keyboardType='numeric'
+              placeholder='CPF'
+              value={value}
+              onChangeText={setValue}
+              {...getFieldProps("cpf")}
+            />
+          </View>
+          <View style={styles.inputTextContainer}>
+            <InputText
+              placeholder='Senha'
+              secureTextEntry
+              {...getFieldProps("password")}
+            />
+          </View>
         </View>
 
         <View style={styles.buttonContainer}>
@@ -93,16 +95,6 @@ export const LoginScreen = () => {
           >
             Login
           </Button>
-        </View>
-
-        <View style={styles.forgottenPasswordContainer}>
-          <Text
-            style={styles.textStyle}
-            onPress={onPressForgottenPassword}
-            color='#0000FF'
-          >
-            Esqueci minha senha
-          </Text>
         </View>
       </View>
       <SimpleModal
@@ -124,10 +116,15 @@ LoginScreen.NavigationOptions = navigationOptions
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-evenly',
   },
   titleContainer: {
+    paddingVertical: "20%",
     alignItems: 'center',
+  },
+  bodyContainer: {
+    flex: 1,
+    justifyContent: "space-between",
+    paddingBottom: "10%"
   },
   buttonContainer: {
     paddingTop: 10,
@@ -138,8 +135,4 @@ const styles = StyleSheet.create({
   textStyle: {
     textDecorationLine: 'underline'
   },
-  forgottenPasswordContainer: {
-    alignItems: 'center',
-    paddingTop: 24
-  }
 })
