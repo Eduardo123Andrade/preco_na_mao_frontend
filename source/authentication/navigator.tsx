@@ -26,12 +26,6 @@ export const AuthenticationNavigator = () => {
         component={SignUpNavigator}
         options={SignUpNavigator.NavigationOptions}
       />
-
-      <Screen
-        name='ForgottenPassword'
-        component={ForgottenPasswordNavigator}
-        options={ForgottenPasswordNavigator.NavigationOptions}
-      />
     </Navigator>
   )
 }
