@@ -24,7 +24,6 @@ export const LoginScreen = () => {
   const navigation = useNavigation()
   const [{ isLoading, error, status }, { requestLogin }] = useLogin()
   const [showErrorModal, setShowErrorModal] = useState(false)
-  const [isGoToWelcome, setIsGoToWelcome] = useState(false)
 
   useEffect(() => {
     setShowErrorModal(status === 'error')
@@ -51,18 +50,12 @@ export const LoginScreen = () => {
     setShowErrorModal(false)
   }
 
-  useEffect(() => navigation.addListener("beforeRemove", ({ preventDefault }) => {
-    if (!isGoToWelcome)
+  useEffect(() => navigation.addListener("beforeRemove", ({ preventDefault, data }) => {
+    if (data.action.type === "POP") {
       preventDefault()
-
-    setIsGoToWelcome(true)
-  }), [navigation, isGoToWelcome])
-
-  useEffect(() => {
-    if (isGoToWelcome)
       navigation.navigate("Welcome")
-  }, [isGoToWelcome, navigation])
-
+    }
+  }), [navigation])
 
   return (
     <Screen contentContainerStyles={styles.container} >
