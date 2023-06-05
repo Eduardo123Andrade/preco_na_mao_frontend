@@ -42,9 +42,6 @@ export const LoginScreen = () => {
     initialValues: INITIAL_VALUES,
   })
 
-  const { value: cpfFieldValue } = getFieldProps("cpf")
-
-
   const onPressLogin = () => {
     handleSubmit()
 
