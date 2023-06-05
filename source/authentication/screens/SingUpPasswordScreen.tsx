@@ -27,8 +27,8 @@ export const SingUpPasswordScreen = () => {
     }
   })
 
-  const onSubmit = ({ password, confirmPassword }: UserPasswordForm) => {
-    mutate({ ...user, password, confirmPassword })
+  const onSubmit = ({ password }: UserPasswordForm) => {
+    mutate({ ...user, password })
   }
 
   const [{ isValid, fieldPropsPassword, fieldPropsConfirmPassword }, { handleSubmit }] = usePasswordValidationForm({ onSubmit })

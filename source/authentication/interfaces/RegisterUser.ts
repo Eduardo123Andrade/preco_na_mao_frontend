@@ -3,5 +3,4 @@ export interface RegisterUser {
   cpf?: string
   phoneNumber?: string
   password?: string
-  confirmPassword?: string
 }
