@@ -69,6 +69,13 @@ export const ShoppingListDetailsScreen = () => {
     }
   })
 
+  useEffect(() => navigation.addListener("beforeRemove", ({ data, preventDefault }) => {
+    if (data?.action.type === "POP") {
+      preventDefault()
+      navigation.navigate("ShoppingListHomeScreen")
+    }
+  }), [navigation])
+
   const { products = [] } = currentShoppingList ?? {}
 
   const totalPrice = products.reduce(calculateTotalPrice, 0)
