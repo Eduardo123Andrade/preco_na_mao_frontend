@@ -3,7 +3,6 @@ import { StackNavigationOptions } from '@react-navigation/stack'
 import { useLogin } from 'authentication/hooks'
 import { loginValidationSchema } from 'authentication/utils'
 import { Button, InputText, Logo, Screen } from 'core/components'
-import { Text } from 'core/components'
 import { useForm } from 'core/hooks'
 import { SimpleModal } from 'core/modals'
 import { REGEXP_ONLY_NUMBERS } from 'core/utils'
@@ -25,6 +24,7 @@ export const LoginScreen = () => {
   const navigation = useNavigation()
   const [{ isLoading, error, status }, { requestLogin }] = useLogin()
   const [showErrorModal, setShowErrorModal] = useState(false)
+  const [isGoToWelcome, setIsGoToWelcome] = useState(false)
 
   useEffect(() => {
     setShowErrorModal(status === 'error')
@@ -47,24 +47,31 @@ export const LoginScreen = () => {
 
   const onPressLogin = () => {
     handleSubmit()
-  }
 
-  const onPressForgottenPassword = () => {
-    const cpf = cpfFieldValue.replace(REGEXP_ONLY_NUMBERS, "")
-    navigation.navigate("ForgottenPassword", {
-      cpf: cpf
-    })
   }
 
   const onRequestClose = () => {
     setShowErrorModal(false)
   }
 
+  useEffect(() => navigation.addListener("beforeRemove", ({ preventDefault }) => {
+    if (!isGoToWelcome)
+      preventDefault()
+
+    setIsGoToWelcome(true)
+  }), [navigation, isGoToWelcome])
+
+  useEffect(() => {
+    if (isGoToWelcome)
+      navigation.navigate("Welcome")
+  }, [isGoToWelcome, navigation])
+
+
   return (
-    <Screen contentContainerStyles={styles.container}>
-      <View style={styles.titleContainer}>
+    <Screen contentContainerStyles={styles.container} >
+      {<View style={styles.titleContainer}>
         <Logo />
-      </View>
+      </View>}
 
       <View style={styles.bodyContainer}>
         <View>
@@ -108,7 +115,9 @@ export const LoginScreen = () => {
 
 const navigationOptions: StackNavigationOptions = {
   title: '',
-  headerTransparent: true,
+  headerStyle: {
+    backgroundColor: "#E2FBED"
+  }
 }
 
 LoginScreen.NavigationOptions = navigationOptions
@@ -116,15 +125,14 @@ LoginScreen.NavigationOptions = navigationOptions
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "space-between"
   },
   titleContainer: {
-    paddingVertical: "20%",
     alignItems: 'center',
   },
   bodyContainer: {
-    flex: 1,
     justifyContent: "space-between",
-    paddingBottom: "10%"
+    paddingBottom: "20%",
   },
   buttonContainer: {
     paddingTop: 10,
